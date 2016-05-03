@@ -1,6 +1,7 @@
 package main
 
 import (
+	"./reqCafe"
 	"regexp"
 	"bytes"
 	"encoding/json"
@@ -67,6 +68,11 @@ type SendMessage struct {
 	} `json:"message"`
 }
 
+type distributeMenu struct {
+	Judgment []string
+	Jf bool
+}
+
 func main() {
 	http.HandleFunc("/", webhookHandler)
 	http.HandleFunc("/webhook", webhookHandler)
@@ -122,6 +128,21 @@ func rtFoods(rtext string) (f bool){
 	return
 }
 
+/*func selectMenu(txt string){
+	foods := new(distributeMenu)
+	foods.Judgment = {"kondate","献立","学食","メニュー"}
+	foods.Jf = false
+
+	computers := new(distributeMenu)
+	computers.Judgment = {"演習室","パソコン","pc"}
+	computers.Jf = false
+	
+	eves := new(distributeMenu)
+	eves.Judgment = {"hoge"}
+	eves.Jf = false
+}
+*/
+
 func sentTextMessage(senderID int64, text string) {
 	recipient := new(Recipient)
 	recipient.ID = senderID
@@ -134,7 +155,7 @@ func sentTextMessage(senderID int64, text string) {
 	log.Print("------------------------------------------------------------")
 	
 	if rtFoods(m.Message.Text){
-		m.Message.Text = "からあげカレー"
+		m.Message.Text = reqCafe.RtCafeInfo(time.Now())
 	}
 
 
