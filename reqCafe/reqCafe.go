@@ -17,10 +17,14 @@ func RtCafeInfo(calltime time.Time)string{
 	// Loading jsonfile
 	fg := 0
 	file, err := ioutil.ReadFile("./config.json")
+
+	if file == nil {
+		return "hoge"
+	}
 	temp := file
 	// 指定したDataset構造体が中身になるSliceで宣言する
 	var datasets []Dataset
-	json_err := json.Unmarshal([]byte(file), &datasets)
+	json_err := json.Unmarshal(file, &datasets)
 	if err != nil{
 		fmt.Println("Format Error: ", json_err)
 	}
