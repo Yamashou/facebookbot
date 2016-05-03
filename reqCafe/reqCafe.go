@@ -14,8 +14,9 @@ type Dataset struct {
 }
 
 func RtCafeInfo(calltime time.Time)string{
-
+	log.Print("-------------------------------")
 	log.Print(calltime)
+	log.Print("-------------------------------")
 	
 	// Loading jsonfile
 	fg := 0
