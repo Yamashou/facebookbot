@@ -21,7 +21,6 @@ func RtCafeInfo(calltime time.Time)string{
 	if file == nil {
 		return "hoge"
 	}
-	temp := file
 	// 指定したDataset構造体が中身になるSliceで宣言する
 	var datasets []Dataset
 	json_err := json.Unmarshal(file, &datasets)
