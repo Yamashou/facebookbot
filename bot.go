@@ -112,8 +112,9 @@ func sentTextMessage(senderID int64, text string) {
 	m := new(SendMessage)
 	m.Recipient = *recipient
 	m.Message.Text = text
-	log.Print(m.Messag.Text)
-	
+	log.Print("------------------------------------------------------------")
+	log.Print(m.Message.Text)
+	log.Print("------------------------------------------------------------")
 	b, err := json.Marshal(m)
 	if err != nil {
 	        log.Print(err)
