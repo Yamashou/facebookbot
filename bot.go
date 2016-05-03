@@ -73,6 +73,7 @@ type distributeMenu struct {
 	Jf bool
 }
 
+
 func main() {
 	http.HandleFunc("/", webhookHandler)
 	http.HandleFunc("/webhook", webhookHandler)
@@ -127,8 +128,7 @@ func rtFoods(rtext string) (f bool){
 	}
 	return
 }
-
-/*func selectMenu(txt string){
+func selectMenu(txt string){
 	foods := new(distributeMenu)
 	foods.Judgment = {"kondate","献立","学食","メニュー"}
 	foods.Jf = false
@@ -140,8 +140,28 @@ func rtFoods(rtext string) (f bool){
 	eves := new(distributeMenu)
 	eves.Judgment = {"hoge"}
 	eves.Jf = false
+	
+	Fncs = []struct {foos,computers,eves}
+
+	for i:=0;i<len(Fncs);i++{
+		for j:=0;j<len(Fncs[i].Judgment);j++{
+			r := regexp.MustCompile(Fncs[i].Judgment[j])
+			if r.MatchString(txt){
+				Fncs[i].Jf = true
+			}
+		}
+	}
+
+
+	for i:=0;i<len(Fncs);i++{
+		if Fncs[i].Jf {
+			r := regexp.MustCompile("*main")
+			Fncs[i].Jf = false
+			return r.ReplaceAllString(reflect.TypeOf(Fncs[i]),"")
+		}
+	}
+	
 }
-*/
 
 func sentTextMessage(senderID int64, text string) {
 	recipient := new(Recipient)
@@ -154,9 +174,8 @@ func sentTextMessage(senderID int64, text string) {
 	log.Print(m.Message.Text)
 	log.Print("------------------------------------------------------------")
 	
-	if rtFoods(m.Message.Text){
+	if selectMenu(m.Message.Text) == "Foods"{
 		m.Message.Text = reqCafe.RtCafeInfo(time.Now())
-		fmt.Print(m.Message.Text)
 	}
 	
 
