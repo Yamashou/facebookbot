@@ -16,9 +16,7 @@ type Dataset struct {
 func RtCafeInfo(calltime time.Time)string{
 	// Loading jsonfile
 	fg := 0
-	file, err := ioutil.ReadFile("./config.json")
-
-	// 指定したDataset構造体が中身になるSliceで宣言する
+	file, err := ioutil.ReadFile("github.com/kurouw/FBB/reqCafe/config.json")
 	var datasets []Dataset
 	json_err := json.Unmarshal(file, &datasets)
 	if err != nil{
