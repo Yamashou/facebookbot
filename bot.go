@@ -1,7 +1,7 @@
 package main
 
 import (
-	"reqCafe"
+	"$GOPATH/src/facebookbot/reqCafe"
 	"regexp"
 	"bytes"
 	"encoding/json"
