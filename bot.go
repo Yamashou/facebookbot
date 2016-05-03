@@ -69,7 +69,7 @@ type SendMessage struct {
 }
 
 type distributeMenu struct {
-	Judgment []string
+	Judgment [][]string
 	Jf bool
 }
 
