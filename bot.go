@@ -1,7 +1,7 @@
 package main
 
 import (
-	"reflect"
+	//"reflect"
 	"github.com/kurouw/FBB/reqCafe"
 	"regexp"
 	"bytes"
