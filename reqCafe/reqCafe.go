@@ -7,7 +7,6 @@ import (
 	"time"
 	//"log"
 )
-const (calltim = {"id":"2016-05-04","text":"tanakaarou"})
 
 type Dataset struct {
 	ID string `json:"id"`
@@ -26,7 +25,7 @@ func RtCafeInfo(calltime time.Time)string{
 	
 	for k := range datasets{
 		var timeformat = "2006-01-02"
-		t,err := time.Parse(timeformat,calltim)
+		t,err := time.Parse(timeformat,"2016-05-04")
 		if err != nil{
 			//panic(err)
 		}
