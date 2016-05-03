@@ -1,1 +1,0 @@
-kuro@wlan2205.u-aizu.ac.jp.28360
