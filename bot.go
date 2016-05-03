@@ -1,6 +1,7 @@
 package main
 
 import (
+	"regexp"
 	"bytes"
 	"encoding/json"
 	"fmt"
@@ -10,6 +11,8 @@ import (
 	"net/url"
 	"os"
 	"time"
+	"math/rand"
+	"reflect"
 )
 
 var accessToken = os.Getenv("ACCESS_TOKEN")
@@ -111,10 +114,16 @@ func sentTextMessage(senderID int64, text string) {
 	recipient.ID = senderID
 	m := new(SendMessage)
 	m.Recipient = *recipient
-	m.Message.Text = text + " hello"
+	m.Message.Text = text
 	log.Print("------------------------------------------------------------")
 	log.Print(m.Message.Text)
 	log.Print("------------------------------------------------------------")
+	rand.Seed(time.Now().UnixNano())
+	if check_regexp(`[0-9]`,m.Message.Text){
+	log.Print("------------------------------------------------------------")
+	log.Print("hello")
+	log.Print("------------------------------------------------------------")
+	} 
 	b, err := json.Marshal(m)
 	if err != nil {
 	        log.Print(err)
