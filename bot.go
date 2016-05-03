@@ -146,7 +146,8 @@ func selectMenu(txt string){
 	eves.Judgment = []string{"hoge"}
 	eves.Jf = false
 	
-	Fncs := things{A:foods,B:computers,C:eves}
+	Fncs := new(things)
+	Fncs.A = foods
 
 	for i:=0;i<len(Fncs);i++ {
 		for j:=0;j<len(Fncs[i].Judgment);j++{
