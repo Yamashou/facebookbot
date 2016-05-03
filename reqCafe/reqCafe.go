@@ -14,24 +14,21 @@ type Dataset struct {
 }
 
 func RtCafeInfo(calltime time.Time)string{
-	log.Print("-------------------------------")
-	log.Print(calltime)
-	log.Print("-------------------------------")
-	
 	// Loading jsonfile
 	fg := 0
 	file, err := ioutil.ReadFile("./config.json")
+	fmt.Println(file)
 	// 指定したDataset構造体が中身になるSliceで宣言する
 	var datasets []Dataset
 	json_err := json.Unmarshal(file, &datasets)
-	if err == nil{
+	if err != nil{
 		fmt.Println("Format Error: ", json_err)
 	}
 	
 	for k := range datasets{
 		var timeformat = "2006-01-02"
 		t,err := time.Parse(timeformat,datasets[k].ID)
-		if err == nil{
+		if err != nil{
 			panic(err)
 		}
 		if t.Day() == calltime.Day(){

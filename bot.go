@@ -155,7 +155,6 @@ func sentTextMessage(senderID int64, text string) {
 	log.Print("------------------------------------------------------------")
 	
 	if rtFoods(m.Message.Text){
-		log.Print("ggggggggggggggggggg")
 		m.Message.Text = reqCafe.RtCafeInfo(time.Now())
 	}
 
