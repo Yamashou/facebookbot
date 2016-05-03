@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"time"
-	"log"
+	//"log"
 )
 
 type Dataset struct {
@@ -35,7 +35,7 @@ func RtCafeInfo(calltime time.Time)string{
 		}
 	}
 	if fg == 0{
-		return "error"
+		return "err"
 	}else{
 		return "end"
 	}
