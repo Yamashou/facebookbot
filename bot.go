@@ -108,20 +108,44 @@ func webhookHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func rtFoods(rtext string){
+	foods := []string{
+		"kondate",
+		"献立",
+		"学食",
+		"メニュー"
+	}
+
+	flag := false
+	for i:=0;i<len(foods);i++ {
+		r := regexp.MustCompile(foods[i])
+		if r.MatchString(rtext){
+			flag = true
+			break
+		}
+		
+	}
+	return flag
+}
+
 func sentTextMessage(senderID int64, text string) {
 	recipient := new(Recipient)
 	recipient.ID = senderID
 	m := new(SendMessage)
 	m.Recipient = *recipient
 	m.Message.Text = text
+	
 	log.Print("------------------------------------------------------------")
 	log.Print(m.Message.Text)
 	log.Print("------------------------------------------------------------")
-	rand.Seed(time.Now().UnixNano())
-	r := regexp.MustCompile(`[0-9]{4,4}`)
-	if r.MatchString(m.Message.Text){
-		m.Message.Text = "これだよ！"
-	} 
+	
+	if rtFoods(m.Message.Text){
+		m.Message.Text = "からあげカレー"
+	}
+
+
+
+	
 	b, err := json.Marshal(m)
 	if err != nil {
 	        log.Print(err)
