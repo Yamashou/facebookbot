@@ -73,12 +73,6 @@ type distributeMenu struct {
 	Jf bool
 }
 
-type things struct {
-	A distributeMenu
-	B distributeMenu
-	C distributeMenu
-}
-
 func main() {
 	http.HandleFunc("/", webhookHandler)
 	http.HandleFunc("/webhook", webhookHandler)
@@ -145,25 +139,28 @@ func selectMenu(txt string){
 	eves := new(distributeMenu)
 	eves.Judgment = []string{"hoge"}
 	eves.Jf = false
-	
-	Fncs := new(things)
-	Fncs.A = foods
 
-	for i:=0;i<len(Fncs);i++ {
-		for j:=0;j<len(Fncs[i].Judgment);j++{
-			r := regexp.MustCompile(Fncs[i].Judgment[j])
-			if r.MatchString(txt){
-				Fncs[i].Jf = true
-			}
+	const(
+		foods = 
+	)
+
+	for i:=0;i<len(foods);i++ {
+		r := regexp.MustCompile(foods.Judgment[i])
+		if r.MatchString(txt){
+			Fncs[i].Jf = true
 		}
 	}
-	for i:=0;i<len(Fncs);i++{
-		if Fncs[i].Jf {
-			r := regexp.MustCompile("*main")
-			Fncs[i].Jf = false
-			return r.ReplaceAllString(reflect.TypeOf(Fncs[i]),"")
-		}
-	}
+	r := regexp.MustCompile("*main")
+	foods.Jf = false
+	return r.ReplaceAllString(reflect.TypeOf(foods),"")
+	
+	//for i:=0;i<len(Fncs);i++{
+	//	if Fncs[i].Jf {
+	//		r := regexp.MustCompile("*main")
+	//		Fncs[i].Jf = false
+	//		return r.ReplaceAllString(reflect.TypeOf(Fncs[i]),"")
+	//	}
+	//}
 }
 
 func sentTextMessage(senderID int64, text string) {
