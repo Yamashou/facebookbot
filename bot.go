@@ -69,7 +69,7 @@ type SendMessage struct {
 }
 
 type distributeMenu struct {
-	Judgment [][]string
+	Judgment []string
 	Jf bool
 }
 
@@ -130,15 +130,15 @@ func rtFoods(rtext string) (f bool){
 }
 func selectMenu(txt string){
 	foods := new(distributeMenu)
-	foods.Judgment = ["kondate","献立","学食","メニュー"]
+	foods.Judgment = []string{"kondate","献立","学食","メニュー"}
 	foods.Jf = false
 
 	computers := new(distributeMenu)
-	computers.Judgment = ["演習室","パソコン","pc"]
+	computers.Judgment = {"演習室","パソコン","pc"}
 	computers.Jf = false
 	
 	eves := new(distributeMenu)
-	eves.Judgment = ["hoge"]
+	eves.Judgment = {"hoge"}
 	eves.Jf = false
 	
 	Fncs = []struct {foos,computers,eves}
