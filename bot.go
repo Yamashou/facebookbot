@@ -134,11 +134,11 @@ func selectMenu(txt string){
 	foods.Jf = false
 
 	computers := new(distributeMenu)
-	computers.Judgment = {"演習室","パソコン","pc"}
+	computers.Judgment = []string{"演習室","パソコン","pc"}
 	computers.Jf = false
 	
 	eves := new(distributeMenu)
-	eves.Judgment = {"hoge"}
+	eves.Judgment = []string{"hoge"}
 	eves.Jf = false
 	
 	Fncs = []struct {foos,computers,eves}
