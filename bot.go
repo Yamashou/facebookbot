@@ -108,7 +108,7 @@ func webhookHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func rtFoods(rtext string){
+func rtFoods(rtext string) (f bool){
 	foods := []string{"kondate","献立","学食","メニュー"}
 
 	flag := false
@@ -120,7 +120,7 @@ func rtFoods(rtext string){
 		}
 		
 	}
-	return flag
+	return
 }
 
 func sentTextMessage(senderID int64, text string) {
