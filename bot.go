@@ -2,7 +2,7 @@ package main
 
 import (
 	//"/usr/.go/src/src/facebookbot/reqCafe/reqCafe.go"
-	//"repository.vcs/$GOPATH/src/facebookbot/reqCafe/reqCafe.go"
+	"github.com/kurouw/FBB/reqCafe"
 	"regexp"
 	"bytes"
 	"encoding/json"
