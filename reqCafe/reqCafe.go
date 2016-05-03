@@ -7,7 +7,15 @@ import (
 	"time"
 	//"log"
 )
+const calltim = '
+{
+"id":2016-05-04,
+"text":"tanakaarou"
+}
 
+
+
+'
 type Dataset struct {
 	ID string `json:"id"`
 	Text string `json:"text"`
@@ -16,7 +24,7 @@ type Dataset struct {
 func RtCafeInfo(calltime time.Time)string{
 	// Loading jsonfile
 	fg := 0
-	file, err := ioutil.ReadFile("github.com/kurouw/FBB/reqCafe/config.json")
+	file, err := ioutil.ReadFile("./config.json")
 	var datasets []Dataset
 	json_err := json.Unmarshal(file, &datasets)
 	if err != nil{
@@ -25,7 +33,7 @@ func RtCafeInfo(calltime time.Time)string{
 	
 	for k := range datasets{
 		var timeformat = "2006-01-02"
-		t,err := time.Parse(timeformat,datasets[k].ID)
+		t,err := time.Parse(timeformat,calltim)
 		if err != nil{
 			//panic(err)
 		}
