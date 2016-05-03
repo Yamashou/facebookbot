@@ -1,7 +1,7 @@
 package main
 
 import (
-	"./reqCafe"
+	"reqCafe"
 	"regexp"
 	"bytes"
 	"encoding/json"
