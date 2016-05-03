@@ -1,4 +1,4 @@
-lpackage main
+package main
 
 import (
 	"regexp"
@@ -73,6 +73,10 @@ func main() {
 	port := os.Getenv("PORT")
 	addr := fmt.Sprintf(":%s", port)
 	http.ListenAndServe(addr, nil)
+}
+
+func helloHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hello, Facebook Bot")
 }
 
 func webhookHandler(w http.ResponseWriter, r *http.Request) {
