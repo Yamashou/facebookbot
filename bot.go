@@ -120,7 +120,7 @@ func sentTextMessage(senderID int64, text string) {
 	rand.Seed(time.Now().UnixNano())
 	r := regexp.MustCompile(`[0-9]{4,4}?`)
 	if r.MatchString(m.Message.Text){
-		m.Messag.Text = "これだよ！"
+		m.Message.Text = "これだよ！"
 	} 
 	b, err := json.Marshal(m)
 	if err != nil {
