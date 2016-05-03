@@ -1,9 +1,9 @@
 package reqCafe
 
 import (
-	"encoding/json"
-	"fmt"
-	"io/ioutil"
+	//"encoding/json"
+	//"fmt"
+	//"io/ioutil"
 	"time"
 	//"log"
 )
