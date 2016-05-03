@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"time"
-	"log"
+	//"log"
 )
 
 type Dataset struct {
