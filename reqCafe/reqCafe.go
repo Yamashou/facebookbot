@@ -20,7 +20,7 @@ func RtCafeInfo(calltime time.Time)string{
 	temp := file
 	// 指定したDataset構造体が中身になるSliceで宣言する
 	var datasets []Dataset
-	json_err := json.Unmarshal({"id":"2016-05-01", "text":"つれずれなるままに"}, &datasets)
+	json_err := json.Unmarshal([]byte(file), &datasets)
 	if err != nil{
 		fmt.Println("Format Error: ", json_err)
 	}
