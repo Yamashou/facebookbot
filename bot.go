@@ -110,7 +110,7 @@ func webhookHandler(w http.ResponseWriter, r *http.Request) {
 func rtFoods(rtext string) (f bool){
 	foods := []string{"kondate","献立","学食","メニュー"}
 
-	f := false
+	f = false
 	for i:=0;i<len(foods);i++ {
 		r := regexp.MustCompile(foods[i])
 		if r.MatchString(rtext){
