@@ -110,7 +110,7 @@ func webhookHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func check_regexp(reg, str string) {
-	return regexp.MustCompile(reg).Match([]byte(str)))
+	return regexp.MustCompile(reg).Match([]byte(str))
 }
 
 func sentTextMessage(senderID int64, text string) {
