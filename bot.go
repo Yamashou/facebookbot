@@ -130,7 +130,7 @@ func rtFoods(rtext string) (f bool){
 }
 func selectMenu(txt string){
 	foods := new(distributeMenu)
-	foods.Judgment = {"kondate","献立","学食","メニュー"}
+	foods.Judgment = ["kondate","献立","学食","メニュー"]
 	foods.Jf = false
 
 	computers := new(distributeMenu)
