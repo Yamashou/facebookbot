@@ -29,7 +29,7 @@ func RtCafeInfo(calltime time.Time)string{
 		var timeformat = "2006-01-02"
 		t,err := time.Parse(timeformat,datasets[k].id)
 		if err != nil{
-			panic(err)
+			//panic(err)
 		}
 		if t.Day() == calltime.Day(){
 			return datasets[k].Text
@@ -37,7 +37,7 @@ func RtCafeInfo(calltime time.Time)string{
 		}
 	}
 	if fg == 0{
-		return "err"
+		return "error"
 	}else{
 		return "end"
 	}
