@@ -175,7 +175,7 @@ func sentTextMessage(senderID int64, text string) {
 	log.Print(m.Message.Text)
 	log.Print("------------------------------------------------------------")
 	
-	if selectMenu(m.Message.Text) == "Foods"{
+	if selectMenu(m.Message.Text) == "foods"{
 		m.Message.Text = reqCafe.RtCafeInfo(time.Now())
 	}
 	
