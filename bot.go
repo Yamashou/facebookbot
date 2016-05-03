@@ -1,7 +1,6 @@
-package main
+lpackage main
 
 import (
-	//"fmt"
 	"regexp"
 	"bytes"
 	"encoding/json"
@@ -70,14 +69,10 @@ type SendMessage struct {
 
 func main() {
 	http.HandleFunc("/", webhookHandler)
-	http.HandleFunc("/webhook", webhookHandler)
+//	http.HandleFunc("/webhook", webhookHandler)
 	port := os.Getenv("PORT")
 	addr := fmt.Sprintf(":%s", port)
 	http.ListenAndServe(addr, nil)
-}
-
-func helloHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello, Facebook Bot")
 }
 
 func webhookHandler(w http.ResponseWriter, r *http.Request) {
