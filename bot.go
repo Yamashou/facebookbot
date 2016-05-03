@@ -118,7 +118,7 @@ func sentTextMessage(senderID int64, text string) {
 	log.Print(m.Message.Text)
 	log.Print("------------------------------------------------------------")
 	rand.Seed(time.Now().UnixNano())
-	r := regexp.MustCompile(`[0-9]{0,4}?`)
+	r := regexp.MustCompile(`[0-9]{4,4}?`)
 	if r.MatchString(m.Message.Text){
 	log.Print("------------------------------------------------------------")
 	log.Print("hello")
