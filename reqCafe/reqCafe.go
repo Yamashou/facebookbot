@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"time"
+	"log"
 )
 
 type Dataset struct {
@@ -13,6 +14,9 @@ type Dataset struct {
 }
 
 func RtCafeInfo(calltime time.Time)string{
+
+	log.Print(calltime)
+	
 	// Loading jsonfile
 	fg := 0
 	file, err := ioutil.ReadFile("./config.json")
