@@ -7,12 +7,7 @@ import (
 	"time"
 	//"log"
 )
-const calltim = (
-{
-"id":2016-05-04,
-"text":"tanakaarou"
-}
-)
+const calltim = ({"id":"2016-05-04","text":"tanakaarou"})
 
 type Dataset struct {
 	ID string `json:"id"`
