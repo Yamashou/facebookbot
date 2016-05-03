@@ -109,12 +109,7 @@ func webhookHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func rtFoods(rtext string){
-	foods := []string{
-		"kondate",
-		"献立",
-		"学食",
-		"メニュー"
-	}
+	foods := []string{"kondate","献立","学食","メニュー"}
 
 	flag := false
 	for i:=0;i<len(foods);i++ {
