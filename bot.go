@@ -128,7 +128,7 @@ func rtFoods(rtext string) (f bool){
 	}
 	return
 }
-func selectMenu(txt string){
+func selectMenu(txt string)string{
 	foods := new(distributeMenu)
 	foods.Judgment = []string{"kondate","献立","学食","メニュー"}
 	foods.Jf = false
