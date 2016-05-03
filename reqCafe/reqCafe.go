@@ -1,11 +1,11 @@
 package reqCafe
 
 import (
-	//"encoding/json"
-	//"fmt"
-	//"io/ioutil"
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
 	"time"
-	//"log"
+	"log"
 )
 
 type Dataset struct {
@@ -16,18 +16,18 @@ type Dataset struct {
 func RtCafeInfo(calltime time.Time)string{
 	// Loading jsonfile
 	fg := 0
-	//file, err := ioutil.ReadFile("./config.json")
+	file, err := ioutil.ReadFile("./config.json")
 	var datasets []Dataset
-	//json_err := json.Unmarshal(file, &datasets)
-	//if err != nil{
-	//	fmt.Println("Format Error: ", json_err)
-	//}
+	json_err := json.Unmarshal(file, &datasets)
+	if err != nil{
+		fmt.Println("Format Error: ", json_err)
+	}
 	
 	for k := range datasets{
 		var timeformat = "2006-01-02"
 		t,err := time.Parse(timeformat,"2016-05-04")
 		if err != nil{
-			//panic(err)
+			panic(err)
 		}
 		if t.Day() == calltime.Day(){
 			return datasets[k].Text
