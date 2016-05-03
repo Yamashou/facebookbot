@@ -148,9 +148,11 @@ func selectMenu(txt string){
 			foods.Jf = true
 		}
 	}
-	r := regexp.MustCompile("*main")
-	foods.Jf = false
-	return r.ReplaceAllString(reflect.TypeOf(foods),"")
+	if foods.Jf {
+		foods.Jf = false
+		return "foods"
+	}
+	
 	//for i:=0;i<len(Fncs);i++{
 	//	if Fncs[i].Jf {
 	//		r := regexp.MustCompile("*main")
