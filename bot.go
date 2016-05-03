@@ -146,9 +146,9 @@ func selectMenu(txt string){
 	eves.Judgment = []string{"hoge"}
 	eves.Jf = false
 	
-	Fncs := things{A:foods,B:computers,C:eves}}
+	Fncs := things{A:foods,B:computers,C:eves}
 
-	for i:=0;i<len(Fncs);i++{
+	for i:=0;i<len(Fncs);i++ {
 		for j:=0;j<len(Fncs[i].Judgment);j++{
 			r := regexp.MustCompile(Fncs[i].Judgment[j])
 			if r.MatchString(txt){
@@ -156,8 +156,6 @@ func selectMenu(txt string){
 			}
 		}
 	}
-
-
 	for i:=0;i<len(Fncs);i++{
 		if Fncs[i].Jf {
 			r := regexp.MustCompile("*main")
@@ -165,7 +163,6 @@ func selectMenu(txt string){
 			return r.ReplaceAllString(reflect.TypeOf(Fncs[i]),"")
 		}
 	}
-	
 }
 
 func sentTextMessage(senderID int64, text string) {
