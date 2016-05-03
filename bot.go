@@ -67,7 +67,7 @@ type SendMessage struct {
 }
 
 func main() {
-	http.HandleFunc("/", helloHandler)
+	http.HandleFunc("/", webhookHandler)
 	http.HandleFunc("/webhook", webhookHandler)
 	port := os.Getenv("PORT")
 	addr := fmt.Sprintf(":%s", port)
