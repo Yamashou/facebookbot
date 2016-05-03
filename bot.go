@@ -1,7 +1,7 @@
 package main
 
 import (
-	"$GOPATH/src/facebookbot/reqCafe.go"
+	"$GOPATH/src/facebookbot/reqCafe/reqCafe.go"
 	"regexp"
 	"bytes"
 	"encoding/json"
