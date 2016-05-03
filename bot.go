@@ -139,21 +139,17 @@ func selectMenu(txt string){
 	eves := new(distributeMenu)
 	eves.Judgment = []string{"hoge"}
 	eves.Jf = false
-
-	const(
-		foods = 
-	)
-
+ 
+	
 	for i:=0;i<len(foods);i++ {
 		r := regexp.MustCompile(foods.Judgment[i])
 		if r.MatchString(txt){
-			Fncs[i].Jf = true
+			foods.Jf = true
 		}
 	}
 	r := regexp.MustCompile("*main")
 	foods.Jf = false
 	return r.ReplaceAllString(reflect.TypeOf(foods),"")
-	
 	//for i:=0;i<len(Fncs);i++{
 	//	if Fncs[i].Jf {
 	//		r := regexp.MustCompile("*main")
