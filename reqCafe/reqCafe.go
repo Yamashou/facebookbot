@@ -17,11 +17,12 @@ func RtCafeInfo(calltime time.Time)string{
 	// Loading jsonfile
 	fg := 0
 	file, err := ioutil.ReadFile("./config.json")
+	temp := file
 	// 指定したDataset構造体が中身になるSliceで宣言する
 	var datasets []Dataset
 	json_err := json.Unmarshal(file, &datasets)
 	if err != nil{
-		fmt.Println("Format Error: hoge", json_err)
+		fmt.Println("Format Error: ", json_err)
 	}
 	
 	for k := range datasets{
@@ -36,7 +37,7 @@ func RtCafeInfo(calltime time.Time)string{
 		}
 	}
 	if fg == 0{
-		return "err"
+		return temp//"err"
 	}else{
 		return "end"
 	}
