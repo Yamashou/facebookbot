@@ -150,7 +150,6 @@ func selectMenu(txt string)string{
 	}
 	if foods.Jf {
 		foods.Jf = false
-		return "foods"
 	}
 	
 	//for i:=0;i<len(Fncs);i++{
