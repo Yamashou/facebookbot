@@ -2,5 +2,10 @@
 	"ImportPath": "facebookbot",
 	"GoVersion": "go1.6",
 	"GodepVersion": "v62",
-	"Deps": []
+	"Deps": [
+		{
+			"ImportPath": "github.com/kurouw/FBB/reqCafe",
+			"Rev": "1f520bdb49b50614dd4df2858c3a5de37ed3884f"
+		}
+	]
 }
