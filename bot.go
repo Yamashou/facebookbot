@@ -141,7 +141,7 @@ func selectMenu(txt string){
 	eves.Jf = false
  
 	
-	for i:=0;i<len(foods);i++ {
+	for i:=0;i<len(foods.Judgment);i++ {
 		r := regexp.MustCompile(foods.Judgment[i])
 		if r.MatchString(txt){
 			foods.Jf = true
