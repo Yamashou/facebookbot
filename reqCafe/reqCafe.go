@@ -18,9 +18,6 @@ func RtCafeInfo(calltime time.Time)string{
 	fg := 0
 	file, err := ioutil.ReadFile("./config.json")
 
-	if file == nil {
-		return "hoge"
-	}
 	// 指定したDataset構造体が中身になるSliceで宣言する
 	var datasets []Dataset
 	json_err := json.Unmarshal(file, &datasets)
@@ -40,7 +37,7 @@ func RtCafeInfo(calltime time.Time)string{
 		}
 	}
 	if fg == 0{
-		return "err"
+		return "error"
 	}else{
 		return "end"
 	}
