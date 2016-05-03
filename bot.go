@@ -11,7 +11,6 @@ import (
 	"net/url"
 	"os"
 	"time"
-	"math/rand"
 )
 
 var accessToken = os.Getenv("ACCESS_TOKEN")
