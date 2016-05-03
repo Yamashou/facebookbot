@@ -111,7 +111,7 @@ func sentTextMessage(senderID int64, text string) {
 	recipient.ID = senderID
 	m := new(SendMessage)
 	m.Recipient = *recipient
-	m.Message.Text = text
+	m.Message.Text = text + " hello"
 	log.Print("------------------------------------------------------------")
 	log.Print(m.Message.Text)
 	log.Print("------------------------------------------------------------")
