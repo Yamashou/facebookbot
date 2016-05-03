@@ -73,6 +73,11 @@ type distributeMenu struct {
 	Jf bool
 }
 
+type things struct {
+	A distributeMenu
+	B distributeMenu
+	C distributeMenu
+}
 
 func main() {
 	http.HandleFunc("/", webhookHandler)
@@ -141,7 +146,7 @@ func selectMenu(txt string){
 	eves.Judgment = []string{"hoge"}
 	eves.Jf = false
 	
-	Fncs := []struct{foos,computers,eves}
+	Fncs := things{A:foods,B:computers,C:eves}}
 
 	for i:=0;i<len(Fncs);i++{
 		for j:=0;j<len(Fncs[i].Judgment);j++{
