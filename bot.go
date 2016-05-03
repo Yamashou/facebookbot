@@ -12,7 +12,6 @@ import (
 	"os"
 	"time"
 	"math/rand"
-	"reflect"
 )
 
 var accessToken = os.Getenv("ACCESS_TOKEN")
