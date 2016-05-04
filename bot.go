@@ -28,16 +28,21 @@ func selectMenu(txt string) string {
 	foods.Judgment = []string{"kondate","こんだて","献立", "学食","めにゅー", "メニュー","menu"}
 	foods.Jf = false
 
+	tandai := new(DistributeMenu)
+	tandai.Judgment = []string{"tandai","短大","たんだい"}
+	tandai.Judgment = false
+	
 	computers := new(DistributeMenu)
 	computers.Judgment = []string{"演習室", "パソコン", "pc"}
 	computers.Jf = false
 
+	
 	eves := new(DistributeMenu)
 	eves.Judgment = []string{"hoge"}
 	eves.Jf = false
 
-	stringnames := []string{"foods","computers","eves"}
-	allEvents := []DistributeMenu{*foods,*computers,*eves}
+	stringnames := []string{"foods","tandai","computers","eves"}
+	allEvents := []DistributeMenu{*foods,*tandai,*computers,*eves}
 	
 	for i := range allEvents { 
 		for j := 0; j < len(allEvents[i].Judgment); j++ {
@@ -58,8 +63,8 @@ func selectMenu(txt string) string {
 }
 
 func getMessageText(receivedText string) string {
-	if selectMenu(receivedText) == "foods" {
- 		return reqCafe.RtCafeInfo(time.Now())
+	if selectMenu(receivedText) == "foods"  || selectMenu(receivedText) == "tandai"{
+ 		return reqCafe.RtCafeInfo(time.Now(),receivedText)
 	}
 	return receivedText
 }

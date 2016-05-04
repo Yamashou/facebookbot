@@ -21,11 +21,23 @@ type Dataset struct {
 	Supper string `json:"supper"`
 }
 
-func RtCafeInfo(calltime time.Time)string{
+type TDataset struct {
+	ID string `json:"id"`
+	Text string `json:"text"`
+	Don string `json:"don"`
+	Salad string `json:"salad"`
+}
+
+func RtCafeInfo(calltime time.Time, judg string)string{
 	fg := 0
-	file, err := ioutil.ReadFile("config.json")
-	var datasets []Dataset
-//	log.Print(datasets)
+	if judg == "foods"{
+		file, err := ioutil.ReadFile("config.json")
+		var datasets []Dataset
+	}else if judg == "tandai"{
+		file, err := ioutil.ReadFile("ta.json")
+		var datasets []TDataset
+	}
+//	var datasets []Dataset
 	json_err := json.Unmarshal(file, &datasets)
 	if err != nil{
 		fmt.Println("Format Error: ", json_err)
@@ -38,14 +50,14 @@ func RtCafeInfo(calltime time.Time)string{
 			panic(err)
 		}
 		if t.Day() == calltime.Day() {
-			return datasets[k].Spa
+			return datasets[k].Text
 			fg += 1
 		}
 	}
 
 	if fg == 0 {
-		return "err"//a
+		return "err"
 	}else{
-		return "end"//a
+		return "end"
 	}
 }
