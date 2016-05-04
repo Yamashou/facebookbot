@@ -55,6 +55,7 @@ func RtCafeInfo(calltime time.Time)(res,er string){
 		return "end"//a
 	}
 */
+	return
 }
 
 
