@@ -161,7 +161,7 @@ func sentTextMessage(senderID int64, text string) {
 	log.Print("------------------------------------------------------------")
 	
 	if selectMenu(m.Message.Text) == "foods"{
-		menu := reqCafe.RtCafeInfo(time.Now())
+		//menu := reqCafe.RtCafeInfo(time.Now())
 		/*b := make([]byte,0,1024)
 		record := "\n"
 		for _, line := range menu {
@@ -169,7 +169,7 @@ func sentTextMessage(senderID int64, text string) {
 			b = append(b,"\n")
 		}
 		m.Message.Text = string(b) */
-		log.Print(menu[0])
+		//log.Print(menu[0])
 		m.Message.Text = "OK"
 	}
 	
