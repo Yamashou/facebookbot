@@ -217,7 +217,7 @@ func ReturnSubInfo(Message string)string{
 		sub =  bunsann();
 		break;
 	default:
-		sub = "該当ページがないか、存在しません";
+		sub = Message
 		break;
 	}
 	return sub
