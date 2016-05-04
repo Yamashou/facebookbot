@@ -25,7 +25,7 @@ type Dataset struct {
 func RtCafeInfo(calltime time.Time)string{
 	
 	fg := 0
-	file, err := ioutil.ReadFile("cafe.json")
+	file, err := ioutil.ReadFile("cafe")
 	var datasets []Dataset
 	json_err := json.Unmarshal(file, &datasets)
 	if err != nil{
