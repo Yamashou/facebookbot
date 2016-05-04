@@ -2,16 +2,16 @@ package main
 
 import (
 	//"reflect"
-	"github.com/kurouw/FBB/reqCafe"
-	"regexp"
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/kurouw/FBB/reqCafe"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"net/url"
 	"os"
+	"regexp"
 	"time"
 )
 
@@ -65,13 +65,13 @@ type Message struct {
 type SendMessage struct {
 	Recipient Recipient `json:"recipient"`
 	Message   struct {
-	        Text string `json:"text"`
+		Text string `json:"text"`
 	} `json:"message"`
 }
 
 type distributeMenu struct {
 	Judgment []string
-	Jf bool
+	Jf       bool
 }
 
 func main() {
@@ -88,23 +88,23 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 
 func webhookHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
-	        if r.URL.Query().Get("hub.verify_token") == verifyToken {
+		if r.URL.Query().Get("hub.verify_token") == verifyToken {
 			fmt.Fprintf(w, r.URL.Query().Get("hub.challenge"))
 		} else {
 			fmt.Fprintf(w, "Error, wrong validation token")
 		}
 	}
 	if r.Method == "POST" {
-	        var receivedMessage ReceivedMessage
-	        b, err := ioutil.ReadAll(r.Body)
-	        if err != nil {
+		var receivedMessage ReceivedMessage
+		b, err := ioutil.ReadAll(r.Body)
+		if err != nil {
 			log.Print(err)
 		}
-	        if err = json.Unmarshal(b, &receivedMessage); err != nil {
+		if err = json.Unmarshal(b, &receivedMessage); err != nil {
 			log.Print(err)
 		}
-	        messagingEvents := receivedMessage.Entry[0].Messaging
-	        for _, event := range messagingEvents {
+		messagingEvents := receivedMessage.Entry[0].Messaging
+		for _, event := range messagingEvents {
 			senderID := event.Sender.ID
 			if &event.Message != nil && event.Message.Text != "" {
 				sentTextMessage(senderID, event.Message.Text)
@@ -113,33 +113,32 @@ func webhookHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Success")
 	}
 }
-func selectMenu(txt string)string{
+func selectMenu(txt string) string {
 	foods := new(distributeMenu)
-	foods.Judgment = []string{"kondate","献立","学食","メニュー"}
+	foods.Judgment = []string{"kondate", "献立", "学食", "メニュー"}
 	foods.Jf = false
 
 	computers := new(distributeMenu)
-	computers.Judgment = []string{"演習室","パソコン","pc"}
+	computers.Judgment = []string{"演習室", "パソコン", "pc"}
 	computers.Jf = false
-	
+
 	eves := new(distributeMenu)
 	eves.Judgment = []string{"hoge"}
 	eves.Jf = false
- 
-	
-	for i:=0;i<len(foods.Judgment);i++ {
+
+	for i := 0; i < len(foods.Judgment); i++ {
 		r := regexp.MustCompile(foods.Judgment[i])
-		if r.MatchString(txt){
+		if r.MatchString(txt) {
 			foods.Jf = true
 		}
 	}
 	if foods.Jf {
 		foods.Jf = false
 		return "foods"
-	}else{
+	} else {
 		return txt
 	}
-	
+
 	//for i:=0;i<len(Fncs);i++{
 	//	if Fncs[i].Jf {
 	//		r := regexp.MustCompile("*main")
@@ -155,12 +154,12 @@ func sentTextMessage(senderID int64, text string) {
 	m := new(SendMessage)
 	m.Recipient = *recipient
 	m.Message.Text = text
-	
+
 	log.Print("------------------------------------------------------------")
 	log.Print(m.Message.Text)
 	log.Print("------------------------------------------------------------")
-	
-	if selectMenu(m.Message.Text) == "foods"{
+
+	if selectMenu(m.Message.Text) == "foods" {
 		//menu := reqCafe.RtCafeInfo(time.Now())
 		/*b := make([]byte,0,1024)
 		record := "\n"
@@ -170,21 +169,16 @@ func sentTextMessage(senderID int64, text string) {
 		}
 		m.Message.Text = string(b) */
 		//log.Print(menu[0])
-		
-		m.Message.Text = reqCafe.RtCafeInfo(time.Now())		
-		
+		m.Message.Text = reqCafe.RtCafeInfo(time.Now())
 	}
-	
 
-
-	
 	b, err := json.Marshal(m)
 	if err != nil {
-	        log.Print(err)
+		log.Print(err)
 	}
 	req, err := http.NewRequest("POST", EndPoint, bytes.NewBuffer(b))
 	if err != nil {
-	        log.Print(err)
+		log.Print(err)
 	}
 	values := url.Values{}
 	values.Add("access_token", accessToken)
@@ -193,16 +187,16 @@ func sentTextMessage(senderID int64, text string) {
 	client := &http.Client{Timeout: time.Duration(30 * time.Second)}
 	res, err := client.Do(req)
 	if err != nil {
-	        log.Print(err)
+		log.Print(err)
 	}
 	defer res.Body.Close()
 	var result map[string]interface{}
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
-	        log.Print(err)
+		log.Print(err)
 	}
 	if err := json.Unmarshal(body, &result); err != nil {
-	        log.Print(err)
+		log.Print(err)
 	}
 	log.Print(result)
 }
