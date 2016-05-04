@@ -25,7 +25,7 @@ type Dataset struct {
 func RtCafeInfo(calltime time.Time)string{
 	// Loading jsonfile
 	fg := 0
-	file, err := ioutil.ReadFile("foods.json")
+	file, err := ioutil.ReadFile("config.json")
 	var datasets []Dataset
 	json_err := json.Unmarshal(file, &datasets)
 	if err != nil{
