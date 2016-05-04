@@ -113,7 +113,7 @@ func SendTextMessage(recipient Recipient, sendText string) {
 	m := new(SendMessage)
 	m.Recipient = recipient
 
-	log.Print("------------------------------------------------------------"
+	log.Print("------------------------------------------------------------")
 	log.Print(m.Message.Text)
 	log.Print("------------------------------------------------------------")
 
