@@ -45,9 +45,9 @@ func RtCafeInfo(calltime time.Time)[]string{
 		}
 	}
 	if fg == 0{
-		return "err"
+		return {"err"}
 	}else{
-		return "end"
+		return {"end"}
 	}
 
 }
