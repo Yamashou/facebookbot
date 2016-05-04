@@ -169,7 +169,7 @@ func sentTextMessage(senderID int64, text string) {
 			b = append(b,"\n")
 		}
 		m.Message.Text = string(b) */
-		m.Message.Text = OK
+		m.Message.Text = "OK"
 	}
 	
 
