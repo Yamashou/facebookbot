@@ -2,7 +2,7 @@ package main
 
 import (
 	//"reflect"
-	"github.com/kurouw/FBB/reqCafe"
+	//"github.com/kurouw/FBB/reqCafe"
 	"regexp"
 	"bytes"
 	"encoding/json"
