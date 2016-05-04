@@ -70,8 +70,8 @@ func getMessageText(receivedText string) string {
 
 	
 		b := make([]byte,0,30)
-		for v := range res {
-			b = append(b,string(v)...)
+		for v := 0;v < len(res) ; v ++{
+			b = append(b,res[v]...)
 			b = append(b,'\n')
 		}
 		return string(b)
