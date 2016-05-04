@@ -1,4 +1,4 @@
-lpackage main
+package main
 
 import (
 //	"github.com/facebookbot/reqCafe"
