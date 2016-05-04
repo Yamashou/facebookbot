@@ -169,6 +169,7 @@ func sentTextMessage(senderID int64, text string) {
 			b = append(b,"\n")
 		}
 		m.Message.Text = string(b) */
+		log.Print(menu)
 		m.Message.Text = "OK"
 	}
 	
