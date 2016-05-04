@@ -34,15 +34,13 @@ func RtCafeInfo(calltime time.Time)string{
 	
 	for k := range datasets{
 		var timeformat = "2006-01-02"
-		t,err := time.Parse(timeformat,"2016-05-06")//datasets[k].ID)
+		t,err := time.Parse(timeformat,datasets[k].ID)
 		if err != nil{
 			panic(err)
 		}
 		if t.Day() == calltime.Day(){
-			//menu := []string{datasets[k].Text,datasets[k].Spa,datasets[k].Fish,datasets[k].Salad,datasets[k].Dessert,datasets[k].One,datasets[k].Noodle,datasets[k].Supper}
-			
-			return datasets[2].Salad
-			return datasets[k].Spa
+			//menu := []string{datasets[k].Text,datasets[k].Spa,datasets[k].Fish,datasets[k].Salad,datasets[k].Dessert,datasets[k].One,datasets[k].Noodle,datasets[k].Supper}			
+			return "ok"//datasets[k].Spa
 			fg += 1
 		}
 	}
