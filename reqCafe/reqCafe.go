@@ -40,7 +40,7 @@ func RtCafeInfo(calltime time.Time)string{
 		}
 		if t.Day() == calltime.Day(){
 			b:= make([]byte, 0, 2048)
-			b = append (b,'日替わり: '+datasets[k].Text+'\n')
+			b = append (b,"日替わり: "+datasets[k].Text+'\n')
 			b = append (b,"スパゲッティ: "+datasets[k].Spa+"\n")
 			b = append (b,"魚: "+datasets[k].Fish+"\n")
 			b = append (b,"サラダ: "+datasets[k].Salad+"\n")
