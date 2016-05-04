@@ -36,13 +36,13 @@ func RtCafeInfo(calltime time.Time)string{
 	for k := range datasets{
 		var timeformat = "2006-01-02"
 		t,err := time.Parse(timeformat,datasets[k].ID)
-		log.Print(datadets)
+		log.Print(datasets)
 		if err != nil{
 			panic(err)
 		}
 		if t.Day() == calltime.Day(){
 			//menu := []string{datasets[k].Text,datasets[k].Spa,datasets[k].Fish,datasets[k].Salad,datasets[k].Dessert,datasets[k].One,datasets[k].Noodle,datasets[k].Supper}
-			log.Print(datadets)
+			log.Print(datasets)
 			return datasets[k].Salad
 			fg += 1
 		}
