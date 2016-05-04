@@ -20,7 +20,7 @@ func sisugaiOUT()string{
 func sisugaiIN()string{
   return "file:///home/course/csI/public_html/2016/welcome.html"
 }
-func rekougaku()string{
+func rikougaku()string{
   return "http://web-int.u-aizu.ac.jp/course/cselab/"
 }
 func InformationSecurity()string{
@@ -113,9 +113,122 @@ func SofteareDtdio()string{
 func bunsann()string{
   return " www.tinyurl.com/aizu-dc"
 }
+func messageReturn(Message string){
+
+  switch Message {
+  case "リテラシー1":
+    fmt.Println(literacy1());
+    break;
+  case "リテラシー2":
+    fmt.Println(literacy2());
+    break;
+  case "情報センター":
+      fmt.Println(infometion());
+      break;
+  case "シス外":
+  case "システム概論":
+    fmt.Println(sisugaiOUT());
+    fmt.Println(sisugaiIN());
+    break;
+  case "理工学実験":
+    fmt.Println(rikougaku());
+    break;
+  case "情報セキュリティ":
+    fmt.Println(InformationSecurity());
+    break;
+  case "マルチメディアシステム概論":
+    fmt.Println(Multimedia3());
+    fmt.Println(Multimedia2());
+    break;
+  case "コンピュータネットワーク概論":
+    fmt.Println(ComputerNet2());
+    fmt.Println(ComputerNet1());
+    break;
+  case "プログラミング入門":
+  case "プログ入門":
+  case "prog0":
+    fmt.Println(prog0OUT());
+    fmt.Println(prog0IN());
+    break;
+  case "プログラミングC":
+  case "プログC":
+  case "plog1":
+    fmt.Println(prog1OUT());
+    fmt.Println(prog1IN());
+    break;
+  case "プログラミングjava":
+  case "java":
+    fmt.Println(java1());
+    break;
+  case "C++":
+  case "プログラミングC++":
+    fmt.Println(CPP());
+    break;
+  case "コンピュータ言語論":
+    fmt.Println(ComputerGengo());
+    break;
+  case "アルゴ":
+  case "アルゴリズムとデータ構造":
+    fmt.Println(algo());
+    break;
+  case "アルゴリズム特論":
+    fmt.Println(algotoku());
+    break;
+  case "言語処理系論":
+    fmt.Println(gengoshori());
+    break;
+  case "情報圧縮":
+    fmt.Println(jyouhouassyuku());
+    break;
+  case "計算幾何学":
+    fmt.Println(keisannkikagaku());
+    break;
+  case "ソフトウェア工学概論":
+    fmt.Println(Softwarekougaku());
+    fmt.Println(Softwarekougaku2());
+    break;
+  case "人工知能":
+  case "AI":
+    fmt.Println(AI());
+    break;
+  case "コンピュータグラフィックス論":
+    fmt.Println(ComputerGraphics());
+    break;
+  case "画像処理":
+    fmt.Println(gashori());
+    fmt.Println(gashoriHand());
+    break;
+  case "バイオメディカル情報工学":
+    fmt.Println(baio());
+    break;
+  case "ロボット工学と自動制御":
+    fmt.Println(robot());
+    break;
+  case "ヒューマインインターフェイスと仮想現実":
+    fmt.Println(hyuumann());
+    break;
+  case "デジタル信号処理":
+    fmt.Println(dezitaru());
+    break;
+  case "ウェブエンジニアリング":
+    fmt.Println(Webengin());
+    break;
+  case "ソフトウェアスタジオ":
+    fmt.Println(SofteareDtdio());
+    break;
+  case "分散コンピューティング":
+    fmt.Println(bunsann());
+    break;
+   default:
+     fmt.Print("該当ページがないか、存在しません");
+     fmt.Println(Message)
+     break;
+
+
+
+
+  }
+}
 func main(){
-  fmt.Println(infometion())
-  fmt.Println(literacy1())
-
-
+  messageReturn("java")
 }
