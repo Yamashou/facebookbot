@@ -22,12 +22,12 @@ type Dataset struct {
 	
 }
 
-func RtCafeInfo(calltime time.Time)string{
+func RtCafeInfo(calltime time.Time)(string,string){
 	
 	fg := 0
 	file, err := ioutil.ReadFile("config.json")
 	var datasets []Dataset
-	log.Print(datasets)
+	return log.Print(datasets)
 	json_err := json.Unmarshal(file, &datasets)
 	if err != nil{
 		fmt.Println("Format Error: ", json_err)
@@ -55,3 +55,5 @@ func RtCafeInfo(calltime time.Time)string{
 	}
 
 }
+
+
