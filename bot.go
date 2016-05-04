@@ -74,7 +74,7 @@ func getMessageText(receivedText string) string {
 			b = append(b,v...)
 			b = append(b,'\n')
 		}*/
-		return res[0]
+		return res[0]+res[1]
 		
 	}else if selectMenu(receivedText) == "tandai"{
 		var res []string
@@ -85,7 +85,7 @@ func getMessageText(receivedText string) string {
 			b = append(b,v...)
 			b = append(b,'\n')
 		}*/
-		return res[0]
+		return res[0]+res[1]
 		
 	}
 	
