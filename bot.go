@@ -96,7 +96,7 @@ func getMessageText(receivedText string) string {
 		
 	}
 
-	if selectRes == "Subject" {
+	if selectRes == "Subject!" {
 		return infoSub.ReturnSubInfo(receivedText)
 	}
 	
