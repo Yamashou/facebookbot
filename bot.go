@@ -170,7 +170,7 @@ func sentTextMessage(senderID int64, text string) {
 		}
 		m.Message.Text = string(b) */
 		//log.Print(menu[0])
-		a,m.Message.Text = reqCafe.RtCafeInfo(time.Now())
+		a,m.Message.Text := reqCafe.RtCafeInfo(time.Now())
 		log.Print(a)
 	}
 	
