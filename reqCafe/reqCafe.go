@@ -49,12 +49,12 @@ func RtCafeInfo(calltime time.Time)(res,er string){
 		}
 	}
 	//a := []string{"err","end"}
-	if fg == 0{
+/*if fg == 0{
 		return "err"//a
 	}else{
 		return "end"//a
 	}
-
+*/
 }
 
 
