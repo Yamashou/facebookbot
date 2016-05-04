@@ -47,15 +47,7 @@ func selectMenu(txt string) string {
 			}
 		}
 	}
-		/*
-	if foods.Jf {
-		foods.Jf = false
-		return "foods"
-	} else {
-		return txt
-	}
-	}
-*/
+	
 	for i := range allEvents {
 		if allEvents[i].Jf {
 			allEvents[i].Jf = false
@@ -67,16 +59,7 @@ func selectMenu(txt string) string {
 
 func getMessageText(receivedText string) string {
 	if selectMenu(receivedText) == "foods" {
-		//menu := reqCafe.RtCafeInfo(time.Now())
-		/*b := make([]byte,0,1024)
-		record := "\n"
-		for _, line := range menu {
-			b = append(b,line...)
-			b = append(b,"\n")
-		}
-		m.Message.Text = string(b) */
-		//log.Print(menu[0])
-		return reqCafe.RtCafeInfo(time.Now())
+ 		return reqCafe.RtCafeInfo(time.Now())
 	}
 	return receivedText
 }
