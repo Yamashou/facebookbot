@@ -22,7 +22,7 @@ type Dataset struct {
 	
 }
 
-func RtCafeInfo(calltime time.Time)(res,er string){
+func RtCafeInfo(calltime time.Time)(string,string){
 	
 	fg := 0
 	file, err := ioutil.ReadFile("config.json")
@@ -36,13 +36,11 @@ func RtCafeInfo(calltime time.Time)(res,er string){
 	for k := range datasets{
 		var timeformat = "2006-01-02"
 		t,err := time.Parse(timeformat,datasets[k].ID)
-		er = datasets[0].Text
 		if err != nil{
 			panic(err)
 		}
 		if t.Day() == calltime.Day(){
-			res = datasets[k].Salad
-			return
+			return datasets[k].Salad,datasets[k].Text
 			fg += 1
 		}
 	}
@@ -53,7 +51,7 @@ func RtCafeInfo(calltime time.Time)(res,er string){
 		return "end"//a
 	}
 */
-	return
+	return datasets[0].Salad,datasets[0].Text
 }
 
 
