@@ -34,9 +34,9 @@ func RtCafeInfo(calltime time.Time)string{
 	
 	for k := range datasets{
 		var timeformat = "2006-01-02"
-		t,err := time.Parse(timeformat,"2016-05-04")
+		t,err := time.Parse(timeformat,datasets[k].ID)
 		if err != nil{
-			panic(err)
+			return err//panic(err)
 		}
 		if t.Day() == calltime.Day(){
 			b:= make([]byte, 0, 2048)
