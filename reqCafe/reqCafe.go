@@ -40,7 +40,7 @@ func RtCafeInfo(calltime time.Time)string{
 		}
 		if t.Day() == calltime.Day(){
 			//menu := []string{datasets[k].Text,datasets[k].Spa,datasets[k].Fish,datasets[k].Salad,datasets[k].Dessert,datasets[k].One,datasets[k].Noodle,datasets[k].Supper}
-			return datasets[k].Spa//menu
+			return datasets[k].Salad//menu
 			fg += 1
 		}
 	}
