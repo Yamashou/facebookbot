@@ -47,7 +47,7 @@ func RtCafeInfo(calltime time.Time)string{
 			b = append (b,datasets[k].Dessert...)
 			b = append (b,datasets[k].One...)
 			b = append (b,datasets[k].Noodle...)
-			b = append (b,datasets[k].Supper...
+			b = append (b,datasets[k].Supper...)
 			return string(b)
 			fg += 1
 		}
