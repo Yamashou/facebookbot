@@ -28,16 +28,38 @@ type TDataset struct {
 	Salad string `json:"salad"`
 }
 
-func RtCafeInfo(calltime time.Time, judg string)string{
+func RtCafeInfo(calltime time.Time)string{
 	fg := 0
-	if judg == "foods"{
-		file, err := ioutil.ReadFile("config.json")
-		var datasets []Dataset
-	}else if judg == "tandai"{
-		file, err := ioutil.ReadFile("ta.json")
-		var datasets []TDataset
+	file, err := ioutil.ReadFile("config.json")
+	var datasets []Dataset
+	json_err := json.Unmarshal(file, &datasets)
+	if err != nil{
+		fmt.Println("Format Error: ", json_err)
 	}
-//	var datasets []Dataset
+
+	for k := range datasets {
+		var timeformat = "2006-01-02"
+		t, err := time.Parse(timeformat,datasets[k].ID)
+		if err != nil {
+			panic(err)
+		}
+		if t.Day() == calltime.Day() {
+			return datasets[k].Text
+			fg += 1
+		}
+	}
+
+	if fg == 0 {
+		return "err"
+	}else{
+		return "end"
+	}
+}
+
+func RtTnCafeInfo(calltime time.Time)string{
+	fg := 0
+	file, err := ioutil.ReadFile("ta.json")
+	var datasets []TDataset
 	json_err := json.Unmarshal(file, &datasets)
 	if err != nil{
 		fmt.Println("Format Error: ", json_err)

@@ -30,7 +30,7 @@ func selectMenu(txt string) string {
 
 	tandai := new(DistributeMenu)
 	tandai.Judgment = []string{"tandai","短大","たんだい"}
-	tandai.Judgment = false
+	tandai.Jf = false
 	
 	computers := new(DistributeMenu)
 	computers.Judgment = []string{"演習室", "パソコン", "pc"}
@@ -63,8 +63,10 @@ func selectMenu(txt string) string {
 }
 
 func getMessageText(receivedText string) string {
-	if selectMenu(receivedText) == "foods"  || selectMenu(receivedText) == "tandai"{
- 		return reqCafe.RtCafeInfo(time.Now(),receivedText)
+	if selectMenu(receivedText) == "foods" {
+ 		return reqCafe.RtCafeInfo(time.Now())
+	}else if selectMenu(receivedText) == "tandai"{
+		return reqCafe.RtTnCafeInfo(time.Now())
 	}
 	return receivedText
 }
