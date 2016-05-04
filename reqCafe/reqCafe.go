@@ -40,7 +40,7 @@ func RtCafeInfo(calltime time.Time)string{
 		}
 		if t.Day() == calltime.Day(){
 			b:= make([]byte, 0, 2048)
-			b = append (b,datasets[k].Text)
+			b = append (b,datasets[k].Text...)
 			b = append (b,datasets[k].Spa)
 			b = append (b,datasets[k].Fish)
 			b = append (b,datasets[k].Salad)
