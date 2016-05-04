@@ -9,7 +9,7 @@ import (
 )
 
 type Dataset struct {
-	ID time.Time `json:"id"`
+	ID string `json:"id"`
 	Text string `json:"text"`
 	Don string `json:"don"`
 	Spa string `json:"spaghetti"`
