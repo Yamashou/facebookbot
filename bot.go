@@ -1,10 +1,10 @@
 package main
 
 import (
-//	"github.com/facebookbot/reqCafe"
+	"github.com/facebookbot/reqCafe"
 	"github.com/facebookbot/fbmessenger"
 	"regexp"
-//	"time"
+	"time"
 )
 
 
@@ -69,7 +69,7 @@ func getMessageText(receivedText string) string {
 		}
 		m.Message.Text = string(b) */
 		//log.Print(menu[0])
-		return "aaaaa"//reqCafe.RtCafeInfo(time.Now())
+		return reqCafe.RtCafeInfo(time.Now())
 	}
-	return ""
+	return "hoge"
 }
