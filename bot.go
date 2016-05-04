@@ -162,13 +162,14 @@ func sentTextMessage(senderID int64, text string) {
 	
 	if selectMenu(m.Message.Text) == "foods"{
 		menu := reqCafe.RtCafeInfo(time.Now())
-		b := make([]byte,0,1024)
+		/*b := make([]byte,0,1024)
 		record := "\n"
 		for _, line := range menu {
 			b = append(b,line...)
-			b = append(b,record...)
+			b = append(b,"\n")
 		}
-		m.Message.Text = string(b)
+		m.Message.Text = string(b) */
+		m.Message.Text = OK
 	}
 	
 
