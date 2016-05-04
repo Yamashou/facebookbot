@@ -25,7 +25,7 @@ func handleRecieveMessage(event fbmessenger.Messaging) {
 
 func selectMenu(txt string) string {
 	foods := new(DistributeMenu)
-	foods.Judgment = []string{"kondate", "献立", "学食", "メニュー"}
+	foods.Judgment = []string{"kondate","こんだて","献立", "学食","めにゅー", "メニュー","menu"}
 	foods.Jf = false
 
 	computers := new(DistributeMenu)
@@ -36,26 +36,33 @@ func selectMenu(txt string) string {
 	eves.Judgment = []string{"hoge"}
 	eves.Jf = false
 
-	for i := 0; i < len(foods.Judgment); i++ {
-		r := regexp.MustCompile(foods.Judgment[i])
-		if r.MatchString(txt) {
-			foods.Jf = true
+	stringnames := []string{"foods","computers","eves"}
+	allEvents := []DistributeMenu{*foods,*computers,*eves}
+	
+	for i := range allEvents { 
+		for j := 0; j < len(allEvents[i].Judgment); j++ {
+			r := regexp.MustCompile(allEvents[i].Judgment[j])
+			if r.MatchString(txt) {
+				allEvents[i].Jf = true
+			}
 		}
 	}
+		/*
 	if foods.Jf {
 		foods.Jf = false
 		return "foods"
 	} else {
 		return txt
 	}
-
-	//for i:=0;i<len(Fncs);i++{
-	//	if Fncs[i].Jf {
-	//		r := regexp.MustCompile("*main")
-	//		Fncs[i].Jf = false
-	//		return r.ReplaceAllString(reflect.TypeOf(Fncs[i]),"")
-	//	}
-	//}
+	}
+*/
+	for i := range allEvents {
+		if allEvents[i].Jf {
+			allEvents[i].Jf = false
+			return stringnames[i]
+		}
+	}
+	return "notthing"
 }
 
 func getMessageText(receivedText string) string {
@@ -71,5 +78,5 @@ func getMessageText(receivedText string) string {
 		//log.Print(menu[0])
 		return reqCafe.RtCafeInfo(time.Now())
 	}
-	return "hoge"
+	return receivedText
 }
