@@ -38,7 +38,7 @@ func RtCafeInfo(calltime time.Time)string{
 			panic(err)
 		}
 		if t.Day() == calltime.Day() {
-			return datasets[k].Text
+			return datasets[k].Spa
 			fg += 1
 		}
 	}
