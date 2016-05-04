@@ -40,14 +40,14 @@ func RtCafeInfo(calltime time.Time)string{
 		}
 		if t.Day() == calltime.Day(){
 			b:= make([]byte, 0, 2048)
-			b = append (b,"日替わり: "+datasets[k].Text+'\n')
-			b = append (b,"スパゲッティ: "+datasets[k].Spa+"\n")
-			b = append (b,"魚: "+datasets[k].Fish+"\n")
-			b = append (b,"サラダ: "+datasets[k].Salad+"\n")
-			b = append (b,"デザート: "+datasets[k].Dessert+"\n")
-			b = append (b,"単品: "+datasets[k].One+"\n")
-			b = append (b,"麺物: "+datasets[k].Noodle+"\n")
-			b = append (b,"夜: "+datasets[k].Supper+"\n")
+			b = append (b,"日替わり: "+datasets[k].Text)
+			b = append (b,"スパゲッティ: "+datasets[k].Spa)
+			b = append (b,"魚: "+datasets[k].Fish)
+			b = append (b,"サラダ: "+datasets[k].Salad)
+			b = append (b,"デザート: "+datasets[k].Dessert)
+			b = append (b,"単品: "+datasets[k].One)
+			b = append (b,"麺物: "+datasets[k].Noodle)
+			b = append (b,"夜: "+datasets[k].Supper)
 			return string(b)
 			fg += 1
 		}
