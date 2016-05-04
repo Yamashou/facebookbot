@@ -74,7 +74,7 @@ func RtTnCafeInfo(calltime time.Time)[]string{
 			panic(err)
 		}
 		if t.Day() == calltime.Day() {
-			menues := []string{datasets[k].Text,datasets[k].Don,datasets[k].Salad}
+			menues := []string{"日替わり　　: "+datasets[k].Text,"丼物 　　　: "+datasets[k].Don,"サラダ　　　: "+datasets[k].Salad}
 			return menues
 			fg += 1
 		}

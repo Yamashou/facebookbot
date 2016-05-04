@@ -80,12 +80,12 @@ func getMessageText(receivedText string) string {
 		var res []string
 		res = reqCafe.RtTnCafeInfo(time.Now())
 
-		/*var b []byte
-		for v := range res {
-			b = append(b,v...)
+		b := make([]byte,0,30)
+		for v := 0;v < len(res) ; v ++{
+			b = append(b,res[v]...)
 			b = append(b,'\n')
-		}*/
-		return res[0]+res[1]
+		}
+		return string(b)
 		
 	}
 	
