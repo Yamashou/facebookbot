@@ -27,7 +27,7 @@ func RtCafeInfo(calltime time.Time)string{
 	fg := 0
 	file, err := ioutil.ReadFile("config.json")
 	var datasets []Dataset
-	log.Print(&datadets)
+	log.Print(datadets[0])
 	json_err := json.Unmarshal(file, &datasets)
 	if err != nil{
 		fmt.Println("Format Error: ", json_err)
