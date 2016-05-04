@@ -2,7 +2,7 @@ package main
 
 import (
 	//"reflect"
-//	"github.com/kurouw/FBB/reqCafe"
+	"github.com/kurouw/FBB/reqCafe"
 	"regexp"
 	"bytes"
 	"encoding/json"
@@ -170,7 +170,7 @@ func sentTextMessage(senderID int64, text string) {
 		}
 		m.Message.Text = string(b) */
 		//log.Print(menu[0])
-		m.Message.Text = "ok"//reqCafe.RtCafeInfo(time.Now())
+		m.Message.Text = reqCafe.RtCafeInfo(time.Now())
 	}
 	
 
