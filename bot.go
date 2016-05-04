@@ -1,8 +1,8 @@
 package main
 
 import (
-	"./reqCafe"
-	"./fbmessenger"
+	"github.com/facebookbot/reqCafe"
+	"github.com/facebookbot/fbmessenger"
 	"regexp"
 	"time"
 )
