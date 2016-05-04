@@ -22,7 +22,7 @@ type Dataset struct {
 	
 }
 
-func RtCafeInfo(calltime time.Time)(string,string){
+func RtCafeInfo(calltime time.Time)string{
 	
 	fg := 0
 	file, err := ioutil.ReadFile("config.json")
@@ -40,18 +40,16 @@ func RtCafeInfo(calltime time.Time)(string,string){
 			panic(err)
 		}
 		if t.Day() == calltime.Day(){
-			return datasets[k].Salad,datasets[k].Text
+			return datasets[k].Text
 			fg += 1
 		}
 	}
-	//a := []string{"err","end"}
-/*if fg == 0{
+	
+	if fg == 0{
 		return "err"//a
 	}else{
 		return "end"//a
 	}
-*/
-	return datasets[0].Salad,datasets[0].Text
 }
 
 
