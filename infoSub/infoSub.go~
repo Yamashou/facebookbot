@@ -1,9 +1,4 @@
-package main
-
-import(
-  "fmt"
-
-)
+package infoSub
 
 func infometion()string{
   return "http://web-int.u-aizu.ac.jp/labs/istc/ipc/index.html"
@@ -113,122 +108,117 @@ func SofteareDtdio()string{
 func bunsann()string{
   return " www.tinyurl.com/aizu-dc"
 }
-func messageReturn(Message string){
+func ReturnSubInfo(Message string)string{
 
-  switch Message {
-  case "リテラシー1":
-    fmt.Println(literacy1());
-    break;
-  case "リテラシー2":
-    fmt.Println(literacy2());
-    break;
-  case "情報センター":
-      fmt.Println(infometion());
-      break;
-  case "シス外":
-  case "システム概論":
-    fmt.Println(sisugaiOUT());
-    fmt.Println(sisugaiIN());
-    break;
-  case "理工学実験":
-    fmt.Println(rikougaku());
-    break;
-  case "情報セキュリティ":
-    fmt.Println(InformationSecurity());
-    break;
-  case "マルチメディアシステム概論":
-    fmt.Println(Multimedia3());
-    fmt.Println(Multimedia2());
-    break;
-  case "コンピュータネットワーク概論":
-    fmt.Println(ComputerNet2());
-    fmt.Println(ComputerNet1());
-    break;
-  case "プログラミング入門":
-  case "プログ入門":
-  case "prog0":
-    fmt.Println(prog0OUT());
-    fmt.Println(prog0IN());
-    break;
-  case "プログラミングC":
-  case "プログC":
-  case "plog1":
-    fmt.Println(prog1OUT());
-    fmt.Println(prog1IN());
-    break;
-  case "プログラミングjava":
-  case "java":
-    fmt.Println(java1());
-    break;
-  case "C++":
-  case "プログラミングC++":
-    fmt.Println(CPP());
-    break;
-  case "コンピュータ言語論":
-    fmt.Println(ComputerGengo());
-    break;
-  case "アルゴ":
-  case "アルゴリズムとデータ構造":
-    fmt.Println(algo());
-    break;
-  case "アルゴリズム特論":
-    fmt.Println(algotoku());
-    break;
-  case "言語処理系論":
-    fmt.Println(gengoshori());
-    break;
-  case "情報圧縮":
-    fmt.Println(jyouhouassyuku());
-    break;
-  case "計算幾何学":
-    fmt.Println(keisannkikagaku());
-    break;
-  case "ソフトウェア工学概論":
-    fmt.Println(Softwarekougaku());
-    fmt.Println(Softwarekougaku2());
-    break;
-  case "人工知能":
-  case "AI":
-    fmt.Println(AI());
-    break;
-  case "コンピュータグラフィックス論":
-    fmt.Println(ComputerGraphics());
-    break;
-  case "画像処理":
-    fmt.Println(gashori());
-    fmt.Println(gashoriHand());
-    break;
-  case "バイオメディカル情報工学":
-    fmt.Println(baio());
-    break;
-  case "ロボット工学と自動制御":
-    fmt.Println(robot());
-    break;
-  case "ヒューマインインターフェイスと仮想現実":
-    fmt.Println(hyuumann());
-    break;
-  case "デジタル信号処理":
-    fmt.Println(dezitaru());
-    break;
-  case "ウェブエンジニアリング":
-    fmt.Println(Webengin());
-    break;
-  case "ソフトウェアスタジオ":
-    fmt.Println(SofteareDtdio());
-    break;
-  case "分散コンピューティング":
-    fmt.Println(bunsann());
-    break;
-   default:
-     fmt.Print("該当ページがないか、存在しません");
-     fmt.Println(Message)
-     break;
-
-
-
-
-  }
-}
-func main(){
-  messageReturn("java")
+	sub := string
+	
+	switch Message {
+	case "リテラシー1":
+		sub =  literacy1();
+		break;
+	case "リテラシー2":
+		sub =  literacy2();
+		break;
+	case "情報センター":
+		sub =  infometion();
+		break;
+	case "シス外":
+	case "システム概論":
+		a := sisugaiOUT();
+		sub =  a+"\n"+sisugaiIN();
+		break;
+	case "理工学実験":
+		sub =  rikougaku();
+		break;
+	case "情報セキュリティ":
+		sub =  InformationSecurity();
+		break;
+	case "マルチメディアシステム概論":
+		a := Multimedia3();
+		sub = a+"\n"+Multimedia2();
+		break;
+	case "コンピュータネットワーク概論":
+		a := ComputerNet2();
+		sub = a+"\n"+ComputerNet1();
+		break;
+	case "プログラミング入門":
+	case "プログ入門":
+	case "prog0":
+		a := prog0OUT();
+		sub =  a+"\n"+prog0IN();
+		break;
+	case "プログラミングC":
+	case "プログC":
+	case "plog1":
+		a := prog1OUT();
+		sub = a+"\n"+prog1IN();
+		break;
+	case "プログラミングjava":
+	case "java":
+		sub =  java1();
+		break;
+	case "C++":
+	case "プログラミングC++":
+		sub =  CPP();
+		break;
+	case "コンピュータ言語論":
+		sub =  ComputerGengo();
+		break;
+	case "アルゴ":
+	case "アルゴリズムとデータ構造":
+		sub =  algo();
+		break;
+	case "アルゴリズム特論":
+		sub =  algotoku();
+		break;
+	case "言語処理系論":
+		sub =  gengoshori();
+		break;
+	case "情報圧縮":
+		sub =  jyouhouassyuku();
+		break;
+	case "計算幾何学":
+		sub =  keisannkikagaku();
+		break;
+	case "ソフトウェア工学概論":
+		a :=  Softwarekougaku();
+		sub =  a+"\n"+Softwarekougaku2();
+		break;
+	case "人工知能":
+	case "AI":
+		sub =  AI();
+		break;
+	case "コンピュータグラフィックス論":
+		sub =  ComputerGraphics();
+		break;
+	case "画像処理":
+		a := gashori();
+		sub =  a+"\n"+gashoriHand();
+		break;
+	case "バイオメディカル情報工学":
+		sub =  baio();
+		break;
+	case "ロボット工学と自動制御":
+		sub =  robot();
+		break;
+	case "ヒューマインインターフェイスと仮想現実":
+		sub =  hyuumann();
+		break;
+	case "デジタル信号処理":
+		sub =  dezitaru();
+		break;
+	case "ウェブエンジニアリング":
+		sub =  Webengin();
+		break;
+	case "ソフトウェアスタジオ":
+		sub =  SofteareDtdio();
+		break;
+	case "分散コンピューティング":
+		sub =  bunsann();
+		break;
+	default:
+		sub = "該当ページがないか、存在しません";
+		break;
+	}
+	return sub
 }

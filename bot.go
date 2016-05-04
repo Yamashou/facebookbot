@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/facebookbot/reqCafe"
 	"github.com/facebookbot/fbmessenger"
+	"github.com/facebookbot/infoSub"
 	"regexp"
 	"time"
 //	"bytes"
@@ -53,18 +54,24 @@ func selectMenu(txt string) string {
 			}
 		}
 	}
-	
+	flag := false
 	for i := range allEvents {
 		if allEvents[i].Jf {
 			allEvents[i].Jf = false
+			flag = true
 			return stringnames[i]
 		}
+	}
+
+	if !flag {
+		return "Subject!"
 	}
 	return "notthing"
 }
 
 func getMessageText(receivedText string) string {
-	if selectMenu(receivedText) == "foods" {
+	selectRes := selectMenu(receivedText)
+	if selectRes == "foods" {
  		var res []string
 		res = reqCafe.RtCafeInfo(time.Now())
 
@@ -76,7 +83,7 @@ func getMessageText(receivedText string) string {
 		}
 		return string(b)
 		
-	}else if selectMenu(receivedText) == "tandai"{
+	}else if selectRes == "tandai"{
 		var res []string
 		res = reqCafe.RtTnCafeInfo(time.Now())
 
@@ -87,6 +94,10 @@ func getMessageText(receivedText string) string {
 		}
 		return string(b)
 		
+	}
+
+	if selectRes == "Subject" {
+		return infoSub.ReturnSubInfo(receivedText)
 	}
 	
 	return receivedText
