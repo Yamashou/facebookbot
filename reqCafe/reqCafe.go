@@ -22,7 +22,7 @@ type Dataset struct {
 	
 }
 
-func RtCafeInfo(calltime time.Time)[]string{
+func RtCafeInfo(calltime time.Time)string{
 	
 	fg := 0
 	file, err := ioutil.ReadFile("config.json")
@@ -39,16 +39,16 @@ func RtCafeInfo(calltime time.Time)[]string{
 			panic(err)
 		}
 		if t.Day() == calltime.Day(){
-			menu := []string{datasets[k].Text,datasets[k].Spa,datasets[k].Fish,datasets[k].Salad,datasets[k].Dessert,datasets[k].One,datasets[k].Noodle,datasets[k].Supper}
-			return menu
+			//menu := []string{datasets[k].Text,datasets[k].Spa,datasets[k].Fish,datasets[k].Salad,datasets[k].Dessert,datasets[k].One,datasets[k].Noodle,datasets[k].Supper}
+			return datasets[k].Spa//menu
 			fg += 1
 		}
 	}
-	a := []string{"err","end"}
+	//a := []string{"err","end"}
 	if fg == 0{
-		return a
+		return "err"//a
 	}else{
-		return a
+		return "err"//a
 	}
 
 }
