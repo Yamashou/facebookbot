@@ -113,21 +113,6 @@ func webhookHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Success")
 	}
 }
-
-func rtFoods(rtext string) (f bool){
-	foods := []string{"kondate","献立","学食","メニュー"}
-
-	f = false
-	for i:=0;i<len(foods);i++ {
-		r := regexp.MustCompile(foods[i])
-		if r.MatchString(rtext){
-			f = true
-			break
-		}
-		
-	}
-	return
-}
 func selectMenu(txt string)string{
 	foods := new(distributeMenu)
 	foods.Judgment = []string{"kondate","献立","学食","メニュー"}
@@ -176,7 +161,14 @@ func sentTextMessage(senderID int64, text string) {
 	log.Print("------------------------------------------------------------")
 	
 	if selectMenu(m.Message.Text) == "foods"{
-		m.Message.Text = reqCafe.RtCafeInfo(time.Now())
+		menu := reqCafe.RtCafeInfo(time.Now())
+		b := make([]byte,0,1024)
+		record := "\n"
+		for _, line := range menu {
+			b = append(b,line...)
+			b = append(b,record...)
+		}
+		m.Message.Text = string(b)
 	}
 	
 
