@@ -68,13 +68,13 @@ func getMessageText(receivedText string) string {
  		var res []string
 		res = reqCafe.RtCafeInfo(time.Now())
 
-		/*
-		var b []byte
+	
+		b := make([]byte,0,30)
 		for v := range res {
-			b = append(b,v...)
+			b = append(b,string(v)...)
 			b = append(b,'\n')
-		}*/
-		return res[0]+res[1]
+		}
+		return string(b)
 		
 	}else if selectMenu(receivedText) == "tandai"{
 		var res []string
