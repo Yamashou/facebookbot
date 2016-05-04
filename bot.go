@@ -5,6 +5,7 @@ import (
 	"github.com/facebookbot/fbmessenger"
 	"regexp"
 	"time"
+//	"bytes"
 )
 
 
@@ -64,9 +65,29 @@ func selectMenu(txt string) string {
 
 func getMessageText(receivedText string) string {
 	if selectMenu(receivedText) == "foods" {
- 		return reqCafe.RtCafeInfo(time.Now())
+ 		var res []string
+		res = reqCafe.RtCafeInfo(time.Now())
+
+		/*
+		var b []byte
+		for v := range res {
+			b = append(b,v...)
+			b = append(b,'\n')
+		}*/
+		return res[0]
+		
 	}else if selectMenu(receivedText) == "tandai"{
-		return reqCafe.RtTnCafeInfo(time.Now())
+		var res []string
+		res = reqCafe.RtTnCafeInfo(time.Now())
+
+		/*var b []byte
+		for v := range res {
+			b = append(b,v...)
+			b = append(b,'\n')
+		}*/
+		return res[0]
+		
 	}
+	
 	return receivedText
 }
