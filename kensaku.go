@@ -32,8 +32,13 @@ func main(){
       keyword := s.Text()
         if len(keyword) > 0 {
 
+          d[0].Day = time.Date(2016,5,2,0,0,0,0,time.Local)
+          d[1].Day = d[0].Day.AddDate(0,0,1)
+          d[2].Day = d[0].Day.AddDate(0,0,2)
+          d[3].Day = d[0].Day.AddDate(0,0,3)
+          d[4].Day = d[0].Day.AddDate(0,0,4)
             if i < 5{
-              d[i].Day = time.Now()
+
             d[i].Launch = keyword
 
           }
