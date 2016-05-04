@@ -11,6 +11,15 @@ import (
 type Dataset struct {
 	ID string `json:"id"`
 	Text string `json:"text"`
+	Don string `json:"don"`
+	Spa string `json:"spaghetti"`
+	Fish string `json:"fish"`
+	Salad string `json:"salad"`
+	Dessert string `json:"dessert"`
+	One string `json:"one"`
+	Noodle string `json:"noodle"`
+	Supper string `json:"supper"`
+	
 }
 
 func RtCafeInfo(calltime time.Time)string{
@@ -30,7 +39,16 @@ func RtCafeInfo(calltime time.Time)string{
 			panic(err)
 		}
 		if t.Day() == calltime.Day(){
-			return datasets[k].Text
+			b:= make([]byte, 0, 2048)
+			b = append (b,"日替わり: "+datasets[k].Text+"\n")
+			b = append (b,"スパゲッティ: "+datasets[k].Spa+"\n")
+			b = append (b,"魚: "+datasets[k].Fish+"\n")
+			b = append (b,"サラダ: "+datasets[k].Salad+"\n")
+			b = append (b,"デザート: "+datasets[k].Dessert+"\n")
+			b = append (b,"単品: "+datasets[k].One+"\n")
+			b = append (b,"麺物: "+datasets[k].Noodle+"\n")
+			b = append (b,"夜: "+datasets[k].Supper+"\n")
+			return string(b)
 			fg += 1
 		}
 	}
