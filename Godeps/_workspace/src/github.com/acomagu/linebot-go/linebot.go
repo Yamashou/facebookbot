@@ -45,8 +45,8 @@ type ReceiveContent struct {
 
 // ReceiveContentMetadata メタデータ
 type ReceiveContentMetadata struct {
-	RecvMode int `json:"AT_RECV_MODE"`
-	Emtver   int `json:"EMTVER"`
+	RecvMode string `json:"AT_RECV_MODE"`
+	Emtver   string `json:"EMTVER"`
 }
 
 // JSONTime parse用の時間
