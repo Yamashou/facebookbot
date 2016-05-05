@@ -8,6 +8,10 @@
 			"Rev": "150656919a08576cf701be7d8b43acc23e473a7e"
 		},
 		{
+			"ImportPath": "github.com/Yamashou/MyStudyRoomSearch",
+			"Rev": "fd6ac1be9b59ba0635e466d26983db1d184794a9"
+		},
+		{
 			"ImportPath": "github.com/acomagu/fbmessenger-go",
 			"Rev": "9ceb64bcf09064a3b9372144821ee1bbfc6d49a6"
 		},
