@@ -4,6 +4,7 @@ import (
 	"github.com/kurouw/reqCafe"
 	"github.com/acomagu/fbmessenger-go"
 	"github.com/kurouw/infoSub"
+	"github.com/Yamashou/MyClassSearch"
 	"regexp"
 	"time"
 //	"bytes"
@@ -27,7 +28,7 @@ func handleRecieveMessage(event fbmessenger.Messaging) {
 
 func selectMenu(txt string) string {
 	foods := new(DistributeMenu)
-	foods.Judgment = []string{"kondate","こんだて","献立", "学食","めにゅー", "メニュー","menu"}
+	foods.Judgment = []string{"kondate","こんだて","献立", "学食","めにゅー", "メニュー"}
 	foods.Jf = false
 
 	tandai := new(DistributeMenu)
@@ -45,6 +46,18 @@ func selectMenu(txt string) string {
 
 	stringnames := []string{"foods","tandai","computers","eves"}
 	allEvents := []DistributeMenu{*foods,*tandai,*computers,*eves}
+
+	
+	clbl := false
+	for k := range txt {
+		if string(k) == "s" || string(k) == "m" {
+			clbl = true
+		}
+	}
+	if clbl {
+		return "classes"
+	}
+	
 	
 	for i := range allEvents { 
 		for j := 0; j < len(allEvents[i].Judgment); j++ {
@@ -99,6 +112,19 @@ func getMessageText(receivedText string) string {
 	if selectRes == "Subject!" {
 		return infoSub.ReturnSubInfo(receivedText)
 	}
+
+	if selectRes == "classes" {
+		stdClass := MyClassSearch.RtClass(receivedText)
+
+		b := make([]byte,0,100)
+		for v := 0;v < len(stdClass) ; v ++{
+			b = append(b,stdClass[v]...)
+			b = append(b,'\n')
+		}
+		return string(b)
+		
+	}
+
 	
 	return receivedText
 }

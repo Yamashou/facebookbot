@@ -4,6 +4,10 @@
 	"GodepVersion": "v62",
 	"Deps": [
 		{
+			"ImportPath": "github.com/Yamashou/MyClassSearch",
+			"Rev": "150656919a08576cf701be7d8b43acc23e473a7e"
+		},
+		{
 			"ImportPath": "github.com/acomagu/fbmessenger-go",
 			"Rev": "9ceb64bcf09064a3b9372144821ee1bbfc6d49a6"
 		},
