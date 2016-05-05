@@ -112,7 +112,7 @@ func getMessageText(receivedText string) string {
 
 		b := make([]byte,0,30)
 		for v := 0;v < len(stdClass) ; v++ {
-			b = append(b,string(v)+"現"... )
+			b = append(b,string([]rune(v))+"限: "... )
 			b = append(b,stdClass[v]...)
 			b = append(b,'\n')
 		}
