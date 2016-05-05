@@ -51,6 +51,7 @@ func selectMenu(txt string) string {
 	name := txt
 	name = string([]rune(name)[:1])
 	if name == "s" || name  == "m" {
+		return "classes"
 	}	
 	
 	for i := range allEvents { 
