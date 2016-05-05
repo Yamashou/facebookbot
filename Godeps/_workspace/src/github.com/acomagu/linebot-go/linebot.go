@@ -111,6 +111,7 @@ const apiEndpoint string = "https://trialbot-api.line.me/v1/events"
 
 // Listen webhook action from LINE server. You should pass callback function.
 func Listen(callback func(ReceiveEvent)) {
+	fmt.Println("Starting Listening LINE...")
 	handleReceiveMessage = callback
 	http.HandleFunc("/", webhookHandler)
 	http.HandleFunc("/webhook", webhookHandler)
