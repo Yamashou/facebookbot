@@ -167,6 +167,7 @@ func jsonEncode(event *SendEvent) string {
 }
 // Request APIたたくーよ
 func request(body string) error {
+	fmt.Println(body)
 	client := &http.Client{}
 	//body := io.Reader
 	req, err := http.NewRequest("POST", apiEndpoint, strings.NewReader(body))
