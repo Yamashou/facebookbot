@@ -48,16 +48,10 @@ func selectMenu(txt string) string {
 	allEvents := []DistributeMenu{*foods,*tandai,*computers,*eves}
 
 	
-	clbl := false
-	for k := range txt {
-		if string(k) == "s" || string(k) == "m" {
-			clbl = true
-		}
-	}
-	if clbl {
-		return "classes"
-	}
-	
+	name := txt
+	name = string([]rune(name)[:1])
+	if name == "s" || name  == "m" {
+	}	
 	
 	for i := range allEvents { 
 		for j := 0; j < len(allEvents[i].Judgment); j++ {
@@ -90,7 +84,7 @@ func getMessageText(receivedText string) string {
 
 	
 		b := make([]byte,0,30)
-		for v := 0;v < len(res) ; v ++{
+		for v := 0;v < len(res) ; v++{
 			b = append(b,res[v]...)
 			b = append(b,'\n')
 		}
@@ -101,7 +95,7 @@ func getMessageText(receivedText string) string {
 		res = reqCafe.RtTnCafeInfo(time.Now())
 
 		b := make([]byte,0,30)
-		for v := 0;v < len(res) ; v ++{
+		for v := 0;v < len(res) ; v++{
 			b = append(b,res[v]...)
 			b = append(b,'\n')
 		}
@@ -117,7 +111,7 @@ func getMessageText(receivedText string) string {
 		stdClass := MyClassSearch.RtClass(receivedText)
 
 		b := make([]byte,0,100)
-		for v := 0;v < len(stdClass) ; v ++{
+		for v := 0;v < len(stdClass) ; v++ {
 			b = append(b,stdClass[v]...)
 			b = append(b,'\n')
 		}
