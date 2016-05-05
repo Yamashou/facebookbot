@@ -3,24 +3,12 @@
 	"GoVersion": "go1.5",
 	"GodepVersion": "v63",
 	"Packages": [
-		"./..."
+		"github.com/acomagu/fbmessenger-go"
 	],
 	"Deps": [
 		{
 			"ImportPath": "github.com/acomagu/fbmessenger-go",
 			"Rev": "9ceb64bcf09064a3b9372144821ee1bbfc6d49a6"
-		},
-		{
-			"ImportPath": "github.com/acomagu/linebot-go",
-			"Rev": "d79f5bd46b71f64e5bf7f800eb110ae6064f6278"
-		},
-		{
-			"ImportPath": "github.com/kurouw/infoSub",
-			"Rev": "e52b999daaecefe133248d4d5443849e8d9f9903"
-		},
-		{
-			"ImportPath": "github.com/kurouw/reqCafe",
-			"Rev": "d6bae02803886ecbb83f1c6b8384bac63b45544a"
 		}
 	]
 }
