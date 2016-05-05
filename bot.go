@@ -7,6 +7,7 @@ import (
 	"github.com/acomagu/linebot-go"
 	"regexp"
 	"time"
+	"fmt"
 //	"bytes"
 )
 
@@ -19,6 +20,7 @@ type DistributeMenu struct {
 }
 
 func main() {
+	fmt.Println("starting...")
 	if endPointName == "facebook" {
 		fbmessenger.Listen(handleReceiveFacebookMessage)
 	} else if endPointName == "line" {
