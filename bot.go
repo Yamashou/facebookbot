@@ -112,7 +112,7 @@ func getMessageText(receivedText string) string {
 		stdClass := MyClassSearch.RtClass(receivedText)
 
 		b := make([]byte,0,30)
-		for v := 0;v < len(stdClass) ; v++ {
+		for v := 1;v < len(stdClass) ; v++ {
 			b = append(b,strconv.Itoa(v)+"限: "... )
 			b = append(b,stdClass[v]...)
 			b = append(b,'\n')
