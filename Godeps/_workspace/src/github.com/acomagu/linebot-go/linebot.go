@@ -106,8 +106,6 @@ type Location struct {
 	Longitude float32 `json:"longitude"`
 }
 
-var accessToken = os.Getenv("ACCESS_TOKEN")
-var verifyToken = os.Getenv("VERIFY_TOKEN")
 var handleReceiveMessage func(ReceiveEvent)
 const apiEndpoint string = "https://trialbot-api.line.me/v1/events"
 
@@ -118,7 +116,10 @@ func Listen(callback func(ReceiveEvent)) {
 	http.HandleFunc("/webhook", webhookHandler)
 	port := os.Getenv("PORT")
 	addr := fmt.Sprintf(":%s", port)
-	http.ListenAndServe(addr, nil)
+	err := http.ListenAndServe(addr, nil)
+	if err != nil {
+		fmt.Println(err)
+	}
 }
 
 func webhookHandler(w http.ResponseWriter, r *http.Request) {
@@ -127,7 +128,7 @@ func webhookHandler(w http.ResponseWriter, r *http.Request) {
 		// using go routine to return responce to LINE rapidly
 		go bridgeForCallback(body)
 	} else {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	defer r.Body.Close()
 
@@ -139,7 +140,7 @@ func bridgeForCallback(body []byte) {
 	var notification Notification
 	err := json.Unmarshal(body, &notification)
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
 	}
 	for _, receiveEvent := range notification.Result {
 		handleReceiveMessage(*receiveEvent)
@@ -157,7 +158,7 @@ func SendTextMessage(event *SendEvent) {
 func jsonEncode(event *SendEvent) string {
 	j, err := json.Marshal(event)
 	if err != nil {
-		log.Fatalf("jsonにできませんでした[%v]", err)
+		fmt.Println(err)
 		return ""
 	}
 	return string(j)
@@ -181,7 +182,7 @@ func request(body string) error {
 	if b, err := ioutil.ReadAll(resp.Body); err == nil {
 		log.Print(string(b))
 	} else {
-		log.Fatalf("読み込めなかったけど %v", err)
+		fmt.Println(err)
 	}
 	defer resp.Body.Close()
 	return nil
