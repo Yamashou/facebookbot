@@ -1,11 +1,18 @@
 {
-	"ImportPath": "github.com/facebookbot",
-	"GoVersion": "go1.6",
-	"GodepVersion": "v62",
+	"ImportPath": "github.com/kurouw/facebookbot",
+	"GoVersion": "go1.5",
+	"GodepVersion": "v63",
+	"Packages": [
+		"./..."
+	],
 	"Deps": [
 		{
 			"ImportPath": "github.com/acomagu/fbmessenger-go",
 			"Rev": "9ceb64bcf09064a3b9372144821ee1bbfc6d49a6"
+		},
+		{
+			"ImportPath": "github.com/acomagu/linebot-go",
+			"Rev": "d79f5bd46b71f64e5bf7f800eb110ae6064f6278"
 		},
 		{
 			"ImportPath": "github.com/kurouw/infoSub",
