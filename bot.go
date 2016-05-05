@@ -4,25 +4,41 @@ import (
 	"github.com/kurouw/reqCafe"
 	"github.com/acomagu/fbmessenger-go"
 	"github.com/kurouw/infoSub"
+	"github.com/acomagu/linebot-go"
 	"regexp"
 	"time"
 //	"bytes"
 )
 
+var endPointName = "line"
 
+// DistributeMenu express functions of bot
 type DistributeMenu struct {
 	Judgment []string
 	Jf       bool
 }
 
 func main() {
-	fbmessenger.Listen(handleRecieveMessage)
+	if endPointName == "facebook" {
+		fbmessenger.Listen(handleReceiveFacebookMessage)
+	} else if endPointName == "line" {
+		linebot.Listen(handleReceiveLINEMessage)
+	}
 }
 
-func handleRecieveMessage(event fbmessenger.Messaging) {
+func handleReceiveFacebookMessage(event fbmessenger.Messaging) {
 	recipient := new(fbmessenger.Recipient)
 	recipient.ID = event.Sender.ID
 	fbmessenger.SendTextMessage(*recipient, getMessageText(event.Message.Text))
+}
+
+func handleReceiveLINEMessage(receiveEvent linebot.ReceiveEvent) {
+	sendEvent := new(linebot.SendEvent)
+	sendTextContent := new(linebot.SendTextContent)
+	sendEvent.To = []string{receiveEvent.From}
+	sendTextContent.Text = getMessageText(receiveEvent.Content.Text)
+	sendEvent.Content = sendTextContent
+	linebot.SendTextMessage(sendEvent)
 }
 
 func selectMenu(txt string) string {
@@ -38,14 +54,13 @@ func selectMenu(txt string) string {
 	computers.Judgment = []string{"演習室", "パソコン", "pc"}
 	computers.Jf = false
 
-	
 	eves := new(DistributeMenu)
 	eves.Judgment = []string{"hoge"}
 	eves.Jf = false
 
 	stringnames := []string{"foods","tandai","computers","eves"}
 	allEvents := []DistributeMenu{*foods,*tandai,*computers,*eves}
-	
+
 	for i := range allEvents { 
 		for j := 0; j < len(allEvents[i].Judgment); j++ {
 			r := regexp.MustCompile(allEvents[i].Judgment[j])
@@ -72,7 +87,7 @@ func selectMenu(txt string) string {
 func getMessageText(receivedText string) string {
 	selectRes := selectMenu(receivedText)
 	if selectRes == "foods" {
- 		var res []string
+		var res []string
 		res = reqCafe.RtCafeInfo(time.Now())
 
 	
