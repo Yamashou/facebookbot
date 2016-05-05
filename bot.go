@@ -39,7 +39,7 @@ func handleReceiveFacebookMessage(event fbmessenger.Messaging) {
 
 func handleReceiveLINEMessage(receiveEvent linebot.ReceiveEvent) {
 	sendEvent := &linebot.SendEvent{}
-	sendTextContent := &linebot.SendTextContent{}
+	sendTextContent := &linebot.SendTextContent{SendContent: &linebot.SendContent{}}
 	sendEvent.To = []string{receiveEvent.From}
 	sendEvent.ToChannel = 1383378250
 	sendEvent.EventType = "138311608800106203"
