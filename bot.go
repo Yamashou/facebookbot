@@ -113,7 +113,7 @@ func getMessageText(receivedText string) string {
 
 		b := make([]byte,0,30)
 		for v := 0;v < len(stdClass) ; v++ {
-			b = append(b,strconv.Atoi(v)+"限: "... )
+			b = append(b,strconv.Itoa(v)+"限: "... )
 			b = append(b,stdClass[v]...)
 			b = append(b,'\n')
 		}
