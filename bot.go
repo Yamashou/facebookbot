@@ -5,6 +5,7 @@ import (
 	"github.com/acomagu/fbmessenger-go"
 	"github.com/kurouw/infoSub"
 	"github.com/Yamashou/MyClassSearch"
+	"github.com/Yamashou/MyStudyRoomSearch"
 	"regexp"
 	"time"
 	"strconv"
@@ -44,15 +45,12 @@ func selectMenu(txt string) string {
 	eves.Judgment = []string{"hoge"}
 	eves.Jf = false
 
-	stringnames := []string{"foods","tandai","computers","eves"}
-	allEvents := []DistributeMenu{*foods,*tandai,*computers,*eves}
-
+	rooms := new(DistributeMenu)
+	rooms.Judgment = []string{"std1","std2","std3","std4","std5","std6","hdw1","hdw2","hdw3","hdw4","CALL1","CALL2","iLab1","iLab2"}
+	rooms.Jf = false
 	
-	name := txt
-	name = string([]rune(name)[:1])
-	if name == "s" || name  == "m" {
-		return "classes"
-	}	
+	stringnames := []string{"foods","tandai","computers","eves","rooms"}
+	allEvents := []DistributeMenu{*foods,*tandai,*computers,*eves,*rooms}
 	
 	for i := range allEvents { 
 		for j := 0; j < len(allEvents[i].Judgment); j++ {
@@ -70,9 +68,17 @@ func selectMenu(txt string) string {
 			return stringnames[i]
 		}
 	}
-
 	if !flag {
-		return "Subject!"
+		cflag := false
+		name := txt
+		name = string([]rune(name)[:1])
+		if name == "s" || name  == "m"{
+			cflag = true
+			return "classes"
+		}
+		if !cflag{
+			return "Subject!"
+		}
 	}
 	return "notthing"
 }
@@ -102,6 +108,15 @@ func getMessageText(receivedText string) string {
 		}
 		return string(b)
 		
+	}else if selectRes == "rooms"{
+		room := MyStudyRoomSearch.RtRoom(receivedText)
+		b := make([]byte,0,30)
+		for v := 0;v < len(room) ; v++{
+			b = append(b,strconv.Itoa(v+1)+"限: "... )
+			b = append(b,room[v]...)
+			b = append(b,'\n')
+		}
+		return string(b)
 	}
 
 	if selectRes == "Subject!" {
