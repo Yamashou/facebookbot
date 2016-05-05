@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/facebookbot/reqCafe"
-	"github.com/facebookbot/fbmessenger"
-	"github.com/facebookbot/infoSub"
+	"github.com/kurouw/reqCafe"
+	"github.com/acomagu/fbmessenger-go"
+	"github.com/kurouw/infoSub"
 	"regexp"
 	"time"
 //	"bytes"
