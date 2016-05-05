@@ -41,6 +41,8 @@ func handleReceiveLINEMessage(receiveEvent linebot.ReceiveEvent) {
 	sendEvent := new(linebot.SendEvent)
 	sendTextContent := new(linebot.SendTextContent)
 	sendEvent.To = []string{receiveEvent.From}
+	sendEvent.ToChannel = 1383378250
+	sendEvent.EventType = "138311608800106203"
 	sendTextContent.Text = getMessageText(receiveEvent.Content.Text)
 	sendEvent.Content = sendTextContent
 	linebot.SendTextMessage(sendEvent)
