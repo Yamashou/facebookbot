@@ -7,7 +7,6 @@ import (
 	"github.com/Yamashou/MyClassSearch"
 	"regexp"
 	"time"
-//	"bytes"
 )
 
 
@@ -111,8 +110,9 @@ func getMessageText(receivedText string) string {
 	if selectRes == "classes" {
 		stdClass := MyClassSearch.RtClass(receivedText)
 
-		b := make([]byte,0,100)
+		b := make([]byte,0,30)
 		for v := 0;v < len(stdClass) ; v++ {
+			b = append(b,string(v)+"現"... )
 			b = append(b,stdClass[v]...)
 			b = append(b,'\n')
 		}
