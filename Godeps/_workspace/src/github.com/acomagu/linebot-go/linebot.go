@@ -139,6 +139,7 @@ func webhookHandler(w http.ResponseWriter, r *http.Request) {
 
 func bridgeForCallback(body []byte) {
 	var notification Notification
+	fmt.Println(body)
 	err := json.Unmarshal(body, &notification)
 	if err != nil {
 		fmt.Println(err)
