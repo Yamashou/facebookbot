@@ -2,13 +2,34 @@
 	"ImportPath": "github.com/m2mtu/facebookbot",
 	"GoVersion": "go1.5",
 	"GodepVersion": "v63",
-	"Packages": [
-		"github.com/Yamashou/RandomWord"
-	],
 	"Deps": [
+		{
+			"ImportPath": "github.com/Yamashou/MyClassSearch",
+			"Rev": "c5a834d5da678adbea36d9425decdc6709cf8271"
+		},
+		{
+			"ImportPath": "github.com/Yamashou/MyStudyRoomSearch",
+			"Rev": "fd6ac1be9b59ba0635e466d26983db1d184794a9"
+		},
 		{
 			"ImportPath": "github.com/Yamashou/RandomWord",
 			"Rev": "0771b30059b8a17e5d57c92d5218c6cf27ba3644"
+		},
+		{
+			"ImportPath": "github.com/acomagu/fbmessenger-go",
+			"Rev": "bc1ff930808217a426501f82f66b8dad7e2af4f1"
+		},
+		{
+			"ImportPath": "github.com/acomagu/linebot-go",
+			"Rev": "e462ef7142a91b8ded971cb288ad830560118b97"
+		},
+		{
+			"ImportPath": "github.com/kurouw/infoSub",
+			"Rev": "5642934b1d3a77c30ccda0cf24036bee3950038d"
+		},
+		{
+			"ImportPath": "github.com/kurouw/reqCafe",
+			"Rev": "d6bae02803886ecbb83f1c6b8384bac63b45544a"
 		}
 	]
 }
