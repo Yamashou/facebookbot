@@ -43,5 +43,6 @@ func RandomWord(InWord string) string {
 		k++
 	}
 
-	return datasets[k].Word
+	r := rand.Intn(k)
+	return datasets[r].Word
 }
