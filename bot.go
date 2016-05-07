@@ -12,7 +12,7 @@ import (
 //	"bytes"
 )
 
-var endPointName = "line"
+var endPointName = os.Getenv("ENDPOINT_NAME")
 
 // DistributeMenu express functions of bot
 type DistributeMenu struct {
