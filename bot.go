@@ -109,10 +109,12 @@ func selectMenu(txt string) string {
 }
 
 func getMessageText(receivedText string) string {
+	dir ,_ := os.Getwd()
+	jsondir := dir + "/json/"
 	selectRes := selectMenu(receivedText)
 	if selectRes == "foods" {
 		var res []string
-		res = reqCafe.RtCafeInfo(time.Now())
+		res = reqCafe.RtCafeInfo(time.Now(),jsondir)
 
 		b := make([]byte, 0, 30)
 		for v := 0; v < len(res); v++ {
