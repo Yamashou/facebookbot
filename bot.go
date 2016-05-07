@@ -160,5 +160,5 @@ func getMessageText(receivedText string) string {
 		return string(b)
 
 	}
-	return randomword.RandomWord(receivedText)
+	return RandomWord.ReturnWord(receivedText)
 }
