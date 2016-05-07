@@ -1,18 +1,18 @@
 package main
 
 import (
-	"github.com/kurouw/reqCafe"
-	"github.com/acomagu/fbmessenger-go"
-	"github.com/kurouw/infoSub"
-	"github.com/acomagu/linebot-go"
-	"regexp"
-	"time"
 	"fmt"
 	"os"
-//	"bytes"
+	"regexp"
+	"strconv"
+	"time"
+
 	"github.com/Yamashou/MyClassSearch"
 	"github.com/Yamashou/MyStudyRoomSearch"
-	"strconv"
+	"github.com/acomagu/fbmessenger-go"
+	"github.com/acomagu/linebot-go"
+	"github.com/kurouw/infoSub"
+	"github.com/kurouw/reqCafe"
 )
 
 var endPointName = os.Getenv("ENDPOINT_NAME")
@@ -55,13 +55,13 @@ func handleReceiveLINEMessage(receiveEvent linebot.ReceiveEvent) {
 
 func selectMenu(txt string) string {
 	foods := new(DistributeMenu)
-	foods.Judgment = []string{"kondate","こんだて","献立", "学食","めにゅー", "メニュー"}
+	foods.Judgment = []string{"kondate", "こんだて", "献立", "学食", "めにゅー", "メニュー"}
 	foods.Jf = false
 
 	tandai := new(DistributeMenu)
-	tandai.Judgment = []string{"tandai","短大","たんだい"}
+	tandai.Judgment = []string{"tandai", "短大", "たんだい"}
 	tandai.Jf = false
-	
+
 	computers := new(DistributeMenu)
 	computers.Judgment = []string{"演習室", "パソコン", "pc"}
 	computers.Jf = false
@@ -71,13 +71,13 @@ func selectMenu(txt string) string {
 	eves.Jf = false
 
 	rooms := new(DistributeMenu)
-	rooms.Judgment = []string{"std1","std2","std3","std4","std5","std6","hdw1","hdw2","hdw3","hdw4","CALL1","CALL2","iLab1","iLab2"}
+	rooms.Judgment = []string{"std1", "std2", "std3", "std4", "std5", "std6", "hdw1", "hdw2", "hdw3", "hdw4", "CALL1", "CALL2", "iLab1", "iLab2"}
 	rooms.Jf = false
 
-	stringnames := []string{"foods","tandai","computers","eves","rooms"}
-	allEvents := []DistributeMenu{*foods,*tandai,*computers,*eves,*rooms}
+	stringnames := []string{"foods", "tandai", "computers", "eves", "rooms"}
+	allEvents := []DistributeMenu{*foods, *tandai, *computers, *eves, *rooms}
 
-	for i := range allEvents { 
+	for i := range allEvents {
 		for j := 0; j < len(allEvents[i].Judgment); j++ {
 			r := regexp.MustCompile(allEvents[i].Judgment[j])
 			if r.MatchString(txt) {
@@ -97,11 +97,11 @@ func selectMenu(txt string) string {
 		cflag := false
 		name := txt
 		name = string([]rune(name)[:1])
-		if name == "s" || name  == "m"{
+		if name == "s" || name == "m" {
 			cflag = true
 			return "classes"
 		}
-		if !cflag{
+		if !cflag {
 			return "Subject!"
 		}
 	}
@@ -114,32 +114,31 @@ func getMessageText(receivedText string) string {
 		var res []string
 		res = reqCafe.RtCafeInfo(time.Now())
 
-	
-		b := make([]byte,0,30)
-		for v := 0;v < len(res) ; v++{
-			b = append(b,res[v]...)
-			b = append(b,'\n')
+		b := make([]byte, 0, 30)
+		for v := 0; v < len(res); v++ {
+			b = append(b, res[v]...)
+			b = append(b, '\n')
 		}
 		return string(b)
-		
-	}else if selectRes == "tandai"{
+
+	} else if selectRes == "tandai" {
 		var res []string
 		res = reqCafe.RtTnCafeInfo(time.Now())
 
-		b := make([]byte,0,30)
-		for v := 0;v < len(res) ; v++{
-			b = append(b,res[v]...)
-			b = append(b,'\n')
+		b := make([]byte, 0, 30)
+		for v := 0; v < len(res); v++ {
+			b = append(b, res[v]...)
+			b = append(b, '\n')
 		}
 		return string(b)
-		
-	}else if selectRes == "rooms"{
+
+	} else if selectRes == "rooms" {
 		room := MyStudyRoomSearch.RtRoom(receivedText)
-		b := make([]byte,0,30)
-		for v := 0;v < len(room) ; v++{
-			b = append(b,strconv.Itoa(v+1)+"限: "... )
-			b = append(b,room[v]...)
-			b = append(b,'\n')
+		b := make([]byte, 0, 30)
+		for v := 0; v < len(room); v++ {
+			b = append(b, strconv.Itoa(v+1)+"限: "...)
+			b = append(b, room[v]...)
+			b = append(b, '\n')
 		}
 		return string(b)
 	}
@@ -151,16 +150,15 @@ func getMessageText(receivedText string) string {
 	if selectRes == "classes" {
 		stdClass := MyClassSearch.RtClass(receivedText)
 
-		b := make([]byte,0,30)
-		for v := 0;v < len(stdClass) ; v++ {
-			b = append(b,strconv.Itoa(v+1)+"限: "... )
-			b = append(b,stdClass[v]...)
-			b = append(b,'\n')
+		b := make([]byte, 0, 30)
+		for v := 0; v < len(stdClass); v++ {
+			b = append(b, strconv.Itoa(v+1)+"限: "...)
+			b = append(b, stdClass[v]...)
+			b = append(b, '\n')
 		}
 		return string(b)
-		
+
 	}
 
-	
 	return receivedText
 }
