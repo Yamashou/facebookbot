@@ -18,7 +18,7 @@ func RandomWord(InWord string) string {
 	var T [1000]Word
 	fmt.Println("set")
 	rand.Seed(time.Now().UnixNano())
-	file, err := ioutil.ReadFile("./RWord.json")
+	file, err := ioutil.ReadFile("./json/RWord.json")
 	var datasets []Word
 	jsonerr := json.Unmarshal(file, &datasets)
 	if err != nil {
