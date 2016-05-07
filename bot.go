@@ -5,7 +5,7 @@ import (
 	"os"
 	"regexp"
 	"strconv"
-	"time"
+//	"time"
 	"github.com/Yamashou/MyClassSearch"
 	"github.com/Yamashou/MyStudyRoomSearch"
 	"github.com/acomagu/fbmessenger-go"
