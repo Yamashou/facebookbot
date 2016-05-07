@@ -125,7 +125,7 @@ func getMessageText(receivedText string) string {
 
 	} else if selectRes == "tandai" {
 		var res []string
-		res = reqCafe.RtTnCafeInfo(time.Now())
+		res = reqCafe.RtTnCafeInfo(time.Now(),jsondir)
 
 		b := make([]byte, 0, 30)
 		for v := 0; v < len(res); v++ {
