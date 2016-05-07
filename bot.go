@@ -111,6 +111,7 @@ func selectMenu(txt string) string {
 
 func getMessageText(receivedText string) string {
 	selectRes := selectMenu(receivedText)
+	fmt.Println("selected: " + selectRes)
 	if selectRes == "foods" {
 		var res []string
 		res = reqCafe.RtCafeInfo(time.Now())
