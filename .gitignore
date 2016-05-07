@@ -28,5 +28,3 @@ _testmain.go
 *.prof
 
 functions
-
-environment.sh
