@@ -1,4 +1,4 @@
-llpackage main
+package main
 
 import (
 	//
