@@ -28,13 +28,13 @@ func main() {
 	os.Setenv("HTTPS_PROXY", os.Getenv("FIXIE_URL"))
 	fmt.Println("starting...")
 	if endPointName == "facebook" {
-		fbmessenger.Listen(handleReceiveFacebookMessage)
+		fbmessenger.Listen(handleReceiveMessage)
 	} else if endPointName == "line" {
 		linebot.Listen(handleReceiveLINEMessage)
 	}
 }
 
-func handleReceiveFacebookMessage(event fbmessenger.Messaging) {
+func handleReceiveMessage(event fbmessenger.Messaging) {
 	recipient := new(fbmessenger.Recipient)
 	recipient.ID = event.Sender.ID
 	fbmessenger.SendTextMessage(*recipient, getMessageText(event.Message.Text))
