@@ -114,7 +114,7 @@ func getMessageText(receivedText string) string {
 	selectRes := selectMenu(receivedText)
 	if selectRes == "foods" {
 		var res []string
-		res = reqCafe.RtCafeInfo(time.Now(),jsondir)
+		res = reqCafe.RtCafeInfo(jsondir)
 
 		b := make([]byte, 0, 30)
 		for v := 0; v < len(res); v++ {
@@ -125,7 +125,7 @@ func getMessageText(receivedText string) string {
 
 	} else if selectRes == "tandai" {
 		var res []string
-		res = reqCafe.RtTnCafeInfo(time.Now(),jsondir)
+		res = reqCafe.RtTnCafeInfo(jsondir)
 
 		b := make([]byte, 0, 30)
 		for v := 0; v < len(res); v++ {
