@@ -5,7 +5,7 @@ import (
 	"os"
 	"regexp"
 	"strconv"
-//	"time"
+	"time"
 	"github.com/Yamashou/MyClassSearch"
 	"github.com/Yamashou/MyStudyRoomSearch"
 	"github.com/acomagu/fbmessenger-go"
@@ -109,12 +109,12 @@ func selectMenu(txt string) string {
 }
 
 func getMessageText(receivedText string) string {
-	dir, _ := os.Getwd()
-	jsondir := dir + "/json/"
+//	dir, _ := os.Getwd()
+//	jsondir := dir + "/json/"
 	selectRes := selectMenu(receivedText)
 	if selectRes == "foods" {
 		var res []string
-		res = reqCafe.RtCafeInfo(jsondir)
+		res = reqCafe.RtCafeInfo(time.Now())
 
 		b := make([]byte, 0, 30)
 		for v := 0; v < len(res); v++ {
@@ -125,7 +125,7 @@ func getMessageText(receivedText string) string {
 
 	} else if selectRes == "tandai" {
 		var res []string
-		res = reqCafe.RtTnCafeInfo(jsondir)
+		res = reqCafe.RtTnCafeInfo(time.Now())
 
 		b := make([]byte, 0, 30)
 		for v := 0; v < len(res); v++ {
