@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"math/rand"
+	"os"
 	"time"
 )
 
@@ -15,10 +16,11 @@ type Word struct {
 
 // RandomWord return word the user sent in past
 func RandomWord(InWord string) string {
+	dbJSONPath := "./json/RWord.json"
 	var T [1000]Word
 	fmt.Println("set")
 	rand.Seed(time.Now().UnixNano())
-	file, err := ioutil.ReadFile("./json/RWord.json")
+	file, err := ioutil.ReadFile(dbJSONPath)
 	var datasets []Word
 	jsonerr := json.Unmarshal(file, &datasets)
 	if err != nil {
@@ -41,6 +43,14 @@ func RandomWord(InWord string) string {
 			break
 		}
 		k++
+	}
+	if fg != 1 {
+		T[k].Word = InWord
+		bytes, err := json.Marshal(T)
+		if err != nil {
+			fmt.Println(err)
+		}
+		ioutil.WriteFile(dbJSONPath, bytes, os.ModePerm)
 	}
 
 	r := rand.Intn(k)
