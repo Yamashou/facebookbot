@@ -13,6 +13,7 @@ import (
 	"github.com/acomagu/linebot-go"
 	"github.com/kurouw/infoSub"
 	"github.com/kurouw/reqCafe"
+	"github.com/Yamashou/RandomWord"
 )
 
 var endPointName = os.Getenv("ENDPOINT_NAME")
@@ -159,6 +160,5 @@ func getMessageText(receivedText string) string {
 		return string(b)
 
 	}
-
-	return receivedText
+	return randomword.RandomWord(receivedText)
 }
