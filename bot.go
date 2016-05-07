@@ -4,12 +4,20 @@ import (
 	"github.com/kurouw/reqCafe"
 	"github.com/acomagu/fbmessenger-go"
 	"github.com/kurouw/infoSub"
+<<<<<<< HEAD
 	"github.com/acomagu/linebot-go"
 	"regexp"
 	"time"
 	"fmt"
 	"os"
 //	"bytes"
+=======
+	"github.com/Yamashou/MyClassSearch"
+	"github.com/Yamashou/MyStudyRoomSearch"
+	"regexp"
+	"time"
+	"strconv"
+>>>>>>> 92c141dc6f02ce1f89fb628b1ac27ce848d9c9fa
 )
 
 var endPointName = os.Getenv("ENDPOINT_NAME")
@@ -52,7 +60,7 @@ func handleReceiveLINEMessage(receiveEvent linebot.ReceiveEvent) {
 
 func selectMenu(txt string) string {
 	foods := new(DistributeMenu)
-	foods.Judgment = []string{"kondate","こんだて","献立", "学食","めにゅー", "メニュー","menu"}
+	foods.Judgment = []string{"kondate","こんだて","献立", "学食","めにゅー", "メニュー"}
 	foods.Jf = false
 
 	tandai := new(DistributeMenu)
@@ -67,8 +75,12 @@ func selectMenu(txt string) string {
 	eves.Judgment = []string{"hoge"}
 	eves.Jf = false
 
-	stringnames := []string{"foods","tandai","computers","eves"}
-	allEvents := []DistributeMenu{*foods,*tandai,*computers,*eves}
+	rooms := new(DistributeMenu)
+	rooms.Judgment = []string{"std1","std2","std3","std4","std5","std6","hdw1","hdw2","hdw3","hdw4","CALL1","CALL2","iLab1","iLab2"}
+	rooms.Jf = false
+
+	stringnames := []string{"foods","tandai","computers","eves","rooms"}
+	allEvents := []DistributeMenu{*foods,*tandai,*computers,*eves,*rooms}
 
 	for i := range allEvents { 
 		for j := 0; j < len(allEvents[i].Judgment); j++ {
@@ -86,9 +98,17 @@ func selectMenu(txt string) string {
 			return stringnames[i]
 		}
 	}
-
 	if !flag {
-		return "Subject!"
+		cflag := false
+		name := txt
+		name = string([]rune(name)[:1])
+		if name == "s" || name  == "m"{
+			cflag = true
+			return "classes"
+		}
+		if !cflag{
+			return "Subject!"
+		}
 	}
 	return "notthing"
 }
@@ -101,7 +121,7 @@ func getMessageText(receivedText string) string {
 
 	
 		b := make([]byte,0,30)
-		for v := 0;v < len(res) ; v ++{
+		for v := 0;v < len(res) ; v++{
 			b = append(b,res[v]...)
 			b = append(b,'\n')
 		}
@@ -112,17 +132,40 @@ func getMessageText(receivedText string) string {
 		res = reqCafe.RtTnCafeInfo(time.Now())
 
 		b := make([]byte,0,30)
-		for v := 0;v < len(res) ; v ++{
+		for v := 0;v < len(res) ; v++{
 			b = append(b,res[v]...)
+			b = append(b,'\n')
+		}
+		return string(b)
+		
+	}else if selectRes == "rooms"{
+		room := MyStudyRoomSearch.RtRoom(receivedText)
+		b := make([]byte,0,30)
+		for v := 0;v < len(room) ; v++{
+			b = append(b,strconv.Itoa(v+1)+"限: "... )
+			b = append(b,room[v]...)
+			b = append(b,'\n')
+		}
+		return string(b)
+	}
+
+	if selectRes == "Subject!" {
+		return infoSub.ReturnSubInfo(receivedText)
+	}
+
+	if selectRes == "classes" {
+		stdClass := MyClassSearch.RtClass(receivedText)
+
+		b := make([]byte,0,30)
+		for v := 0;v < len(stdClass) ; v++ {
+			b = append(b,strconv.Itoa(v+1)+"限: "... )
+			b = append(b,stdClass[v]...)
 			b = append(b,'\n')
 		}
 		return string(b)
 		
 	}
 
-	if selectRes == "Subject!" {
-		return infoSub.ReturnSubInfo(receivedText)
-	}
 	
 	return receivedText
 }

@@ -7,6 +7,14 @@
 	],
 	"Deps": [
 		{
+			"ImportPath": "github.com/Yamashou/MyClassSearch",
+			"Rev": "150656919a08576cf701be7d8b43acc23e473a7e"
+		},
+		{
+			"ImportPath": "github.com/Yamashou/MyStudyRoomSearch",
+			"Rev": "fd6ac1be9b59ba0635e466d26983db1d184794a9"
+		},
+		{
 			"ImportPath": "github.com/acomagu/fbmessenger-go",
 			"Rev": "bc1ff930808217a426501f82f66b8dad7e2af4f1"
 		},
