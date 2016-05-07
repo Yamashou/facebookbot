@@ -16,6 +16,7 @@ type Word struct {
 
 // RandomWord return word the user sent in past
 func RandomWord(InWord string) string {
+	fmt.Println("In RandomWord...")
 	dbJSONPath := "./json/RWord.json"
 	var T [1000]Word
 	fmt.Println("set")
