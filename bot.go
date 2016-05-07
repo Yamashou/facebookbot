@@ -6,7 +6,6 @@ import (
 	"regexp"
 	"strconv"
 	"time"
-
 	"github.com/Yamashou/MyClassSearch"
 	"github.com/Yamashou/MyStudyRoomSearch"
 	"github.com/acomagu/fbmessenger-go"
