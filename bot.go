@@ -4,20 +4,15 @@ import (
 	"github.com/kurouw/reqCafe"
 	"github.com/acomagu/fbmessenger-go"
 	"github.com/kurouw/infoSub"
-<<<<<<< HEAD
 	"github.com/acomagu/linebot-go"
 	"regexp"
 	"time"
 	"fmt"
 	"os"
 //	"bytes"
-=======
 	"github.com/Yamashou/MyClassSearch"
 	"github.com/Yamashou/MyStudyRoomSearch"
-	"regexp"
-	"time"
 	"strconv"
->>>>>>> 92c141dc6f02ce1f89fb628b1ac27ce848d9c9fa
 )
 
 var endPointName = os.Getenv("ENDPOINT_NAME")
