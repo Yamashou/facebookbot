@@ -34,13 +34,14 @@ func main() {
 	}
 }
 
-func handleReceiveMessage(event fbmessenger.Messaging) {
-	recipient := new(fbmessenger.Recipient)
-	recipient.ID = event.Sender.ID
-	fbmessenger.SendTextMessage(*recipient, getMessageText(event.Message.Text))
+func handleReceiveMessage(receivedEvent fbmessenger.Event) {
+	sentEvent := fbmessenger.Event{}
+	sentEvent.Sender = (fbmessenger.Sender)(receivedEvent.Recepient)
+	sentEvent.Recepient = (fbmessenger.Recepient)(receivedEvent.Sender)
+	fbmessenger.Send(sentEvent)
 }
 
-func handleReceiveLINEMessage(receiveEvent linebot.ReceiveEvent) {
+func handleReceiveLINEMessage(receivedEvent linebot.Event) {
 	sendEvent := &linebot.SendEvent{}
 	sendTextContent := &linebot.SendTextContent{SendContent: &linebot.SendContent{}}
 	sendEvent.To = []string{receiveEvent.Content.SenderID}
