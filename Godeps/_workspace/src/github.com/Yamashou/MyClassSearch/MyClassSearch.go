@@ -6,10 +6,9 @@ import (
 	"io/ioutil"
 	"time"
 )
-
-type namegetter struct {
-	Code string `json:"code"`
-	Name string `json:"name"`
+type namegetter struct{
+	Code	string `json:"code"`
+	Name	string	`json:"name"`
 }
 
 type person struct {
@@ -22,7 +21,6 @@ type person struct {
 	ather string    `json:"ather"`
 }
 
-// RtClass ... TODO: write
 func RtClass(menber string) [6]string {
 	Mon := time.Date(2016, 5, 9, 0, 0, 0, 0, time.Local)
 	Tus := time.Date(2016, 5, 10, 0, 0, 0, 0, time.Local)
@@ -30,11 +28,11 @@ func RtClass(menber string) [6]string {
 	Thu := time.Date(2016, 5, 12, 0, 0, 0, 0, time.Local)
 	Fre := time.Date(2016, 5, 13, 0, 0, 0, 0, time.Local)
 
-	file, err := ioutil.ReadFile("./jyu.json")
+	file, err := ioutil.ReadFile("./json/jyu.json")
 	var datasets []person
-	jsonerr := json.Unmarshal(file, &datasets)
+	json_err := json.Unmarshal(file, &datasets)
 	if err != nil {
-		fmt.Println("Format Error: ", jsonerr)
+		fmt.Println("Format Error: ", json_err)
 	}
 	var T [6]string
 
@@ -62,29 +60,29 @@ func RtClass(menber string) [6]string {
 		}
 	}
 	T = chName(T)
-	for f := range T {
-		if T[f] == "" {
+	for f := range T{
+		if T[f] == ""{
 			T[f] = "[あき]"
 		}
 	}
-	return T
+return T
 }
 func chName(code [6]string) [6]string {
-	file, err := ioutil.ReadFile("./subjects2.json")
+	file, err := ioutil.ReadFile("./json/subjects2.json")
 	var datasets []namegetter
-	jsonerr := json.Unmarshal(file, &datasets)
-	if err != nil {
-		fmt.Println("Format Error: ", jsonerr)
+	json_err := json.Unmarshal(file, &datasets)
+			if err != nil {
+		fmt.Println("Format Error: ", json_err)
 	}
 
-	for l := range datasets {
-		for i := 0; i < 6; i++ {
-			if code[i] == datasets[l].Code {
+	for l:=range datasets{
+		for i:=0 ; i < 6 ;i++{
+			if code[i] == datasets[l].Code{
 				code[i] = datasets[l].Name
 			}
 		}
 		// fmt.Println(datasets[l].name)
 	}
 	fmt.Println(code)
-	return code
+return code
 }
