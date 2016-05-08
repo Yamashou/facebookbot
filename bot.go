@@ -5,8 +5,7 @@ import (
 	"os"
 	"regexp"
 	"strconv"
-	"time"
-
+//	"time"
 	"github.com/Yamashou/MyClassSearch"
 	"github.com/Yamashou/MyStudyRoomSearch"
 	"github.com/acomagu/fbmessenger-go"
@@ -29,13 +28,13 @@ func main() {
 	os.Setenv("HTTPS_PROXY", os.Getenv("FIXIE_URL"))
 	fmt.Println("starting...")
 	if endPointName == "facebook" {
-		fbmessenger.Listen(handleReceiveFacebookMessage)
+		fbmessenger.Listen(handleReceiveMessage)
 	} else if endPointName == "line" {
 		linebot.Listen(handleReceiveLINEMessage)
 	}
 }
 
-func handleReceiveFacebookMessage(event fbmessenger.Messaging) {
+func handleReceiveMessage(event fbmessenger.Messaging) {
 	recipient := new(fbmessenger.Recipient)
 	recipient.ID = event.Sender.ID
 	fbmessenger.SendTextMessage(*recipient, getMessageText(event.Message.Text))
@@ -110,11 +109,13 @@ func selectMenu(txt string) string {
 }
 
 func getMessageText(receivedText string) string {
+	dir, _ := os.Getwd()
+	jsondir := dir + "/json/"
 	selectRes := selectMenu(receivedText)
 	fmt.Println("selected: " + selectRes)
 	if selectRes == "foods" {
 		var res []string
-		res = reqCafe.RtCafeInfo(time.Now())
+		res = reqCafe.RtCafeInfo(jsondir)
 
 		b := make([]byte, 0, 30)
 		for v := 0; v < len(res); v++ {
@@ -125,7 +126,7 @@ func getMessageText(receivedText string) string {
 
 	} else if selectRes == "tandai" {
 		var res []string
-		res = reqCafe.RtTnCafeInfo(time.Now())
+		res = reqCafe.RtTnCafeInfo(jsondir)
 
 		b := make([]byte, 0, 30)
 		for v := 0; v < len(res); v++ {
@@ -161,5 +162,5 @@ func getMessageText(receivedText string) string {
 		return string(b)
 
 	}
-	return randomword.RandomWord(receivedText)
+	return RandomWord.ReturnWord(receivedText)
 }

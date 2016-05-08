@@ -1,10 +1,7 @@
 {
-	"ImportPath": "github.com/m2mtu/facebookbot",
-	"GoVersion": "go1.5",
-	"GodepVersion": "v63",
-	"Packages": [
-		"./..."
-	],
+	"ImportPath": "github.com/facebookbot",
+	"GoVersion": "go1.6",
+	"GodepVersion": "v62",
 	"Deps": [
 		{
 			"ImportPath": "github.com/Yamashou/MyClassSearch",
@@ -16,7 +13,11 @@
 		},
 		{
 			"ImportPath": "github.com/Yamashou/RandomWord",
+<<<<<<< HEAD
 			"Rev": "fc0b96b054771acfe4a716a362794d7ace8df18b"
+=======
+			"Rev": "0503afb138554777a4043806cf8721ed2d07b3c8"
+>>>>>>> 6d8b9a3e472003cd4ff9cf8f56dc56a22704033b
 		},
 		{
 			"ImportPath": "github.com/acomagu/fbmessenger-go",
