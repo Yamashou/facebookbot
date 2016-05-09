@@ -28,7 +28,7 @@ func RtClass(menber string) [6]string {
 	Thu := time.Date(2016, 5, 12, 0, 0, 0, 0, time.Local)
 	Fre := time.Date(2016, 5, 13, 0, 0, 0, 0, time.Local)
 
-	file, err := ioutil.ReadFile("./json/jyu.json")
+	file, err := ioutil.ReadFile("./json/subjects2.json")
 	var datasets []person
 	json_err := json.Unmarshal(file, &datasets)
 	if err != nil {
@@ -68,7 +68,7 @@ func RtClass(menber string) [6]string {
 return T
 }
 func chName(code [6]string) [6]string {
-	file, err := ioutil.ReadFile("./json/subjects2.json")
+	file, err := ioutil.ReadFile("./json/subjects.json")
 	var datasets []namegetter
 	json_err := json.Unmarshal(file, &datasets)
 			if err != nil {
