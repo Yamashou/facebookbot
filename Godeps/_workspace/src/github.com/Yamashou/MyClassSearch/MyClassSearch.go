@@ -72,7 +72,7 @@ func chName(code [6]string,file []byte) [6]string {
 	var datasets []namegetter
 	json_err := json.Unmarshal(file, &datasets)
 //			if err != nil {
-//		fmt.Println("Format Error: ", json_err)
+		log.Print("Format Error: ", json_err)
 //	}
 
 	for l:=range datasets{
