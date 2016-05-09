@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"time"
+	"log"
 )
 type namegetter struct{
 	Code	string `json:"code"`
