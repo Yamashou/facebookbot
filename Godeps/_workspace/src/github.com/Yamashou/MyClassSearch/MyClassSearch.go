@@ -21,7 +21,7 @@ type person struct {
 	ather string    `json:"ather"`
 }
 
-func RtClass(menber string) [6]string {
+func RtClass(menber string,f []byte) [6]string {
 	Mon := time.Date(2016, 5, 9, 0, 0, 0, 0, time.Local)
 	Tus := time.Date(2016, 5, 10, 0, 0, 0, 0, time.Local)
 	Wen := time.Date(2016, 5, 11, 0, 0, 0, 0, time.Local)
@@ -59,7 +59,7 @@ func RtClass(menber string) [6]string {
 			}
 		}
 	}
-	T = chName(T)
+	T = chName(T,f)
 	for f := range T{
 		if T[f] == ""{
 			T[f] = "[あき]"
@@ -67,13 +67,13 @@ func RtClass(menber string) [6]string {
 	}
 return T
 }
-func chName(code [6]string) [6]string {
-	file, err := ioutil.ReadFile("./json/subjects.json")
+func chName(code [6]string,file []byte) [6]string {
+//	file, err := ioutil.ReadFile("./json/subjects.json")
 	var datasets []namegetter
 	json_err := json.Unmarshal(file, &datasets)
-			if err != nil {
-		fmt.Println("Format Error: ", json_err)
-	}
+//			if err != nil {
+//		fmt.Println("Format Error: ", json_err)
+//	}
 
 	for l:=range datasets{
 		for i:=0 ; i < 6 ;i++{

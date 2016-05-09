@@ -110,8 +110,7 @@ func selectMenu(txt string) string {
 }
 
 func getMessageText(receivedText string) string {
-	//dir, _ := os.Getwd()
-	//jsondir := dir + "/json/"
+
 	selectRes := selectMenu(receivedText)
 	fmt.Println("selected: " + selectRes)
 	if selectRes == "foods" {
@@ -152,7 +151,11 @@ func getMessageText(receivedText string) string {
 	}
 
 	if selectRes == "classes" {
-		stdClass := MyClassSearch.RtClass(receivedText)
+		file, err := ioutil.ReadFile("./json/subjects.json")
+		if err != nil {
+			fmt.Println("Format Error: ", json_err)
+		}
+		stdClass := MyClassSearch.RtClass(receivedText,file)
 
 		b := make([]byte, 0, 30)
 		for v := 0; v < len(stdClass); v++ {
