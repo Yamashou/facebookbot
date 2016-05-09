@@ -68,7 +68,7 @@ func RtClass(menber string) [6]string {
 return T
 }
 func chName(code [6]string) [6]string {
-	file, err := ioutil.ReadFile("./json/subjects.json")
+	file, err := ioutil.ReadFile("./subjects.json")
 	var datasets []namegetter
 	json_err := json.Unmarshal(file, &datasets)
 			if err != nil {
