@@ -108,7 +108,10 @@ func selectMenu(txt string) string {
 }
 
 func getMessageText(receivedText string) string {
-	fmt.Println("----------------------------------1")
+
+
+	var sub string
+	
 	selectRes := selectMenu(receivedText)
 	if selectRes == "foods" {
 		var res []string
@@ -144,7 +147,7 @@ func getMessageText(receivedText string) string {
 	}
 
 	if selectRes == "Subject!" {
-		ressub :=  infoSub.ReturnSubInfo(receivedText)
+		sub = infoSub.ReturnSubInfo(receivedText)
 	}
 
 	if selectRes == "classes" {
@@ -160,8 +163,8 @@ func getMessageText(receivedText string) string {
 		return string(b)
 
 	}
-	if(ressub != receivedText){
-		return ressub
+	if(sub != receivedText){
+		return sub
 	}else{
 		return RandomWord.ReturnWord(receivedText)
 	}
