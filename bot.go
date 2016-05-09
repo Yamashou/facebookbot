@@ -105,7 +105,6 @@ func selectMenu(txt string) string {
 			return "Subject!"
 		}
 	}
-	fmt.Println("----------------------------------4")
 	return "notthing"
 }
 
@@ -147,9 +146,8 @@ func getMessageText(receivedText string) string {
 	}
 
 	if selectRes == "Subject!" {
-		return infoSub.ReturnSubInfo(receivedText)
+		ressub :=  infoSub.ReturnSubInfo(receivedText)
 	}
-	fmt.Println("----------------------------------2")
 
 	if selectRes == "classes" {
 
@@ -164,6 +162,9 @@ func getMessageText(receivedText string) string {
 		return string(b)
 
 	}
-	fmt.Println("----------------------------------3")
-	return RandomWord.ReturnWord(receivedText)
+	if(ressub != receivedText){
+		return ressub
+	}else{
+		return RandomWord.ReturnWord(receivedText)
+	}
 }
