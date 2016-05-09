@@ -6,7 +6,6 @@ import (
 	"regexp"
 	"strconv"
 	"time"
-	"log"
 	"github.com/Yamashou/MyClassSearch"
 	"github.com/Yamashou/MyStudyRoomSearch"
 	"github.com/acomagu/fbmessenger-go"
@@ -162,6 +161,6 @@ func getMessageText(receivedText string) string {
 		return string(b)
 
 	}
-	log.Print("hoge")
+	fmt.Println("hoge")
 	return RandomWord.ReturnWord(receivedText)
 }
