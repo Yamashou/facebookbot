@@ -150,7 +150,7 @@ func getMessageText(receivedText string) string {
 
 	if selectRes == "classes" {
 
-		stdClass := MyClassSearch.RtClass(receivedText,file)
+		stdClass := MyClassSearch.RtClass(receivedText)
 
 		b := make([]byte, 0, 30)
 		for v := 0; v < len(stdClass); v++ {
