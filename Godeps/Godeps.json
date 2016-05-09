@@ -5,7 +5,7 @@
 	"Deps": [
 		{
 			"ImportPath": "github.com/Yamashou/MyClassSearch",
-			"Rev": "128a1cd4f09fdd15c1266f39086b7077888bb955"
+			"Rev": "042c4c8b3b84d83a4c08cc961e4cf333840f3b4c"
 		},
 		{
 			"ImportPath": "github.com/Yamashou/MyStudyRoomSearch",
