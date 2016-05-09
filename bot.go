@@ -105,7 +105,7 @@ func selectMenu(txt string) string {
 			return "Subject!"
 		}
 	}
-	return "notthing"
+	return "n"
 }
 
 func getMessageText(receivedText string) string {
