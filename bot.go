@@ -57,7 +57,7 @@ func selectMenu(txt string) string {
 	foods := new(DistributeMenu)
 	foods.Judgment = []string{"kondate", "こんだて", "献立", "学食", "めにゅー", "メニュー"}
 	foods.Jf = false
-
+	fmt.Println("----------------------------------1")
 	tandai := new(DistributeMenu)
 	tandai.Judgment = []string{"tandai", "短大", "たんだい"}
 	tandai.Jf = false
@@ -109,7 +109,7 @@ func selectMenu(txt string) string {
 }
 
 func getMessageText(receivedText string) string {
-
+	fmt.Println("----------------------------------2")
 	selectRes := selectMenu(receivedText)
 	if selectRes == "foods" {
 		var res []string
