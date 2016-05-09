@@ -6,6 +6,7 @@ import (
 	"regexp"
 	"strconv"
 	"time"
+	"io/ioutil"
 	"github.com/Yamashou/MyClassSearch"
 	"github.com/Yamashou/MyStudyRoomSearch"
 	"github.com/acomagu/fbmessenger-go"
@@ -151,7 +152,7 @@ func getMessageText(receivedText string) string {
 	if selectRes == "classes" {
 		file, err := ioutil.ReadFile("./json/subjects.json")
 		if err != nil {
-			fmt.Println("Format Error: ", json_err)
+			log.Print("Format Error: ", err)
 		}
 		stdClass := MyClassSearch.RtClass(receivedText,file)
 
