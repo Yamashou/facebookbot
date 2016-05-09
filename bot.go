@@ -109,8 +109,8 @@ func selectMenu(txt string) string {
 }
 
 func getMessageText(receivedText string) string {
-//	dir, _ := os.Getwd()
-//	jsondir := dir + "/json/"
+	dir, _ := os.Getwd()
+	jsondir := dir + "/json/"
 	selectRes := selectMenu(receivedText)
 	if selectRes == "foods" {
 		var res []string
@@ -150,7 +150,7 @@ func getMessageText(receivedText string) string {
 	}
 
 	if selectRes == "classes" {
-		stdClass := MyClassSearch.RtClass(receivedText)
+		stdClass := MyClassSearch.RtClass(receivedText,jsondir)
 
 		b := make([]byte, 0, 30)
 		for v := 0; v < len(stdClass); v++ {
