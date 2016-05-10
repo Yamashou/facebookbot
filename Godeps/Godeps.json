@@ -16,6 +16,10 @@
 			"Rev": "955f4c5a7853877bd928776a11b69e1c71f0d2de"
 		},
 		{
+			"ImportPath": "github.com/Yamashou/SearchFreeRoom",
+			"Rev": "68ba228033befcc1e0eae6d69b02c8d55b7e8418"
+		},
+		{
 			"ImportPath": "github.com/acomagu/fbmessenger-go",
 			"Rev": "bc1ff930808217a426501f82f66b8dad7e2af4f1"
 		},
