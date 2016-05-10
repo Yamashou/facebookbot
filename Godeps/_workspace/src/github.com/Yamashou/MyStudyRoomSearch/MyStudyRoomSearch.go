@@ -24,7 +24,7 @@ func RtRoom(menber string) [6]string {
 	Thu := time.Date(2016, 5, 12, 0, 0, 0, 0, time.Local)
 	Fre := time.Date(2016, 5, 13, 0, 0, 0, 0, time.Local)
 
-	file, err := ioutil.ReadFile("./room.json")
+	file, err := ioutil.ReadFile("./json/room.json")
 	var datasets []person
 	json_err := json.Unmarshal(file, &datasets)
 	if err != nil {
