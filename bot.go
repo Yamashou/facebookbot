@@ -13,6 +13,7 @@ import (
 	"github.com/kurouw/infoSub"
 	"github.com/kurouw/reqCafe"
 	"github.com/Yamashou/RandomWord"
+	"github.com/Yamashou/SearchFreeRoom"
 )
 
 var endPointName = os.Getenv("ENDPOINT_NAME")
@@ -57,6 +58,7 @@ func selectMenu(txt string) string {
 	foods := new(DistributeMenu)
 	foods.Judgment = []string{"kondate", "こんだて", "献立", "学食", "めにゅー", "メニュー"}
 	foods.Jf = false
+	
 	tandai := new(DistributeMenu)
 	tandai.Judgment = []string{"tandai", "短大", "たんだい"}
 	tandai.Jf = false
@@ -73,8 +75,12 @@ func selectMenu(txt string) string {
 	rooms.Judgment = []string{"std1", "std2", "std3", "std4", "std5", "std6", "hdw1", "hdw2", "hdw3", "hdw4", "CALL1", "CALL2", "iLab1", "iLab2"}
 	rooms.Jf = false
 
-	stringnames := []string{"foods", "tandai", "computers", "eves", "rooms"}
-	allEvents := []DistributeMenu{*foods, *tandai, *computers, *eves, *rooms}
+	frooms := new(DistributeMenu)
+	frooms.Judgment = []string{"1限","2限","3限","4限","5限","6限"}
+	frooms.Jf = false
+
+	stringnames := []string{"foods", "tandai", "computers", "eves", "rooms","frooms"}
+	allEvents := []DistributeMenu{*foods, *tandai, *computers, *eves, *rooms,*frooms}
 
 	for i := range allEvents {
 		for j := 0; j < len(allEvents[i].Judgment); j++ {
@@ -128,7 +134,7 @@ func getMessageText(receivedText string) string {
 		var res []string
 		res = reqCafe.RtTnCafeInfo(time.Now())
 
-		b := make([]byte, 0, 30)
+		 b := make([]byte, 0, 30)
 		for v := 0; v < len(res); v++ {
 			b = append(b, res[v]...)
 			b = append(b, '\n')
@@ -144,6 +150,19 @@ func getMessageText(receivedText string) string {
 			b = append(b, '\n')
 		}
 		return string(b)
+	} else if selectRes == "frooms" {
+		var frooms []string
+		num := selectRes
+		num = string([]rune(name)[:1])
+		frooms = SearchFreeRoom.Serect(strconv.Itoa(num))
+
+		b := make([]byte, 0, 30)
+		for v := 0; v < len(frooms); v++ {
+			b = append(b, frooms[v]...)
+			b = append(b, '\n')
+		}
+		return string(b)
+		
 	}
 
 	if selectRes == "Subject!" {
