@@ -8,15 +8,11 @@ import (
 	"time"
 	"github.com/Yamashou/MyClassSearch"
 	"github.com/Yamashou/MyStudyRoomSearch"
-	"github.com/acomagu/fbmessenger-go"
-	"github.com/acomagu/linebot-go"
+	"github.com/m2mtu/facebookbot/endpoints"
 	"github.com/kurouw/infoSub"
 	"github.com/kurouw/reqCafe"
 	"github.com/Yamashou/RandomWord"
-	"github.com/Yamashou/SearchFreeRoom"
 )
-
-var endPointName = os.Getenv("ENDPOINT_NAME")
 
 // DistributeMenu express functions of bot
 type DistributeMenu struct {
@@ -28,31 +24,18 @@ func main() {
 	os.Setenv("HTTP_PROXY", os.Getenv("FIXIE_URL"))
 	os.Setenv("HTTPS_PROXY", os.Getenv("FIXIE_URL"))
 	fmt.Println("starting...")
-	if endPointName == "facebook" {
-		fbmessenger.Listen(handleReceiveMessage)
-	} else if endPointName == "line" {
-		linebot.Listen(handleReceiveLINEMessage)
+	endpoints.Listen(handleReceiveMessage)
+}
+
+func handleReceiveMessage(receivedEvent endpoints.Event) {
+	sentEvent := endpoints.Event{}
+	sentEvent.SenderID = receivedEvent.RecepientID
+	sentEvent.RecepientID = receivedEvent.SenderID
+	switch content := receivedEvent.Content.(type) {
+	case endpoints.TextContent:
+		sentEvent.Content = endpoints.TextContent{Text: getMessageText(content.Text)}
 	}
-}
-
-func handleReceiveMessage(receivedEvent fbmessenger.Event) {
-	sentEvent := fbmessenger.Event{}
-	sentEvent.Sender = (fbmessenger.Sender)(receivedEvent.Recepient)
-	sentEvent.Recepient = (fbmessenger.Recepient)(receivedEvent.Sender)
-	fbmessenger.Send(sentEvent)
-}
-
-func handleReceiveLINEMessage(receivedEvent linebot.Event) {
-	sendEvent := &linebot.SendEvent{}
-	sendTextContent := &linebot.SendTextContent{SendContent: &linebot.SendContent{}}
-	sendEvent.To = []string{receiveEvent.Content.SenderID}
-	sendEvent.ToChannel = 1383378250
-	sendEvent.EventType = "138311608800106203"
-	sendTextContent.ContentType = 1
-	sendTextContent.ToType = 1
-	sendTextContent.Text = getMessageText(receiveEvent.Content.Text)
-	sendEvent.Content = sendTextContent
-	linebot.SendTextMessage(sendEvent)
+	endpoints.Send(sentEvent)
 }
 
 func selectMenu(txt string) string {
@@ -115,8 +98,6 @@ func selectMenu(txt string) string {
 }
 
 func getMessageText(receivedText string) string {
-
-
 	var sub string
 	
 	selectRes := selectMenu(receivedText)
