@@ -17,7 +17,7 @@ type person struct {
 	ather string    `json:"ather"`
 }
 
-func Serect(o int) [15]string {
+func Serect(o int)[15]string {
 	Mon := time.Date(2016, 5, 9, 0, 0, 0, 0, time.Local)
 	Tus := time.Date(2016, 5, 10, 0, 0, 0, 0, time.Local)
 	Wen := time.Date(2016, 5, 11, 0, 0, 0, 0, time.Local)
@@ -33,13 +33,13 @@ func Serect(o int) [15]string {
 	var T [15]string
 	Num := 0
 	now := time.Now()
-  o = o -1
+	o = o -1
 	if now.Weekday() == Mon.Weekday() {
 		for k := range datasets {
 			if datasets[k].M[o] == "" {
 				T[Num] = "( "+datasets[k].Std+" )"
 				Num++
-
+				
 			}
 		}
 	} else if Tus.Weekday() == now.Weekday() {
