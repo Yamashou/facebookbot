@@ -153,10 +153,13 @@ func getMessageText(receivedText string) string {
 		}
 		return string(b)
 	} else if selectRes == "frooms" {
-		var frooms []string
-		num := selectRes
-		num = string([]rune(name)[:1])
-		frooms = SearchFreeRoom.Serect(strconv.Itoa(num))
+		
+		var frooms [15]string
+		var num int
+		name := receivedText
+		name = string([]rune(name)[:1])		
+		num, _ = strconv.Atoi(name) 
+		frooms = SearchFreeRoom.Serect(num)
 
 		b := make([]byte, 0, 30)
 		for v := 0; v < len(frooms); v++ {
