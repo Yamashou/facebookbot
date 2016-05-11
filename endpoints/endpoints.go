@@ -6,8 +6,8 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/acomagu/fbmessenger-go"
-	"github.com/m2mtu/facebookbot/line"
+	"github.com/m2mtu/facebookbot/endpoints/fbmessenger"
+	"github.com/m2mtu/facebookbot/endpoints/line"
 )
 
 // Event express one messaging

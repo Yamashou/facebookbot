@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"net/url"
 	"os"
@@ -16,28 +15,27 @@ import (
 var accessToken = os.Getenv("ACCESS_TOKEN")
 var verifyToken = os.Getenv("VERIFY_TOKEN")
 
-// const ...
 const (
-	EndPoint = "https://graph.facebook.com/v2.6/me/messages"
+	endPoint = "https://graph.facebook.com/v2.6/me/messages"
 )
 
-// ReceivedMessage ...
-type ReceivedMessage struct {
+// receivedMessage ...
+type receivedMessage struct {
 	Object string  `json:"object"`
-	Entry  []Entry `json:"entry"`
+	Entry  []entry `json:"entry"`
 }
 
-// Entry ...
-type Entry struct {
-	ID        int64       `json:"id"`
-	Time      int64       `json:"time"`
-	Messaging []Messaging `json:"messaging"`
+// entry ...
+type entry struct {
+	ID        int64        `json:"id"`
+	Time      int64        `json:"time"`
+	Messagings []Messaging `json:"messaging"`
 }
 
 // Messaging ...
 type Messaging struct {
 	Sender    Sender    `json:"sender"`
-	Recipient Recipient `json:"recipient"`
+	Recepient Recepient `json:"recipient"`
 	Timestamp int64     `json:"timestamp"`
 	Message   Message   `json:"message"`
 }
@@ -47,8 +45,8 @@ type Sender struct {
 	ID int64 `json:"id"`
 }
 
-// Recipient ...
-type Recipient struct {
+// Recepient ...
+type Recepient struct {
 	ID int64 `json:"id"`
 }
 
@@ -59,14 +57,15 @@ type Message struct {
 	Text string `json:"text"`
 }
 
-// SendMessage ...
-type SendMessage struct {
-	Recipient Recipient `json:"recipient"`
+// sendMessage ...
+type sendMessage struct {
+	Recepient Recepient `json:"recipient"`
 	Message struct {
 		Text string `json:"text"`
 	} `json:"message"`
 }
 
+// Listen call callback function given when requested from Facebook service.
 func Listen(callback func(Messaging)) {
 	handleReceiveMessage = callback
 	http.HandleFunc("/", webhookHandler)
@@ -78,10 +77,6 @@ func Listen(callback func(Messaging)) {
 
 var handleReceiveMessage func(Messaging)
 
-func HelloHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello, Facebook Bot")
-}
-
 func webhookHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		if r.URL.Query().Get("hub.verify_token") == verifyToken {
@@ -91,43 +86,44 @@ func webhookHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	if r.Method == "POST" {
-		var receivedMessage ReceivedMessage
+		var receivedMessage receivedMessage
 		b, err := ioutil.ReadAll(r.Body)
 		if err != nil {
-			log.Print(err)
+			fmt.Println(err)
 		}
 		if err = json.Unmarshal(b, &receivedMessage); err != nil {
-			log.Print(err)
+			fmt.Println(err)
 		}
-		messagingEvents := receivedMessage.Entry[0].Messaging
-		for _, event := range messagingEvents {
-			if &event.Message != nil && event.Message.Text != "" {
-				handleReceiveMessage(event)
+		messagings := receivedMessage.Entry[0].Messagings
+		for _, m := range messagings {
+			if &m.Message != nil && m.Message.Text != "" {
+				handleReceiveMessage(m)
 			}
 		}
 		fmt.Fprintf(w, "Success")
 	}
 }
 
-func SendTextMessage(recipient Recipient, sendText string) {
-	m := new(SendMessage)
-	m.Recipient = recipient
+// SendTextMessage send message to Facebook endpoint.
+func SendTextMessage(recepient Recepient, sendText string) {
+	m := new(sendMessage)
+	m.Recepient = recepient
 
-	log.Print("------------------------------------------------------------")
-	log.Print(m.Message.Text)
-	log.Print("------------------------------------------------------------")
+	fmt.Println("------------------------------------------------------------")
+	fmt.Println(m.Message.Text)
+	fmt.Println("------------------------------------------------------------")
 
 	m.Message.Text = sendText
 
-	log.Print(m.Message.Text)
+	fmt.Println(m.Message.Text)
 
 	b, err := json.Marshal(m)
 	if err != nil {
-		log.Print(err)
+		fmt.Println(err)
 	}
-	req, err := http.NewRequest("POST", EndPoint, bytes.NewBuffer(b))
+	req, err := http.NewRequest("POST", endPoint, bytes.NewBuffer(b))
 	if err != nil {
-		log.Print(err)
+		fmt.Println(err)
 	}
 	values := url.Values{}
 	values.Add("access_token", accessToken)
@@ -136,16 +132,16 @@ func SendTextMessage(recipient Recipient, sendText string) {
 	client := &http.Client{Timeout: time.Duration(30 * time.Second)}
 	res, err := client.Do(req)
 	if err != nil {
-		log.Print(err)
+		fmt.Println(err)
 	}
 	defer res.Body.Close()
 	var result map[string]interface{}
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
-		log.Print(err)
+		fmt.Println(err)
 	}
 	if err := json.Unmarshal(body, &result); err != nil {
-		log.Print(err)
+		fmt.Println(err)
 	}
-	log.Print(result)
+	fmt.Println(result)
 }
