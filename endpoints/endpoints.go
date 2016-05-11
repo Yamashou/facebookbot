@@ -1,19 +1,19 @@
 package endpoints
 
 import (
+	"errors"
+	"fmt"
 	"github.com/acomagu/fbmessenger-go"
 	"github.com/m2mtu/facebookbot/line"
-	"errors"
 	"os"
 	"strconv"
-	"fmt"
 )
 
 // Event express one messaging
 type Event struct {
-	SenderID string
+	SenderID    string
 	RecepientID string
-	Content interface{}
+	Content     interface{}
 }
 
 // TextContent express content of one message

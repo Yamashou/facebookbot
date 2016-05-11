@@ -6,12 +6,14 @@ import (
 	"regexp"
 	"strconv"
 	"time"
+
 	"github.com/Yamashou/MyClassSearch"
 	"github.com/Yamashou/MyStudyRoomSearch"
-	"github.com/m2mtu/facebookbot/endpoints"
+	"github.com/Yamashou/RandomWord"
+	"github.com/Yamashou/SearchFreeRoom"
 	"github.com/kurouw/infoSub"
 	"github.com/kurouw/reqCafe"
-	"github.com/Yamashou/RandomWord"
+	"github.com/m2mtu/facebookbot/endpoints"
 )
 
 // DistributeMenu express functions of bot
@@ -42,7 +44,7 @@ func selectMenu(txt string) string {
 	foods := new(DistributeMenu)
 	foods.Judgment = []string{"kondate", "こんだて", "献立", "学食", "めにゅー", "メニュー"}
 	foods.Jf = false
-	
+
 	tandai := new(DistributeMenu)
 	tandai.Judgment = []string{"tandai", "短大", "たんだい"}
 	tandai.Jf = false
@@ -60,11 +62,11 @@ func selectMenu(txt string) string {
 	rooms.Jf = false
 
 	frooms := new(DistributeMenu)
-	frooms.Judgment = []string{"1限","2限","3限","4限","5限","6限"}
+	frooms.Judgment = []string{"1限", "2限", "3限", "4限", "5限", "6限"}
 	frooms.Jf = false
 
-	stringnames := []string{"foods", "tandai", "computers", "eves", "rooms","frooms"}
-	allEvents := []DistributeMenu{*foods, *tandai, *computers, *eves, *rooms,*frooms}
+	stringnames := []string{"foods", "tandai", "computers", "eves", "rooms", "frooms"}
+	allEvents := []DistributeMenu{*foods, *tandai, *computers, *eves, *rooms, *frooms}
 
 	for i := range allEvents {
 		for j := 0; j < len(allEvents[i].Judgment); j++ {
@@ -99,7 +101,7 @@ func selectMenu(txt string) string {
 
 func getMessageText(receivedText string) string {
 	var sub string
-	
+
 	selectRes := selectMenu(receivedText)
 	fmt.Println("selected: " + selectRes)
 	if selectRes == "foods" {
@@ -117,7 +119,7 @@ func getMessageText(receivedText string) string {
 		var res []string
 		res = reqCafe.RtTnCafeInfo(time.Now())
 
-		 b := make([]byte, 0, 30)
+		b := make([]byte, 0, 30)
 		for v := 0; v < len(res); v++ {
 			b = append(b, res[v]...)
 			b = append(b, '\n')
@@ -134,12 +136,12 @@ func getMessageText(receivedText string) string {
 		}
 		return string(b)
 	} else if selectRes == "frooms" {
-		
+
 		var frooms [15]string
 		var num int
 		name := receivedText
-		name = string([]rune(name)[:1])		
-		num, _ = strconv.Atoi(name) 
+		name = string([]rune(name)[:1])
+		num, _ = strconv.Atoi(name)
 		frooms = SearchFreeRoom.Serect(num)
 
 		b := make([]byte, 0, 30)
@@ -148,7 +150,7 @@ func getMessageText(receivedText string) string {
 			b = append(b, '\n')
 		}
 		return string(b)
-		
+
 	}
 
 	if selectRes == "Subject!" {
@@ -168,9 +170,9 @@ func getMessageText(receivedText string) string {
 		return string(b)
 
 	}
-	if(sub != receivedText){
+	if sub != receivedText {
 		return sub
-	}else{
+	} else {
 		return RandomWord.ReturnWord(receivedText)
 	}
 }

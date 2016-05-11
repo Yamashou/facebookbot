@@ -1,15 +1,15 @@
 package line
 
 import (
-	"os"
-	"log"
-	"net/http"
-	"time"
-	"strconv"
-	"io/ioutil"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"log"
+	"net/http"
+	"os"
+	"strconv"
 	"strings"
+	"time"
 )
 
 // notification express whole JSON data
@@ -78,7 +78,7 @@ type SendTextContent struct {
 type sendImageContent struct {
 	*SendContent
 	OriginalContentURL string `json:"originalContentUrl"`
-	PreviewImageURL string `json:"previewImageUrl"`
+	PreviewImageURL    string `json:"previewImageUrl"`
 }
 
 // UnmarshalJSON JSONのタイムスタンプから変換する用
@@ -97,7 +97,6 @@ var channelID = os.Getenv("LINE_CHANNEL_ID")
 var channelSecret = os.Getenv("LINE_CHANNEL_SECRET")
 var mid = os.Getenv("LINE_MID")
 
-
 // Location 位置情報
 type Location struct {
 	Title     string  `json:"title"`
@@ -107,6 +106,7 @@ type Location struct {
 }
 
 var handleReceiveMessage func(ReceiveEvent)
+
 const apiEndpoint string = "https://trialbot-api.line.me/v1/events"
 
 // Listen webhook action from LINE server. You should pass callback function.
@@ -156,6 +156,7 @@ func SendTextMessage(event *SendEvent) {
 		request(jsonEncode(e))
 	}(event)
 }
+
 // 送信用のJSONにして返すよ
 func jsonEncode(event *SendEvent) string {
 	j, err := json.Marshal(event)
@@ -165,6 +166,7 @@ func jsonEncode(event *SendEvent) string {
 	}
 	return string(j)
 }
+
 // Request APIたたくーよ
 func request(body string) error {
 	fmt.Println(body)
