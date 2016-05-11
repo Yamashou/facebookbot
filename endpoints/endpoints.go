@@ -3,10 +3,11 @@ package endpoints
 import (
 	"errors"
 	"fmt"
-	"github.com/acomagu/fbmessenger-go"
-	"github.com/m2mtu/facebookbot/line"
 	"os"
 	"strconv"
+
+	"github.com/acomagu/fbmessenger-go"
+	"github.com/m2mtu/facebookbot/line"
 )
 
 // Event express one messaging
