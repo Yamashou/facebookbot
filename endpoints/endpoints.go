@@ -61,7 +61,7 @@ func fbmessagingToEvent(_messaging fbmessenger.Messaging, _recepient fbmessenger
 
 func lineReceiveEventToEvent(receiveEvent line.ReceiveEvent) Event {
 	e := Event{}
-	e.SenderID = receiveEvent.From
+	e.SenderID = receiveEvent.Content.From
 	e.RecepientID = receiveEvent.To[0]
 	e.Content = TextContent{receiveEvent.Content.Text}
 	return e

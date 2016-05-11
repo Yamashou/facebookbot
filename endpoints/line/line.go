@@ -35,7 +35,7 @@ type ReceiveContent struct {
 	ContentType     int                     `json:"contentType"`
 	CreatedTime     *JSONTime               `json:"createdTime"`
 	DeliveredTime   int                     `json:"deliveredTime"`
-	SenderID        string                  `json:"from"`
+	From            string                  `json:"from"`
 	ID              string                  `json:"id"`
 	Location        *Location               `json:"location"`
 	Seq             string                  `json:"seq"`
