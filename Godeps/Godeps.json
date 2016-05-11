@@ -1,0 +1,6 @@
+{
+	"ImportPath": "github.com/m2mtu/facebookbot",
+	"GoVersion": "go1.6",
+	"GodepVersion": "v63",
+	"Deps": []
+}
