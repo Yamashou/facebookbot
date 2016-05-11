@@ -16,12 +16,12 @@ func main() {
 }
 
 func handleReceiveMessage(receivedEvent endpoints.Event) {
-	sentEvent := endpoints.Event{}
-	sentEvent.SenderID = receivedEvent.RecepientID
-	sentEvent.RecepientID = receivedEvent.SenderID
+	sendEvent := endpoints.Event{}
+	sendEvent.SenderID = receivedEvent.RecepientID
+	sendEvent.RecepientID = receivedEvent.SenderID
 	switch content := receivedEvent.Content.(type) {
 	case endpoints.TextContent:
-		sentEvent.Content = endpoints.TextContent{Text: reply.Get(content.Text)}
+		sendEvent.Content = endpoints.TextContent{Text: reply.Get(content.Text)}
 	}
-	endpoints.Send(sentEvent)
+	endpoints.Send(sendEvent)
 }
