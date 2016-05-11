@@ -6,12 +6,12 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/m2mtu/MyClassSearch"
-	"github.com/m2mtu/MyStudyRoomSearch"
-	"github.com/m2mtu/RandomWord"
-	"github.com/m2mtu/SearchFreeRoom"
-	"github.com/m2mtu/infoSub"
-	"github.com/m2mtu/reqCafe"
+	"github.com/m2mtu/facebookbot/MyClassSearch"
+	"github.com/m2mtu/facebookbot/MyStudyRoomSearch"
+	"github.com/m2mtu/facebookbot/RandomWord"
+	"github.com/m2mtu/facebookbot/SearchFreeRoom"
+	"github.com/m2mtu/facebookbot/infoSub"
+	"github.com/m2mtu/facebookbot/reqCafe"
 )
 
 // DistributeMenu express functions of bot
