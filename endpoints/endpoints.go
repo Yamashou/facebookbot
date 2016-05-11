@@ -26,7 +26,7 @@ var handleReceiveMessage func(Event)
 
 func init() {
 	if endPointName != "facebook" && endPointName != "line" {
-		fmt.Printf("Warning: ENDPOINT_NAME environment variable is not set or invalid. Please set as \"line\" or \"facebook\".")
+		fmt.Println("Warning: ENDPOINT_NAME environment variable is not set or invalid. Please set as \"line\" or \"facebook\".")
 		endPointName = "facebook"
 	}
 }
