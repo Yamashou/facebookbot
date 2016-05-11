@@ -6,12 +6,12 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/Yamashou/MyClassSearch"
-	"github.com/Yamashou/MyStudyRoomSearch"
-	"github.com/Yamashou/RandomWord"
-	"github.com/Yamashou/SearchFreeRoom"
-	"github.com/kurouw/infoSub"
-	"github.com/kurouw/reqCafe"
+	"github.com/m2mtu/MyClassSearch"
+	"github.com/m2mtu/MyStudyRoomSearch"
+	"github.com/m2mtu/RandomWord"
+	"github.com/m2mtu/SearchFreeRoom"
+	"github.com/m2mtu/infoSub"
+	"github.com/m2mtu/reqCafe"
 )
 
 // DistributeMenu express functions of bot
