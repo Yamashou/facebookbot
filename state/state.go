@@ -8,7 +8,7 @@ type Topic struct {
 // State contains various short-term data about user and conversation running.
 type State struct {
 	PossibleTopics []Topic
-	UserID string
+	OpponentID string
 	EndPointName string
 	ReceivedContents []interface{}
 	Memory interface{}

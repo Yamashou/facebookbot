@@ -29,7 +29,7 @@ func handleReceiveMessage(receivedEvent endpoint.Event) {
 func createState(receivedEvent endpoint.Event) state.State {
 	_state := state.State{
 		PossibleTopics:   []state.Topic{state.Topic{ID: 0}},
-		UserID:           receivedEvent.SenderID,
+		OpponentID:           receivedEvent.SenderID,
 		EndPointName:     endpoint.GetEndPointName(),
 		ReceivedContents: []interface{}{receivedEvent.Content},
 	}
