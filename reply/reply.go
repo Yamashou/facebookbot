@@ -12,6 +12,8 @@ import (
 	"github.com/m2mtu/facebookbot/SearchFreeRoom"
 	"github.com/m2mtu/facebookbot/infoSub"
 	"github.com/m2mtu/facebookbot/reqCafe"
+	"github.com/m2mtu/facebookbot/state"
+	"github.com/m2mtu/facebookbot/endpoint"
 )
 
 // DistributeMenu express functions of bot
@@ -80,7 +82,16 @@ func selectMenu(txt string) string {
 }
 
 // Get returns complete reply to user, generated from functions.
-func Get(receivedText string) string {
+func Get(_state state.State) interface{} {
+	var sendContent interface{}
+	switch receivedContent := _state.ReceivedContents[0].(type) {
+	case endpoint.TextContent:
+		sendContent = getText(receivedContent.Text)
+	}
+	return sendContent
+}
+
+func getText(receivedText string) string {
 	var sub string
 
 	selectRes := selectMenu(receivedText)

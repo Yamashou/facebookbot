@@ -1,4 +1,4 @@
-package endpoints
+package endpoint
 
 import (
 	"errors"
@@ -6,8 +6,8 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/m2mtu/facebookbot/endpoints/fbmessenger"
-	"github.com/m2mtu/facebookbot/endpoints/line"
+	"github.com/m2mtu/facebookbot/endpoint/fbmessenger"
+	"github.com/m2mtu/facebookbot/endpoint/line"
 )
 
 // Event express one messaging
@@ -30,6 +30,11 @@ func init() {
 		fmt.Println("Warning: ENDPOINT_NAME environment variable is not set or invalid. Please set as \"line\" or \"facebook\".")
 		endPointName = "facebook"
 	}
+}
+
+// GetEndPointName return endpoint name
+func GetEndPointName() string {
+	return endPointName
 }
 
 // Listen start listening at the endpoint. The arguments must be callback function.
