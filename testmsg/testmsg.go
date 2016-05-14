@@ -5,19 +5,22 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/m2mtu/facebookbot/reply"
 	"github.com/m2mtu/facebookbot/endpoint"
-	"github.com/m2mtu/facebookbot/state"
+	"github.com/m2mtu/facebookbot/reply"
+	"github.com/m2mtu/facebookbot/types"
 )
 
 func main() {
 	scanner := bufio.NewScanner(os.Stdin)
 	fmt.Print(">>> ")
 	for scanner.Scan() {
-		content := reply.Get(state.State{ReceivedContents: []interface{}{endpoints.TextContent{Text: scanner.Text()}}})
-		if c, ok := content.(endpoint.TextContent); ok {
-			fmt.Printf(c.Text)
-		}
+		reply.Talk(endpoint.Event{
+			SenderID:    types.UserID("test sender"),
+			RecepientID: types.UserID("test recepient"),
+			Content: endpoint.TextContent{
+				Text: scanner.Text(),
+			},
+		})
 		fmt.Print(">>> ")
 	}
 }

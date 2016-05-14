@@ -6,7 +6,7 @@ import (
 
 	"github.com/m2mtu/facebookbot/endpoint"
 	"github.com/m2mtu/facebookbot/reply"
-	"github.com/m2mtu/facebookbot/state"
+	"github.com/m2mtu/facebookbot/types"
 )
 
 func main() {
@@ -21,17 +21,16 @@ func handleReceiveMessage(receivedEvent endpoint.Event) {
 		SenderID:    receivedEvent.RecepientID,
 		RecepientID: receivedEvent.SenderID,
 	}
-	_state := createState(receivedEvent)
-	sendEvent.Content = reply.Get(_state)
+	reply.Talk(receivedEvent)
 	endpoint.Send(sendEvent)
 }
 
-func createState(receivedEvent endpoint.Event) state.State {
-	_state := state.State{
-		PossibleTopics:   []state.Topic{state.Topic{ID: 0}},
-		OpponentID:       receivedEvent.SenderID,
-		EndPointName:     endpoint.GetEndPointName(),
-		ReceivedContents: []interface{}{receivedEvent.Content},
+func createStaticState(receivedEvent endpoint.Event) types.StaticState {
+	_state := types.StaticState{
+		PossibleTopics:  []types.Topic{},
+		OpponentID:      receivedEvent.SenderID,
+		EndPointName:    endpoint.GetEndPointName(),
+		ReceivedContent: []interface{}{receivedEvent.Content},
 	}
 	return _state
 }

@@ -12,8 +12,10 @@ import (
 	"github.com/m2mtu/facebookbot/SearchFreeRoom"
 	"github.com/m2mtu/facebookbot/infoSub"
 	"github.com/m2mtu/facebookbot/reqCafe"
-	"github.com/m2mtu/facebookbot/state"
 	"github.com/m2mtu/facebookbot/endpoint"
+	"github.com/m2mtu/facebookbot/types"
+	"github.com/m2mtu/facebookbot/state"
+	"github.com/m2mtu/facebookbot/topic"
 )
 
 // DistributeMenu express functions of bot
@@ -81,14 +83,37 @@ func selectMenu(txt string) string {
 	return "n"
 }
 
-// Get returns complete reply to user, generated from functions.
-func Get(_state state.State) interface{} {
-	var sendContent interface{}
-	switch receivedContent := _state.ReceivedContents[0].(type) {
-	case endpoint.TextContent:
-		sendContent = getText(receivedContent.Text)
+// Talk method talk with user
+func Talk(receivedEvent endpoint.Event) {
+	staticState := types.StaticState{}
+	userID := receivedEvent.SenderID
+	lastStaticState, ok := state.Static(userID)
+	if ok && len(lastStaticState.PossibleTopics) == 1 {
+		fmt.Println("got")
+		staticState.PossibleTopics = lastStaticState.PossibleTopics
+	} else {
+		fmt.Println("not got", ok)
+		staticState.PossibleTopics = topic.GetCandidates(receivedEvent.Content)
 	}
-	return sendContent
+	staticState.OpponentID = receivedEvent.SenderID
+	staticState.EndPointName = endpoint.GetEndPointName()
+	staticState.ReceivedContent = receivedEvent.Content
+
+	if len(staticState.PossibleTopics) == 1 {
+		theTopic := staticState.PossibleTopics[0]
+		tempState, ok := state.Temp(userID)
+		if !ok {
+			tempState = theTopic.InitialTempState()
+		}
+		permState, ok := state.Perm(userID)
+		if !ok {
+			permState = theTopic.InitialPermState()
+		}
+		newTempState, newPermState := theTopic.Talk(staticState, tempState, permState)
+		state.SetTemp(userID, newTempState)
+		state.SetPerm(userID, newPermState)
+	}
+	state.SetStatic(userID, staticState)
 }
 
 func getText(receivedText string) string {
@@ -162,6 +187,7 @@ func getText(receivedText string) string {
 		return string(b)
 
 	}
+
 	if sub != receivedText {
 		return sub
 	}
