@@ -1,11 +1,14 @@
 package types
 
-// Topic express each topic. This is written to avoid import cycle between topic and state.
-type Topic interface {
+// Topic express each topic.
+type Topic struct {
+	IsProper func(StaticState) bool
+	Talk interface{}
+}
+
+// TopicModule express each topic. This is written to avoid import cycle between topic and state.
+type TopicModule interface {
 	IsProper(EndPointContent) bool
-	Talk(StaticState, TempState, PermState) (TempState, PermState)
-	InitialTempState() TempState
-	InitialPermState() PermState
 }
 
 // State contains all states.

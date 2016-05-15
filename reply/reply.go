@@ -5,6 +5,7 @@ import (
 	"regexp"
 	"strconv"
 	"time"
+	"reflect"
 
 	"github.com/m2mtu/facebookbot/MyClassSearch"
 	"github.com/m2mtu/facebookbot/MyStudyRoomSearch"
@@ -86,32 +87,52 @@ func selectMenu(txt string) string {
 // Talk method talk with user
 func Talk(receivedEvent endpoint.Event) {
 	staticState := types.StaticState{}
-	userID := receivedEvent.SenderID
-	lastStaticState, ok := state.Static(userID)
-	if ok && len(lastStaticState.PossibleTopics) == 1 {
-		fmt.Println("got")
-		staticState.PossibleTopics = lastStaticState.PossibleTopics
-	} else {
-		fmt.Println("not got", ok)
-		staticState.PossibleTopics = topic.GetCandidates(receivedEvent.Content)
-	}
 	staticState.OpponentID = receivedEvent.SenderID
 	staticState.EndPointName = endpoint.GetEndPointName()
 	staticState.ReceivedContent = receivedEvent.Content
+	userID := receivedEvent.SenderID
+	lastStaticState, ok := state.Static(userID)
+	if ok && len(lastStaticState.PossibleTopics) == 1 {
+		staticState.PossibleTopics = lastStaticState.PossibleTopics
+	} else if ok {
+		tempStaticState := staticState
+		tempStaticState.PossibleTopics = lastStaticState.PossibleTopics
+		staticState.PossibleTopics = topic.GetCandidates(tempStaticState)
+	} else {
+		tempStaticState := staticState
+		tempStaticState.PossibleTopics = topic.GetAllTopics()
+		staticState.PossibleTopics = topic.GetCandidates(tempStaticState)
+	}
 
 	if len(staticState.PossibleTopics) == 1 {
 		theTopic := staticState.PossibleTopics[0]
 		tempState, ok := state.Temp(userID)
 		if !ok {
-			tempState = theTopic.InitialTempState()
+			tempState = nil
 		}
 		permState, ok := state.Perm(userID)
 		if !ok {
-			permState = theTopic.InitialPermState()
+			permState = nil
 		}
-		newTempState, newPermState := theTopic.Talk(staticState, tempState, permState)
-		state.SetTemp(userID, newTempState)
-		state.SetPerm(userID, newPermState)
+		talkvalue := reflect.ValueOf(theTopic.Talk)
+		var results []reflect.Value
+		if tempState == nil || permState == nil {
+			results = talkvalue.Call(
+				[]reflect.Value{
+					reflect.ValueOf(staticState),
+					reflect.New(talkvalue.Type().In(1)).Elem(),
+					reflect.New(talkvalue.Type().In(2)).Elem(),
+				},
+			)
+		} else {
+			typedTempState := reflect.ValueOf(tempState).Convert(talkvalue.Type().In(1))
+			typedPermState := reflect.ValueOf(permState).Convert(talkvalue.Type().In(2))
+			results = talkvalue.Call([]reflect.Value{reflect.ValueOf(staticState), typedTempState, typedPermState})
+		}
+		newTempState := results[0]
+		newPermState := results[1]
+		reflect.ValueOf(state.SetTemp).Call([]reflect.Value{reflect.ValueOf(userID), newTempState})
+		reflect.ValueOf(state.SetPerm).Call([]reflect.Value{reflect.ValueOf(userID), newPermState})
 	}
 	state.SetStatic(userID, staticState)
 }
