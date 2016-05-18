@@ -87,7 +87,7 @@ func Send(event Event) error {
 	case "facebook":
 		switch content := event.Content.(type) {
 		case TextContent:
-			fmt.Println(content.Text)
+			fmt.Println("<<<", content.Text)
 			intRecepientID, err := strconv.ParseInt(event.RecepientID.String(), 10, 64)
 			if err != nil {
 				return errors.New("cannot parse RecepientID to int64")

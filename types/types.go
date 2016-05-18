@@ -29,8 +29,10 @@ type StaticState struct {
 // TempState is temporaly state.
 type TempState interface{}
 
-// PermState is permutation state.
-type PermState interface{}
+// PermState is permutable state.
+type PermState struct {
+	LearnedWords []string
+}
 
 // EndPointContent express each message content.
 type EndPointContent interface{}

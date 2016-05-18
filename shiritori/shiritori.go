@@ -3,6 +3,7 @@ package shiritori
 import (
 	"fmt"
 	"regexp"
+	"math/rand"
 
 	"github.com/m2mtu/facebookbot/endpoint"
 	"github.com/m2mtu/facebookbot/types"
@@ -12,9 +13,6 @@ import (
 type TempState struct {
 	LastWord string
 }
-
-// PermState 構造体に入れられた情報は、恒久的に保持されます。(まだ未実装)
-type PermState struct{}
 
 // IsProper 関数は、ユーザーに関する情報を受けとり、この話題(この場合はShiritori)に入るべきかどうかを返します。
 func IsProper(static types.StaticState) bool {
@@ -26,7 +24,7 @@ func IsProper(static types.StaticState) bool {
 }
 
 // Talk 関数はこの話題に入っている時に呼ばれます。相手のユーザーID、送ってきた内容などを含むStaticState型を引数として取ります。引数の2、3番目と同じ型を返さなければなりません。
-func Talk(static types.StaticState, temp TempState, perm PermState) (TempState, PermState) {
+func Talk(static types.StaticState, temp TempState, perm types.PermState) (TempState, types.PermState, bool) {
 	fmt.Println("shiritori!")
 	// tempが空だったら(Shiritoriに入って初めて実行されたら)
 	if temp == (TempState{}) {
@@ -37,19 +35,39 @@ func Talk(static types.StaticState, temp TempState, perm PermState) (TempState, 
 	if textContent, ok := static.ReceivedContent.(endpoint.TextContent); ok {
 		text := textContent.Text
 		textRunes := []rune(text)
-		// endpoint.SendText関数でテキストデータを相手に送ることが出来ます。
-		endpoint.SendText(temp.LastWord, static.OpponentID)
-		if answer, isFound := wordsStartsWith(textRunes[len(textRunes)-1]); isFound {
-			endpoint.SendText(string(answer), static.OpponentID)
-			temp.LastWord = string(answer)
+		if len(textRunes) >= 1 {
+			// endpoint.SendText関数でテキストデータを相手に送ることが出来ます。
+			endpoint.SendText(temp.LastWord, static.OpponentID)
+			if doesEndWith(textRunes, 'ん') {
+				endpoint.SendText("んひひぃ", static.OpponentID)
+				endpoint.SendText("しりとりは決着がついたね!", static.OpponentID)
+				return temp, perm, false
+			}
+			if answer, isFound := wordsStartsWith(perm.LearnedWords, textRunes[len(textRunes) - 1]); isFound {
+				endpoint.SendText(answer, static.OpponentID)
+				temp.LastWord = string(answer)
+			}
 		}
 	}
-	return temp, perm
+	return temp, perm, true
 }
 
-func wordsStartsWith(firstCharacter rune) ([]rune, bool) {
-	if firstCharacter == []rune("ご")[0] {
-		return []rune("ごりら"), true
+func doesEndWith(text []rune, lastCharacter rune) bool {
+	if len(text) < 1 {
+		return false
 	}
-	return []rune{}, false
+	return text[len(text) - 1] == lastCharacter
+}
+
+func wordsStartsWith(dictionary []string, firstCharacter rune) (string, bool) {
+	candidates := []string{}
+	for _, word := range dictionary {
+		if firstCharacter == []rune(word)[0] {
+			candidates = append(candidates, word)
+		}
+	}
+	if len(candidates) >= 1 {
+		return candidates[rand.Int63n(int64(len(candidates)))], true
+	}
+	return string(0), false
 }

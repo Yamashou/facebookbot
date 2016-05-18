@@ -2,6 +2,7 @@ package topic
 
 import (
 	"github.com/m2mtu/facebookbot/shiritori"
+	"github.com/m2mtu/facebookbot/learnword"
 	"github.com/m2mtu/facebookbot/types"
 )
 
@@ -12,6 +13,10 @@ func init() {
 	regist(types.Topic{
 		IsProper: shiritori.IsProper,
 		Talk:     shiritori.Talk,
+	})
+	regist(types.Topic{
+		IsProper: learnword.IsProper,
+		Talk:     learnword.Talk,
 	})
 }
 
