@@ -33,12 +33,12 @@ func init() {
 	}
 }
 
-// GetEndPointName return endpoint name
+// GetEndPointNameは今使われているチャットサービスの名前を返します。"line"か"facebook"です。
 func GetEndPointName() string {
 	return endPointName
 }
 
-// Listen start listening at the endpoint. The arguments must be callback function.
+// Listen関数はコールバック関数を受け取り、チャットサービスからメッセージが届いた時に関数を呼び出します。
 func Listen(receiveMessageCallback func(Event)) {
 	handleReceiveMessage = receiveMessageCallback
 	switch endPointName {
@@ -73,7 +73,7 @@ func lineReceiveEventToEvent(receiveEvent line.ReceiveEvent) Event {
 	return e
 }
 
-// SendText is wrapper for Send(). This will make Event{} and TextContent{} and send
+// SendTextはテキストと受信者IDを受け取り、メッセージを送ります。Sendメソッドのラッパー関数です。
 func SendText(text string, recepientID types.UserID) error {
 	event := Event{}
 	event.RecepientID = recepientID
@@ -81,7 +81,7 @@ func SendText(text string, recepientID types.UserID) error {
 	return Send(event)
 }
 
-// Send method send messaging
+// SendはEvent型の構造体を受け取り、そのEvent通りにメッセージを送信します。
 func Send(event Event) error {
 	switch endPointName {
 	case "facebook":
