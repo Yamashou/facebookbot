@@ -1,8 +1,8 @@
 package topic
 
 import (
-	"github.com/m2mtu/facebookbot/shiritori"
 	"github.com/m2mtu/facebookbot/learnword"
+	"github.com/m2mtu/facebookbot/shiritori"
 	"github.com/m2mtu/facebookbot/types"
 )
 
@@ -15,8 +15,9 @@ func init() {
 		Talk:     shiritori.Talk,
 	})
 	regist(types.Topic{
-		IsProper: learnword.IsProper,
-		Talk:     learnword.Talk,
+		IsProper:         learnword.IsProper,
+		Talk:             learnword.Talk,
+		InitialTempState: learnword.InitialTempState,
 	})
 }
 

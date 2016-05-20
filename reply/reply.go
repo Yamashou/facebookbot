@@ -1,18 +1,8 @@
 package reply
 
 import (
-	"fmt"
-	"regexp"
-	"strconv"
-	"time"
 	"reflect"
 
-	"github.com/m2mtu/facebookbot/MyClassSearch"
-	"github.com/m2mtu/facebookbot/MyStudyRoomSearch"
-	"github.com/m2mtu/facebookbot/RandomWord"
-	"github.com/m2mtu/facebookbot/SearchFreeRoom"
-	"github.com/m2mtu/facebookbot/infoSub"
-	"github.com/m2mtu/facebookbot/reqCafe"
 	"github.com/m2mtu/facebookbot/endpoint"
 	"github.com/m2mtu/facebookbot/types"
 	"github.com/m2mtu/facebookbot/state"
@@ -45,12 +35,13 @@ func Talk(receivedEvent endpoint.Event) {
 		permState, ok2 := state.Perm(userID)
 		initialPermState := state.InitialPerm()
 		talkvalue := reflect.ValueOf(theTopic.Talk)
+		initialTempStateValue := reflect.ValueOf(theTopic.InitialTempState)
 		var results []reflect.Value
 		if !ok1 || !ok2 {
 			results = talkvalue.Call(
 				[]reflect.Value{
 					reflect.ValueOf(staticState),
-					reflect.New(talkvalue.Type().In(1)).Elem(),
+					initialTempStateValue.Call([]reflect.Value{})[0],
 					reflect.ValueOf(initialPermState),
 				},
 			)

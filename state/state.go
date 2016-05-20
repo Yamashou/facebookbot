@@ -50,6 +50,11 @@ func SetPerm(userid types.UserID, _state types.PermState) {
 // InitialPerm method returns initial object of PermState.
 func InitialPerm() types.PermState {
 	return types.PermState{
-		LearnedWords: []string{"ごりら", "こあら"},
+		LearnedNouns: []types.Noun{
+			types.Noun{
+				Text: "ごりら",
+				Description: "動物",
+			},
+		},
 	}
 }

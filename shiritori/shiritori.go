@@ -11,7 +11,7 @@ import (
 
 // TempState 構造体に入れられた情報は、ユーザーが一度その話題(この場合ではShiritori)を離れると削除されます。
 type TempState struct {
-	LastWord string
+	LastNoun types.Noun
 }
 
 // IsProper 関数は、ユーザーに関する情報を受けとり、この話題(この場合はShiritori)に入るべきかどうかを返します。
@@ -29,7 +29,7 @@ func Talk(static types.StaticState, temp TempState, perm types.PermState) (TempS
 	// tempが空だったら(Shiritoriに入って初めて実行されたら)
 	if temp == (TempState{}) {
 		temp = TempState{
-			LastWord: "しりとり",
+			LastNoun: types.Noun{Text: "しりとり"},
 		}
 	}
 	if textContent, ok := static.ReceivedContent.(endpoint.TextContent); ok {
@@ -37,15 +37,15 @@ func Talk(static types.StaticState, temp TempState, perm types.PermState) (TempS
 		textRunes := []rune(text)
 		if len(textRunes) >= 1 {
 			// endpoint.SendText関数でテキストデータを相手に送ることが出来ます。
-			endpoint.SendText(temp.LastWord, static.OpponentID)
+			endpoint.SendText(temp.LastNoun.Text, static.OpponentID)
 			if doesEndWith(textRunes, 'ん') {
 				endpoint.SendText("んひひぃ", static.OpponentID)
 				endpoint.SendText("しりとりは決着がついたね!", static.OpponentID)
 				return temp, perm, false
 			}
-			if answer, isFound := wordsStartsWith(perm.LearnedWords, textRunes[len(textRunes) - 1]); isFound {
-				endpoint.SendText(answer, static.OpponentID)
-				temp.LastWord = string(answer)
+			if answer, isFound := nounsStartsWith(perm.LearnedNouns, textRunes[len(textRunes) - 1]); isFound {
+				endpoint.SendText(answer.Text, static.OpponentID)
+				temp.LastNoun = answer
 			}
 		}
 	}
@@ -59,15 +59,15 @@ func doesEndWith(text []rune, lastCharacter rune) bool {
 	return text[len(text) - 1] == lastCharacter
 }
 
-func wordsStartsWith(dictionary []string, firstCharacter rune) (string, bool) {
-	candidates := []string{}
-	for _, word := range dictionary {
-		if firstCharacter == []rune(word)[0] {
-			candidates = append(candidates, word)
+func nounsStartsWith(dictionary []types.Noun, firstCharacter rune) (types.Noun, bool) {
+	candidates := []types.Noun{}
+	for _, noun := range dictionary {
+		if firstCharacter == []rune(noun.Text)[0] {
+			candidates = append(candidates, noun)
 		}
 	}
 	if len(candidates) >= 1 {
 		return candidates[rand.Int63n(int64(len(candidates)))], true
 	}
-	return string(0), false
+	return types.Noun{}, false
 }

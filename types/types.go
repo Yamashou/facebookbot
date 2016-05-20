@@ -1,9 +1,14 @@
 package types
 
+import (
+	cabocha "github.com/ledyba/go-cabocha"
+)
+
 // Topic express each topic.
 type Topic struct {
-	IsProper func(StaticState) bool
-	Talk interface{}
+	IsProper         func(StaticState) bool
+	Talk             interface{}
+	InitialTempState interface{}
 }
 
 // TopicModule express each topic. This is written to avoid import cycle between topic and state.
@@ -29,9 +34,15 @@ type StaticState struct {
 // TempState is temporaly state.
 type TempState interface{}
 
+// Noun express each noun.
+type Noun struct {
+	Token       cabocha.Token
+	Description string
+}
+
 // PermState is permutable state.
 type PermState struct {
-	LearnedWords []string
+	LearnedNouns []Noun
 }
 
 // EndPointContent express each message content.
