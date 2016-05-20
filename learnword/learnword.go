@@ -66,7 +66,8 @@ func Talk(static types.StaticState, temp TempState, perm types.PermState) (TempS
 				endpoint.SendText("なるほど! "+temp.AskedNoun.Body+"は"+description+"なんだね!", static.OpponentID)
 				endpoint.SendText("賢くなったかも!", static.OpponentID)
 				perm.LearnedNouns = append(perm.LearnedNouns, types.Noun{
-					Token:       temp.AskedNoun,
+					Text: temp.AskedNoun.Body,
+					Yomi: temp.AskedNoun.Features[7],
 					Description: description,
 				})
 			}

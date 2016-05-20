@@ -1,9 +1,5 @@
 package types
 
-import (
-	cabocha "github.com/ledyba/go-cabocha"
-)
-
 // Topic express each topic.
 type Topic struct {
 	IsProper         func(StaticState) bool
@@ -36,7 +32,8 @@ type TempState interface{}
 
 // Noun express each noun.
 type Noun struct {
-	Token       cabocha.Token
+	Text string
+	Yomi string
 	Description string
 }
 

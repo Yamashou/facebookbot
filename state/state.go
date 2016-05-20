@@ -53,6 +53,7 @@ func InitialPerm() types.PermState {
 		LearnedNouns: []types.Noun{
 			types.Noun{
 				Text: "ごりら",
+				Yomi: "ごりら",
 				Description: "動物",
 			},
 		},
