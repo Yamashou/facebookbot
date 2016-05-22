@@ -1,5 +1,2 @@
-dcmtk --with-libiconv
-homebrew/dupes/gperf
-mecab
-mecab-ipadic
-cabocha
+tap masawada/cabocha-without-iconv
+install cabocha-without-iconv
