@@ -32,8 +32,8 @@ type TempState interface{}
 
 // Noun express each noun.
 type Noun struct {
-	Text string
-	Yomi string
+	Text        string
+	Yomi        string
 	Description string
 }
 

@@ -3,17 +3,17 @@ package reply
 import (
 	"reflect"
 
-	"github.com/m2mtu/facebookbot/endpoint"
-	"github.com/m2mtu/facebookbot/types"
 	"github.com/m2mtu/facebookbot/state"
+	"github.com/m2mtu/facebookbot/talk"
 	"github.com/m2mtu/facebookbot/topic"
+	"github.com/m2mtu/facebookbot/types"
 )
 
 // Talk method talk with user
-func Talk(receivedEvent endpoint.Event) {
+func Talk(receivedEvent talk.Event) {
 	staticState := types.StaticState{}
 	staticState.OpponentID = receivedEvent.SenderID
-	staticState.EndPointName = endpoint.GetEndPointName()
+	staticState.EndPointName = talk.GetEndPointName()
 	staticState.ReceivedContent = receivedEvent.Content
 	userID := receivedEvent.SenderID
 	lastStaticState, ok := state.Static(userID)
@@ -30,25 +30,26 @@ func Talk(receivedEvent endpoint.Event) {
 	}
 
 	if len(staticState.PossibleTopics) == 1 {
+		var tempStateRfValue reflect.Value
+		var permStateRfValue reflect.Value
 		theTopic := staticState.PossibleTopics[0]
-		tempState, ok1 := state.Temp(userID)
-		permState, ok2 := state.Perm(userID)
-		initialPermState := state.InitialPerm()
-		talkvalue := reflect.ValueOf(theTopic.Talk)
 		initialTempStateValue := reflect.ValueOf(theTopic.InitialTempState)
-		var results []reflect.Value
-		if !ok1 || !ok2 {
-			results = talkvalue.Call(
-				[]reflect.Value{
-					reflect.ValueOf(staticState),
-					initialTempStateValue.Call([]reflect.Value{})[0],
-					reflect.ValueOf(initialPermState),
-				},
-			)
+		tempState, ok := state.Temp(userID)
+		if ok {
+			tempStateRfValue = reflect.ValueOf(tempState)
 		} else {
-			typedTempState := reflect.ValueOf(tempState).Convert(talkvalue.Type().In(1))
-			results = talkvalue.Call([]reflect.Value{reflect.ValueOf(staticState), typedTempState, reflect.ValueOf(permState)})
+			tempStateRfValue = initialTempStateValue.Call([]reflect.Value{})[0]
 		}
+		permState, ok := state.Perm(userID)
+		if ok {
+			permStateRfValue = reflect.ValueOf(permState)
+		} else {
+			permStateRfValue = reflect.ValueOf(state.InitialPerm())
+		}
+		talkvalue := reflect.ValueOf(theTopic.Talk)
+		var results []reflect.Value
+		typedTempState := tempStateRfValue.Convert(talkvalue.Type().In(1))
+		results = talkvalue.Call([]reflect.Value{reflect.ValueOf(staticState), typedTempState, permStateRfValue})
 		newTempStateRfValue := results[0]
 		newPermState, ok := results[1].Interface().(types.PermState)
 		if !ok {
@@ -58,7 +59,7 @@ func Talk(receivedEvent endpoint.Event) {
 		if willTopicContinue {
 			reflect.ValueOf(state.SetTemp).Call([]reflect.Value{reflect.ValueOf(userID), newTempStateRfValue})
 		} else {
-			reflect.ValueOf(state.SetTemp).Call([]reflect.Value{reflect.ValueOf(userID), reflect.New(newTempStateRfValue.Type()).Elem()})
+			state.UnsetTemp(userID)
 		}
 		state.SetPerm(userID, newPermState)
 		if !willTopicContinue {

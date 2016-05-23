@@ -8,7 +8,7 @@ import (
 )
 
 type person struct {
-	Std    string    `json:"std"`
+	Std   string    `json:"std"`
 	M     [6]string `json:"M"`
 	Tu    [6]string `json:"Tu"`
 	W     [6]string `json:"W"`
@@ -56,10 +56,10 @@ func RtRoom(menber string) [6]string {
 		}
 	}
 
-	for f := range T{
-		if T[f] == ""{
+	for f := range T {
+		if T[f] == "" {
 			T[f] = "[あき]"
 		}
 	}
-return T
+	return T
 }

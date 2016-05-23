@@ -1,4 +1,4 @@
-package endpoint
+package talk
 
 import (
 	"errors"
@@ -6,8 +6,8 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/m2mtu/facebookbot/endpoint/fbmessenger"
-	"github.com/m2mtu/facebookbot/endpoint/line"
+	"github.com/m2mtu/facebookbot/talk/fbmessenger"
+	"github.com/m2mtu/facebookbot/talk/line"
 	"github.com/m2mtu/facebookbot/types"
 )
 
@@ -18,13 +18,11 @@ type Event struct {
 	Content     types.EndPointContent
 }
 
-// TextContent express content of one message
-type TextContent struct {
-	Text string
+type texter interface {
+	Text() string
 }
 
 var endPointName = os.Getenv("ENDPOINT_NAME")
-var handleReceiveMessage func(Event)
 
 func init() {
 	if endPointName != "facebook" && endPointName != "line" {
@@ -33,35 +31,40 @@ func init() {
 	}
 }
 
-// GetEndPointNameは今使われているチャットサービスの名前を返します。"line"か"facebook"です。
+// GetEndPointName は今使われているチャットサービスの名前を返します。"line"か"facebook"です。
 func GetEndPointName() string {
 	return endPointName
 }
 
-// Listen関数はコールバック関数を受け取り、チャットサービスからメッセージが届いた時に関数を呼び出します。
+// Listen 関数はコールバック関数を受け取り、チャットサービスからメッセージが届いた時に関数を呼び出します。
 func Listen(receiveMessageCallback func(Event)) {
-	handleReceiveMessage = receiveMessageCallback
 	switch endPointName {
 	case "facebook":
-		fbmessenger.Listen(handleReceiveFacebookMessage)
+		fbmessenger.Listen(handleReceiveFacebookMessage(receiveMessageCallback))
 	case "line":
-		line.Listen(handleReceiveLINEMessage)
+		line.Listen(handleReceiveLINEMessage(receiveMessageCallback))
 	}
 }
 
-func handleReceiveFacebookMessage(messaging fbmessenger.Messaging) {
-	handleReceiveMessage(fbmessagingToEvent(messaging, fbmessenger.Recepient{0}))
+func handleReceiveFacebookMessage(handleReceiveMessage func(Event)) func(fbmessenger.Messaging) {
+	return func(messaging fbmessenger.Messaging) {
+		handleReceiveMessage(fbmessagingToEvent(messaging, fbmessenger.Recepient{0}))
+	}
 }
 
-func handleReceiveLINEMessage(receiveEvent line.ReceiveEvent) {
-	handleReceiveMessage(lineReceiveEventToEvent(receiveEvent))
+func handleReceiveLINEMessage(handleReceiveMessage func(Event)) func(line.ReceiveEvent) {
+	return func(receiveEvent line.ReceiveEvent) {
+		handleReceiveMessage(lineReceiveEventToEvent(receiveEvent))
+	}
 }
 
 func fbmessagingToEvent(_messaging fbmessenger.Messaging, _recepient fbmessenger.Recepient) Event {
 	e := Event{}
 	e.SenderID = types.UserID(strconv.FormatInt(_messaging.Sender.ID, 10))
 	e.RecepientID = types.UserID(strconv.FormatInt(_recepient.ID, 10))
-	e.Content = TextContent{_messaging.Message.Text}
+	tc := TextContent{}
+	tc.SetText(_messaging.Message.Text)
+	e.Content = tc
 	return e
 }
 
@@ -69,36 +72,40 @@ func lineReceiveEventToEvent(receiveEvent line.ReceiveEvent) Event {
 	e := Event{}
 	e.SenderID = types.UserID(receiveEvent.Content.From)
 	e.RecepientID = types.UserID(receiveEvent.To[0])
-	e.Content = TextContent{receiveEvent.Content.Text}
+	tc := TextContent{}
+	tc.SetText(receiveEvent.Content.Text)
+	e.Content = tc
 	return e
 }
 
-// SendTextはテキストと受信者IDを受け取り、メッセージを送ります。Sendメソッドのラッパー関数です。
+// SendText はテキストと受信者IDを受け取り、メッセージを送ります。Sendメソッドのラッパー関数です。
 func SendText(text string, recepientID types.UserID) error {
 	event := Event{}
 	event.RecepientID = recepientID
-	event.Content = TextContent{Text: text}
+	content := TextContent{}
+	content.SetText(text)
+	event.Content = content
 	return Send(event)
 }
 
-// SendはEvent型の構造体を受け取り、そのEvent通りにメッセージを送信します。
+// Send はEvent型の構造体を受け取り、そのEvent通りにメッセージを送信します。
 func Send(event Event) error {
 	switch endPointName {
 	case "facebook":
 		switch content := event.Content.(type) {
-		case TextContent:
-			fmt.Println("<<<", content.Text)
+		case texter:
+			fmt.Println("<<<", content.Text())
 			intRecepientID, err := strconv.ParseInt(event.RecepientID.String(), 10, 64)
 			if err != nil {
 				return errors.New("cannot parse RecepientID to int64")
 			}
-			fbmessenger.SendTextMessage(fbmessenger.Recepient{intRecepientID}, content.Text)
+			fbmessenger.SendTextMessage(fbmessenger.Recepient{intRecepientID}, content.Text())
 		default:
 			return errors.New("Event.Content type is invalid")
 		}
 	case "line":
 		switch content := event.Content.(type) {
-		case TextContent:
+		case texter:
 			fmt.Println(content.Text)
 			sendEvent := &line.SendEvent{}
 			sendTextContent := &line.SendTextContent{SendContent: &line.SendContent{}}
@@ -107,7 +114,7 @@ func Send(event Event) error {
 			sendEvent.EventType = "138311608800106203"
 			sendTextContent.ContentType = 1
 			sendTextContent.ToType = 1
-			sendTextContent.Text = content.Text
+			sendTextContent.Text = content.Text()
 			sendEvent.Content = sendTextContent
 			line.SendTextMessage(sendEvent)
 		default:

@@ -11,8 +11,9 @@ var topics []types.Topic
 func init() {
 	topics = []types.Topic{}
 	regist(types.Topic{
-		IsProper: shiritori.IsProper,
-		Talk:     shiritori.Talk,
+		IsProper:         shiritori.IsProper,
+		Talk:             shiritori.Talk,
+		InitialTempState: shiritori.InitialTempState,
 	})
 	regist(types.Topic{
 		IsProper:         learnword.IsProper,

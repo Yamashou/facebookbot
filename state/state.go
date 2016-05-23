@@ -36,6 +36,11 @@ func SetTemp(userid types.UserID, _state types.TempState) {
 	temps[userid] = _state
 }
 
+// UnsetTemp delete entry from temps map.
+func UnsetTemp(userid types.UserID) {
+	delete(temps, userid)
+}
+
 // Perm return state by user
 func Perm(userid types.UserID) (types.PermState, bool) {
 	_state, ok := perms[userid]
@@ -52,8 +57,8 @@ func InitialPerm() types.PermState {
 	return types.PermState{
 		LearnedNouns: []types.Noun{
 			types.Noun{
-				Text: "ごりら",
-				Yomi: "ごりら",
+				Text:        "ごりら",
+				Yomi:        "ゴリラ",
 				Description: "動物",
 			},
 		},

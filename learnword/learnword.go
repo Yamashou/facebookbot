@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	cabocha "github.com/ledyba/go-cabocha"
-	"github.com/m2mtu/facebookbot/endpoint"
+	"github.com/m2mtu/facebookbot/talk"
 	"github.com/m2mtu/facebookbot/types"
 )
 
@@ -27,47 +27,43 @@ func InitialTempState() TempState {
 
 // IsProper returns the judgment should endter this topic.
 func IsProper(static types.StaticState) bool {
-	// return rand.Int63n(2) == 1
-	return true
+	return rand.Int63n(2) == 1
 }
 
 // Talk method talk with user.
 func Talk(static types.StaticState, temp TempState, perm types.PermState) (TempState, types.PermState, bool) {
-	if content, ok := static.ReceivedContent.(endpoint.TextContent); ok {
+	fmt.Println("learnword")
+	if _content, ok := static.ReceivedContent.(talk.TextContent); ok {
+		content, err := talk.AddDependentInfo(&_content)
+		if err != nil {
+			fmt.Println("Error in parsing the message: "+err.Error())
+		}
 		if temp.Stage == _init {
-			_cabocha := cabocha.MakeCabocha()
-			sentence, err := _cabocha.Parse(content.Text)
-			if err != nil {
-				fmt.Println(err)
-			} else {
-				nounToks := filterNouns(*sentence)
-				if len(nounToks) >= 1 {
-					nounTok := nounToks[rand.Int63n(int64(len(nounToks)))]
-					endpoint.SendText(nounTok.Body+"ってどういう意味?", static.OpponentID)
-					temp.AskedNoun = nounTok
+			sentence := content.Dependent()
+			nounTokens := filterNouns(sentence)
+			if len(nounTokens) >= 1 {
+				nounToken := nounTokens[rand.Int63n(int64(len(nounTokens)))]
+				if len(nounToken.Features) >= 8 {
+					talk.SendText(nounToken.Body+"ってどういう意味?", static.OpponentID)
+					temp.AskedNoun = nounToken
 					temp.Stage = _asked
 				}
-				return temp, perm, true
 			}
+			return temp, perm, true
 		} else if temp.Stage == _asked {
 			fmt.Println("asked")
-			_cabocha := cabocha.MakeCabocha()
-			sentence, err := _cabocha.Parse(content.Text)
-			if err != nil {
-				fmt.Println(err)
-				return temp, perm, false
-			}
+			sentence := content.Dependent()
 			for _, chunk := range sentence.Chunks {
 				fmt.Println(chunk.ToString())
 			}
 			if len(sentence.Chunks) >= 1 {
 				lastChunk := sentence.Chunks[len(sentence.Chunks)-1]
 				description := getStringAsNoun(sentence.Chunks, lastChunk.ID, temp.AskedNoun)
-				endpoint.SendText("なるほど! "+temp.AskedNoun.Body+"は"+description+"なんだね!", static.OpponentID)
-				endpoint.SendText("賢くなったかも!", static.OpponentID)
+				talk.SendText("なるほど! "+temp.AskedNoun.Body+"は"+description+"なんだね!", static.OpponentID)
+				talk.SendText("賢くなったかも!", static.OpponentID)
 				perm.LearnedNouns = append(perm.LearnedNouns, types.Noun{
-					Text: temp.AskedNoun.Body,
-					Yomi: temp.AskedNoun.Features[7],
+					Text:        temp.AskedNoun.Body,
+					Yomi:        temp.AskedNoun.Features[7],
 					Description: description,
 				})
 			}
