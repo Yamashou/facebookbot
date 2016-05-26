@@ -4,7 +4,10 @@ import (
 	"github.com/m2mtu/facebookbot/learnword"
 	"github.com/m2mtu/facebookbot/shiritori"
 	"github.com/m2mtu/facebookbot/types"
+	"github.com/m2mtu/facebookbot/reqCafe"
 )
+
+type empty struct {}
 
 var topics []types.Topic
 
@@ -19,6 +22,11 @@ func init() {
 		IsProper:         learnword.IsProper,
 		Talk:             learnword.Talk,
 		InitialTempState: learnword.InitialTempState,
+	})
+	regist(types.Topic{
+		IsProper: reqCafe.IsProper,
+		Talk: reqCafe.Talk,
+		InitialTempState: reqCafe.InitialTempState,
 	})
 }
 
