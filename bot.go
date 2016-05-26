@@ -4,24 +4,22 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/m2mtu/facebookbot/endpoints"
 	"github.com/m2mtu/facebookbot/reply"
+	"github.com/m2mtu/facebookbot/talk"
 )
 
 func main() {
 	os.Setenv("HTTP_PROXY", os.Getenv("FIXIE_URL"))
 	os.Setenv("HTTPS_PROXY", os.Getenv("FIXIE_URL"))
 	fmt.Println("starting...")
-	endpoints.Listen(handleReceiveMessage)
+	talk.Listen(handleReceiveMessage)
 }
 
-func handleReceiveMessage(receivedEvent endpoints.Event) {
-	sendEvent := endpoints.Event{}
-	sendEvent.SenderID = receivedEvent.RecepientID
-	sendEvent.RecepientID = receivedEvent.SenderID
-	switch content := receivedEvent.Content.(type) {
-	case endpoints.TextContent:
-		sendEvent.Content = endpoints.TextContent{Text: reply.Get(content.Text)}
+func handleReceiveMessage(receivedEvent talk.Event) {
+	sendEvent := talk.Event{
+		SenderID:    receivedEvent.RecepientID,
+		RecepientID: receivedEvent.SenderID,
 	}
-	endpoints.Send(sendEvent)
+	reply.Talk(receivedEvent)
+	talk.Send(sendEvent)
 }

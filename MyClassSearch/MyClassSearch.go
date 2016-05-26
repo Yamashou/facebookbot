@@ -4,12 +4,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"time"
 	"log"
+	"time"
 )
-type namegetter struct{
-	Code	string `json:"code"`
-	Name	string	`json:"name"`
+
+type namegetter struct {
+	Code string `json:"code"`
+	Name string `json:"name"`
 }
 
 type person struct {
@@ -61,28 +62,28 @@ func RtClass(menber string) [6]string {
 		}
 	}
 	T = chName(T)
-	for f := range T{
-		if T[f] == ""{
+	for f := range T {
+		if T[f] == "" {
 			T[f] = "[あき]"
 		}
 	}
-return T
+	return T
 }
 func chName(code [6]string) [6]string {
 	file, err := ioutil.ReadFile("./json/subjects.json")
 	var datasets []namegetter
 	json_err := json.Unmarshal(file, &datasets)
-			if err != nil {
+	if err != nil {
 		log.Print("Format Error: ", json_err)
 	}
 
-	for l := range datasets{
-		for i:=0 ; i < 6 ;i++{
+	for l := range datasets {
+		for i := 0; i < 6; i++ {
 			if code[i] == datasets[l].Code {
 				code[i] = datasets[l].Name
 			}
 		}
 	}
 	fmt.Println(code)
-return code
+	return code
 }

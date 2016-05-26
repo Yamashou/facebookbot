@@ -27,8 +27,8 @@ type receivedMessage struct {
 
 // entry ...
 type entry struct {
-	ID        int64        `json:"id"`
-	Time      int64        `json:"time"`
+	ID         int64       `json:"id"`
+	Time       int64       `json:"time"`
 	Messagings []Messaging `json:"messaging"`
 }
 
@@ -60,7 +60,7 @@ type Message struct {
 // sendMessage ...
 type sendMessage struct {
 	Recepient Recepient `json:"recipient"`
-	Message struct {
+	Message   struct {
 		Text string `json:"text"`
 	} `json:"message"`
 }

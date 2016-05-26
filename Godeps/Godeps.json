@@ -1,6 +1,14 @@
 {
 	"ImportPath": "github.com/m2mtu/facebookbot",
 	"GoVersion": "go1.6",
-	"GodepVersion": "v63",
-	"Deps": []
+	"GodepVersion": "v70",
+	"Packages": [
+		"./..."
+	],
+	"Deps": [
+		{
+			"ImportPath": "github.com/ledyba/go-cabocha",
+			"Rev": "3c5268b87bd1a14669e93184e91dac842b2f5d01"
+		}
+	]
 }
