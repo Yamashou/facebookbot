@@ -28,3 +28,8 @@ _testmain.go
 *.prof
 
 functions
+
+
+#env
+environment.sh
+json/subjects2.json
