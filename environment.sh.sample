@@ -1,0 +1,5 @@
+export LINE_CHANNEL_ID=
+export LINE_CHANNEL_SECRET=
+export LINE_MID=
+export PORT=
+export ENDPOINT_NAME=
