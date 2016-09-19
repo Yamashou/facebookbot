@@ -87,3 +87,10 @@ func chName(code [6]string) [6]string {
 	fmt.Println(code)
 	return code
 }
+
+func getMyClassSerch(chatroom chan string) {
+	text := <-chatroom
+	if (text[0] == 's') || (text[0] == 'm') {
+		chatroom <- RtClass(text)
+	}
+}
