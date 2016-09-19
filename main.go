@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/m2mtu/facebookbot/reply"
-	"github.com/m2mtu/facebookbot/talk"
+	"github.com/Yamashou/facebookbot/reply"
+	"github.com/Yamashou/facebookbot/talk"
 )
 
 func main() {
