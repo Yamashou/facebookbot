@@ -1,4 +1,4 @@
-package MyClassSearch
+package timetable
 
 import (
 	"encoding/json"
@@ -90,7 +90,7 @@ func chName(code [6]string) [6]string {
 	return code
 }
 
-func getMyClassSerch(chatroom chan string) {
+func timetable(chatroom chan string) {
 	text := <-chatroom
 	if (text[0] == 's') || (text[0] == 'm') {
 		m := RtClass(text)
