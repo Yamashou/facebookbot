@@ -6,9 +6,9 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/m2mtu/facebookbot/talk/fbmessenger"
-	"github.com/m2mtu/facebookbot/talk/line"
-	"github.com/m2mtu/facebookbot/types"
+	"github.com/Yamashou/facebookbot/talk/fbmessenger"
+	"github.com/Yamashou/facebookbot/talk/line"
+	"github.com/Yamashou/facebookbot/types"
 )
 
 // Event express one messaging

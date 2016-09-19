@@ -3,10 +3,10 @@ package reply
 import (
 	"reflect"
 
-	"github.com/m2mtu/facebookbot/state"
-	"github.com/m2mtu/facebookbot/talk"
-	"github.com/m2mtu/facebookbot/topic"
-	"github.com/m2mtu/facebookbot/types"
+	"github.com/Yamashou/facebookbot/state"
+	"github.com/Yamashou/facebookbot/talk"
+	"github.com/Yamashou/facebookbot/topic"
+	"github.com/Yamashou/facebookbot/types"
 )
 
 // Talk method talk with user

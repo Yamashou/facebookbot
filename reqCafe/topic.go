@@ -6,8 +6,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/m2mtu/facebookbot/talk"
-	"github.com/m2mtu/facebookbot/types"
+	"github.com/Yamashou/facebookbot/talk"
+	"github.com/Yamashou/facebookbot/types"
 )
 
 // TempState is local scope state.

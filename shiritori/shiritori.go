@@ -1,13 +1,13 @@
 package shiritori
 
 import (
+	"errors"
 	"fmt"
 	"math/rand"
 	"regexp"
-	"errors"
 
-	"github.com/m2mtu/facebookbot/talk"
-	"github.com/m2mtu/facebookbot/types"
+	"github.com/Yamashou/facebookbot/talk"
+	"github.com/Yamashou/facebookbot/types"
 	cabocha "github.com/ledyba/go-cabocha"
 )
 

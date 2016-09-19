@@ -1,7 +1,7 @@
 package state
 
 import (
-	"github.com/m2mtu/facebookbot/types"
+	"github.com/Yamashou/facebookbot/types"
 )
 
 var statics map[types.UserID]types.StaticState

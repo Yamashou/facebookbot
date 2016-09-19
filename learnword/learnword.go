@@ -6,8 +6,8 @@ import (
 	"strings"
 
 	cabocha "github.com/ledyba/go-cabocha"
-	"github.com/m2mtu/facebookbot/talk"
-	"github.com/m2mtu/facebookbot/types"
+	"github.com/Yamashou/facebookbot/talk"
+	"github.com/Yamashou/facebookbot/types"
 )
 
 const _init, _asked, _complete = 0, 1, 2

@@ -1,13 +1,13 @@
 package topic
 
 import (
-	"github.com/m2mtu/facebookbot/learnword"
-	"github.com/m2mtu/facebookbot/shiritori"
-	"github.com/m2mtu/facebookbot/types"
-	"github.com/m2mtu/facebookbot/reqCafe"
+	"github.com/Yamashou/facebookbot/learnword"
+	"github.com/Yamashou/facebookbot/reqCafe"
+	"github.com/Yamashou/facebookbot/shiritori"
+	"github.com/Yamashou/facebookbot/types"
 )
 
-type empty struct {}
+type empty struct{}
 
 var topics []types.Topic
 
@@ -24,8 +24,8 @@ func init() {
 		InitialTempState: learnword.InitialTempState,
 	})
 	regist(types.Topic{
-		IsProper: reqCafe.IsProper,
-		Talk: reqCafe.Talk,
+		IsProper:         reqCafe.IsProper,
+		Talk:             reqCafe.Talk,
 		InitialTempState: reqCafe.InitialTempState,
 	})
 }

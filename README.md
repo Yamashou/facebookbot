@@ -9,7 +9,7 @@ Grow up and make more smart your own bot.
 
 ## Install
 
-    $ go get github.com/m2mtu/facebookbot
+    $ go get github.com/Yamashou/facebookbot
 
 ### Deploy to Heroku
 
