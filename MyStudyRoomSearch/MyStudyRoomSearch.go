@@ -63,3 +63,5 @@ func RtRoom(menber string) [6]string {
 	}
 	return T
 }
+
+func get
