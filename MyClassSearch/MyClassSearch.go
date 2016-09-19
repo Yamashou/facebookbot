@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"strings"
 	"time"
 )
 
@@ -20,9 +21,10 @@ type person struct {
 	W     [6]string `json:"W"`
 	T     [6]string `json:"T"`
 	F     [6]string `json:"F"`
-	ather string    `json:"ather"`
+	Ather string    `json:"ather"`
 }
 
+//Rtclass ...
 func RtClass(menber string) [6]string {
 	Mon := time.Date(2016, 5, 9, 0, 0, 0, 0, time.Local)
 	Tus := time.Date(2016, 5, 10, 0, 0, 0, 0, time.Local)
@@ -91,6 +93,8 @@ func chName(code [6]string) [6]string {
 func getMyClassSerch(chatroom chan string) {
 	text := <-chatroom
 	if (text[0] == 's') || (text[0] == 'm') {
-		chatroom <- RtClass(text)
+		m := RtClass(text)
+		t := strings.Join(m[:], "\n")
+		chatroom <- t
 	}
 }
