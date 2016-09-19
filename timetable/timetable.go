@@ -24,8 +24,7 @@ type person struct {
 	Ather string    `json:"ather"`
 }
 
-//Rtclass ...
-func RtClass(menber string) [6]string {
+func rtClass(menber string) [6]string {
 	Mon := time.Date(2016, 5, 9, 0, 0, 0, 0, time.Local)
 	Tus := time.Date(2016, 5, 10, 0, 0, 0, 0, time.Local)
 	Wen := time.Date(2016, 5, 11, 0, 0, 0, 0, time.Local)
@@ -90,10 +89,11 @@ func chName(code [6]string) [6]string {
 	return code
 }
 
-func timetable(chatroom chan string) {
+//Timetable ...
+func Timetable(chatroom chan string) {
 	text := <-chatroom
 	if (text[0] == 's') || (text[0] == 'm') {
-		m := RtClass(text)
+		m := rtClass(text)
 		t := strings.Join(m[:], "\n")
 		chatroom <- t
 	}
