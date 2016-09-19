@@ -1,5 +1,5 @@
 {
-	"ImportPath": "github.com//facebookbot",
+	"ImportPath": "github.com/Yamashou/facebookbot",
 	"GoVersion": "go1.6",
 	"GodepVersion": "v70",
 	"Packages": [
